@@ -6,17 +6,21 @@ import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
-import { ButtonComponent } from './click.component';
+import { ArticleComponent } from '../component/article.component';
+import { PersonComponent } from '../component/person.component';
+import { routing } from './app.routing';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ButtonComponent
+    ArticleComponent,
+    PersonComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    routing,
     MaterialModule.forRoot()
   ],
   providers: [],
