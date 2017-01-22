@@ -6,6 +6,7 @@ import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from '../component/home.component';
 import { ArticleComponent } from '../component/article.component';
 import { PersonComponent } from '../component/person.component';
 import { routing } from './app.routing';
@@ -14,7 +15,8 @@ import { routing } from './app.routing';
   declarations: [
     AppComponent,
     ArticleComponent,
-    PersonComponent
+    PersonComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

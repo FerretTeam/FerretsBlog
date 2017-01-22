@@ -6,5 +6,14 @@ import {Component} from '@angular/core';
   styleUrls: ['./person.component.css']
 })
 export class PersonComponent {
-  name = 'Shu Qian';
+  name: string;
+  age: number;
+  occupation: string;
+  rate: number;
+  constructor() {
+    this.name = 'Shu Qian';
+    this.age = 20;
+    this.occupation = 'Student';
+    this.rate = 10;
+  }
 }
