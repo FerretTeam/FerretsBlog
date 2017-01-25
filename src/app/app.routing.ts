@@ -1,9 +1,9 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from '../component/home.component';
-import { ArticleComponent } from '../component/article.component';
-import { PersonComponent } from '../component/person.component';
+import { HomeComponent } from '../components/home.component';
+import { ArticleComponent } from '../components/article.component';
+import { ProfileComponent } from '../components/profile.component';
 import { AppComponent } from './app.component';
 
 const appRouters: Routes = [
@@ -16,8 +16,8 @@ const appRouters: Routes = [
     component: ArticleComponent
   },
   {
-    path:'person',
-    component: PersonComponent
+    path:'profile',
+    component: ProfileComponent
   }
 ];
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRouters);

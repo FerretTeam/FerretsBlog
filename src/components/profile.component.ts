@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'person',
-  templateUrl: './person.component.html',
-  styleUrls: ['./person.component.sass']
+  selector: 'profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.sass']
 })
-export class PersonComponent {
+export class ProfileComponent {
   name: string;
   age: number;
   occupation: string;
