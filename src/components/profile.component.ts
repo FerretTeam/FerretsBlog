@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'profile',
@@ -10,10 +11,12 @@ export class ProfileComponent {
   age: number;
   occupation: string;
   rate: number;
-  constructor() {
-    this.name = 'Shu Qian';
-    this.age = 20;
-    this.occupation = 'Student';
-    this.rate = 10;
-  }
+  constructor(
+    private router: Router  )
+    {
+      this.name = 'Shu Qian';
+      this.age = 20;
+      this.occupation = 'Student';
+      this.rate = 10;
+    }
 }

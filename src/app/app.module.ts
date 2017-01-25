@@ -5,11 +5,11 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
+import { RoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from '../components/home.component';
 import { ArticleComponent } from '../components/article.component';
 import { ProfileComponent } from '../components/profile.component';
-import { routing } from './app.routing';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { routing } from './app.routing';
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing,
+    RoutingModule,
     MaterialModule.forRoot()
   ],
   providers: [],
