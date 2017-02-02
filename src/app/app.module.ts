@@ -11,7 +11,6 @@ import { RoutingModule } from './app-routing.module';
 
 // Define the routes
 
-
 @NgModule({
   declarations: [
     AppComponent,
