@@ -1,6 +1,18 @@
+<link href='http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css' rel='stylesheet'>
+
 <md-toolbar class='toolbar'>
   <div class='ferrets-blog-logo'></div>
-  <span> {{title}} </span>
+  <span class='toolbar-filler'></span>
+  <md-input-container>
+    <input class='toolbar-search' md-input placeholder="搜索本站">
+  </md-input-container>
+  <button md-icon-button class='toolbar-icon-add'>
+    <md-icon>note_add</md-icon>
+  </button>
+  <button md-icon-button>
+    <md-icon>settings</md-icon>
+  </button>
+  <div class='user-avatar'></div>
 </md-toolbar>
 
 <div class='ferrets-blog-framework'>
