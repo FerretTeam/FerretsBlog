@@ -1,29 +1,37 @@
+// Imports commented out for brevity
+import { RouterModule } from '@angular/router';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from '@angular/material';
-import 'hammerjs';
 
-import { RoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from '../components/home.component';
-import { ArticleComponent } from '../components/article.component';
-import { ProfileComponent } from '../components/profile.component';
+import { HomeComponent } from './home/home.component';
+
+// Define the routes
+const ROUTES = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ArticleComponent,
-    ProfileComponent,
     HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RoutingModule,
-    MaterialModule.forRoot()
+    RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
   providers: [],
   bootstrap: [AppComponent]
