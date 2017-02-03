@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MockData } from 'mock-data';
 
 @Component({
   selector: 'app-profile',
@@ -8,13 +7,13 @@ import { MockData } from 'mock-data';
 })
 
 export class ProfileComponent implements OnInit {
-  user: user;
+  user: user = {
+    name: '刘小忍',
+    age: 20,
+    birthday: '1996-06'
+  };
 
-  constructor() {
-  this.user.name = MockData.string();
-  this.user.age = MockData.integer(1, 100);
-  this.user.birthday =  MockData.Date(1900, 2017, false, "YYYY-MM")
-}
+  constructor() { }
 
   ngOnInit() {
   }

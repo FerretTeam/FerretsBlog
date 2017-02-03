@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MockData } from 'mock-data';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -26,8 +25,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     FormsModule,
     HttpModule,
     RoutingModule,
-    FlexLayoutModule,
-    MockData
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
