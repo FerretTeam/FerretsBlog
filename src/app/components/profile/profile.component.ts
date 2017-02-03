@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -10,13 +10,13 @@ export class ProfileComponent{
   user: user;
 
   constructor() {
-  this.user = {
-    name: 'Shu Qian',
-    age: 20,
-    occupation: 'Student',
-    rate : 10
+    this.user = {
+      name: 'Shu Qian',
+      age: 20,
+      occupation: 'Student',
+      rate : 10
+    }
   }
-}
 
 }
 
