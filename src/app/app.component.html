@@ -3,11 +3,11 @@
 <md-toolbar class='toolbar flex-container'>
   <div class='ferrets-blog-logo'></div>
   <span class='toolbar-filler'></span>
-  <button md-icon-button disabled='true'>
+  <button md-icon-button fxHide.gt-xs>
     <md-icon>search</md-icon>
   </button>
-  <md-input-container fxHide='false' fxHide.xs>
-    <input class='toolbar-search' md-input placeholder="搜索本站">
+  <md-input-container fxHide.xs>
+    <input class='toolbar-search' md-input placeholder="搜索 Ferrets Blog">
   </md-input-container>
   <button md-icon-button class='toolbar-icon-add'>
     <md-icon>note_add</md-icon>
@@ -18,6 +18,6 @@
   <div class='user-avatar'></div>
 </md-toolbar>
 
-<div class='ferrets-blog-framework'>
+<div class='ferrets-blog-layout'>
   <router-outlet></router-outlet>
 </div>

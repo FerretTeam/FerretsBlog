@@ -1,6 +1,10 @@
 .toolbar
   background-color: rgb(255, 255, 255)
   font-size: 14px
+  position: fixed
+  top: 0px
+  left: 0px
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.24)
 
   .ferrets-blog-logo
     width: 40px
@@ -26,7 +30,8 @@
     background-size: 40px
     margin-left: 16px
 
-.ferrets-blog-framework
-  height: 100%
+.ferrets-blog-layout
   padding: 16px
-  background-color: rgb(242, 242, 242)
+  margin-top: 64px
+  @media (max-width: 960px) and (orientation: landscape)
+    margin-top: 48px
