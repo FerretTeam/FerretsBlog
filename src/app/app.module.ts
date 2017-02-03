@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { RoutingModule } from './app-routing.module';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ArticleComponent } from './components/article/article.component';
+import { PostsService } from './services/posts.service';
 
 // Define the routes
 
@@ -17,7 +19,8 @@ import { ProfileComponent } from './components/profile/profile.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    ArticleComponent
   ],
   imports: [
     MaterialModule.forRoot(),
@@ -27,7 +30,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     RoutingModule,
     FlexLayoutModule
   ],
-  providers: [],
+  providers: [PostsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
