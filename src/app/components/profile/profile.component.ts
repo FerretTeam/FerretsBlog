@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MockData } from 'mock-data';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -7,22 +6,23 @@ import { MockData } from 'mock-data';
   styleUrls: ['./profile.component.sass']
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent{
   user: user;
 
   constructor() {
-  this.user.name = MockData.string();
-  this.user.age = MockData.integer(1, 100);
-  this.user.birthday =  MockData.Date(1900, 2017, false, "YYYY-MM")
-}
-
-  ngOnInit() {
+  this.user = {
+    name: 'Shu Qian',
+    age: 20,
+    occupation: 'Student',
+    rate : 10
   }
+}
 
 }
 
 interface user {
   name: string;
   age: number;
-  birthday: string;
+  occupation: string;
+  rate: number;
 }
