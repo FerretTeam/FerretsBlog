@@ -1,6 +1,5 @@
 import { ModuleWithProviders } from '@angular/core';
-
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -17,7 +16,7 @@ const appRouters: Routes = [
     component: HomeComponent
   }
 ];
-// export const routing: ModuleWithProviders = RouterModule.forRoot(appRouters);
+
 @NgModule({
   imports: [ RouterModule.forRoot(appRouters) ],
   exports: [ RouterModule ]
