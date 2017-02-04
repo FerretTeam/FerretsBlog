@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { PostsService } from '../../services/posts.service';
+import { ArticleService } from '../../services/article/article.service';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  providers: [ PostsService ],
+  providers: [ ArticleService ],
   styleUrls: ['./article.component.sass']
 })
 export class ArticleComponent implements OnInit {
-  articles : Article[];
+  article: Article;
 
-  constructor(private postsService: PostsService) {
-    this.postsService.getPosts().subscribe(articles=> {
-      this.articles = articles;
-    })
+  constructor(private articleService: ArticleService) {
+    this.articleService.getArticle().subscribe(article => {
+      this.article = article;
+    });
   }
 
   ngOnInit() {
@@ -22,6 +22,7 @@ export class ArticleComponent implements OnInit {
 }
 
 interface Article {
+  userId: number;
   id: number;
   title: string;
   body: string;

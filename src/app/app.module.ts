@@ -13,7 +13,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ArticleComponent } from './components/article/article.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoginComponent } from './components/login/login.component';
-import { PostsService } from './services/posts.service';
+import { ArticleService } from './services/article/article.service';
 
 // Define the routes
 
@@ -34,7 +34,7 @@ import { PostsService } from './services/posts.service';
     RoutingModule,
     FlexLayoutModule
   ],
-  providers: [PostsService],
+  providers: [ArticleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
