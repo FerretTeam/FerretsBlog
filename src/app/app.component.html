@@ -9,13 +9,16 @@
   <md-input-container fxHide.xs>
     <input class='toolbar-search' md-input placeholder="搜索 Ferrets 博客">
   </md-input-container>
-  <button md-icon-button class='toolbar-icon-add'>
+  <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章'>
     <md-icon>note_add</md-icon>
   </button>
-  <button md-icon-button>
+  <button md-icon-button mdTooltip='修改信息'>
     <md-icon>settings</md-icon>
   </button>
-  <div class='user-avatar'></div>
+  <button md-fab [mdMenuTriggerFor]='userAvatarMenu' class='user-avatar'></button>
+  <md-menu #userAvatarMenu='mdMenu'>
+    <button md-menu-item>退出登录</button>
+  </md-menu>
 </md-toolbar>
 
 <div class='ferrets-blog-layout'>

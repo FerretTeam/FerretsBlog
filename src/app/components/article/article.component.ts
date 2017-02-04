@@ -5,7 +5,7 @@ import { PostsService } from '../../services/posts.service';
   selector: 'app-article',
   templateUrl: './article.component.html',
   providers: [ PostsService ],
-  styleUrls: ['./article.component.css']
+  styleUrls: ['./article.component.sass']
 })
 export class ArticleComponent implements OnInit {
   articles : Article[];
