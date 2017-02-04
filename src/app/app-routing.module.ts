@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ArticleComponent } from './components/article/article.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { LoginComponent } from './components/login/login.component';
 
 const appRouters: Routes = [
   {
@@ -24,6 +26,14 @@ const appRouters: Routes = [
   {
     path: 'article',
     component: ArticleComponent
+  },
+  {
+    path: 'welcome',
+    component: WelcomeComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 

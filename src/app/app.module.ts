@@ -11,6 +11,8 @@ import { HomeComponent } from './components/home/home.component';
 import { RoutingModule } from './app-routing.module';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ArticleComponent } from './components/article/article.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { LoginComponent } from './components/login/login.component';
 import { PostsService } from './services/posts.service';
 
 // Define the routes
@@ -20,7 +22,9 @@ import { PostsService } from './services/posts.service';
     AppComponent,
     HomeComponent,
     ProfileComponent,
-    ArticleComponent
+    ArticleComponent,
+    WelcomeComponent,
+    LoginComponent
   ],
   imports: [
     MaterialModule.forRoot(),
