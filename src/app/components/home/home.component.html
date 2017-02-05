@@ -1,5 +1,5 @@
-<div class="flex-container" fxLayout="row" fxLayout.xs="column">
-  <div class="flex-item" fxFlex="10%"></div>
+<div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around start">
+  <div class="flex-item" fxFlex="10%" fxHide.xs fxHide.sm></div>
   <div class="flex-item" fxFlex="50%">
     <div  *ngFor='let arti of article'>
       <md-card class="article">
@@ -7,7 +7,7 @@
           <md-card-title>{{arti.title}}</md-card-title>
           <md-card-subtitle>2017年1月1日</md-card-subtitle>
         </md-card-header>
-        <img md-card-image src=".././img/article1.jpeg" *ngIf="arti.id % 3 == 2">
+        <img md-card-image src=".././assets/images/article1.jpeg" *ngIf="arti.id % 3 == 2">
         <md-card-content>
           <p>
             {{arti.body}}
@@ -19,8 +19,8 @@
       </md-card>
     </div>
   </div>
-  <div class="flex-item" fxFlex="10px"></div>
-  <div class="flex-item" fxFlex>
+  <!-- <div class="flex-item" fxFlex="10px"></div> -->
+  <div class="flex-item" fxFlex="25%" fxHide.xs fxHide.sm>
     <md-card class="tag tag1">
       <md-card-header>
         <p>最新文章</p>
@@ -46,5 +46,5 @@
       </md-card-content>
     </md-card>
   </div>
-  <div class="flex-item" fxFlex="10%"></div>
+  <div class="flex-item" fxFlex="10%" fxHide.xs fxHide.sm></div>
 </div>
