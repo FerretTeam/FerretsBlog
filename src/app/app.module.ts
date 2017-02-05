@@ -14,6 +14,7 @@ import { ArticleComponent } from './components/article/article.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoginComponent } from './components/login/login.component';
 import { ArticleService } from './services/article/article.service';
+import { AuthService } from './services/auth/auth.service';
 
 // Define the routes
 
@@ -34,7 +35,7 @@ import { ArticleService } from './services/article/article.service';
     RoutingModule,
     FlexLayoutModule
   ],
-  providers: [ArticleService],
+  providers: [ArticleService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,18 +7,20 @@
     <md-icon>search</md-icon>
   </button>
   <md-input-container fxHide.xs>
-    <input class='toolbar-search' md-input placeholder="搜索 Ferrets 博客">
+    <input class='toolbar-search' md-input placeholder='搜索 Ferrets 博客'>
   </md-input-container>
-  <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章'>
+  <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章' *ngIf='user'>
     <md-icon>note_add</md-icon>
   </button>
-  <button md-icon-button mdTooltip='修改信息'>
+  <button md-icon-button mdTooltip='修改信息' *ngIf='user'>
     <md-icon>settings</md-icon>
   </button>
-  <button md-fab [mdMenuTriggerFor]='userAvatarMenu' class='user-avatar'></button>
+  <button md-fab [mdMenuTriggerFor]='userAvatarMenu' class='user-avatar' *ngIf='user' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></button>
   <md-menu #userAvatarMenu='mdMenu'>
     <button md-menu-item>退出登录</button>
   </md-menu>
+  <button md-button class='toolbar-button' *ngIf='user == null'>注 册</button>
+  <button md-button class='toolbar-button' *ngIf='user == null'>登 录</button>
 </md-toolbar>
 
 <div class='ferrets-blog-layout'>

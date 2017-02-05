@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ArticleService } from '../../services/article/article.service';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  providers: [ ArticleService ],
-  styleUrls: ['./article.component.sass']
+  styleUrls: ['./article.component.sass'],
+  providers: [ArticleService]
 })
 export class ArticleComponent implements OnInit {
   article: Article;
@@ -16,8 +17,7 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }
 
