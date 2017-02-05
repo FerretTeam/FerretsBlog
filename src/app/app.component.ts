@@ -13,7 +13,9 @@ export class AppComponent {
   user: User;
 
   constructor(private router: Router, private authService: AuthService) {
-    this.user = this.authService.getUserInfo();
+    this.router.events.subscribe(path => {
+      this.user = this.authService.getUserInfo();
+    });
   }
 
   ngOnInit() { }
