@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/welcome']);
 
     this.articleService.getArticle().subscribe(article => {
-      this.article = article.slice(1, 10);
+      this.article = article.slice(5, 15);
     });
   }
 
