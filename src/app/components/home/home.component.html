@@ -1,59 +1,40 @@
 <div class="flex-container" fxLayout="row" fxLayout.xs="column">
   <div class="flex-item" fxFlex="10%"></div>
   <div class="flex-item" fxFlex="50%">
-    <md-card class="article">
-      <md-card-header>
-        <md-card-title>玫瑰即玫瑰，花香无意义</md-card-title>
-        <md-card-subtitle>2017年1月1日</md-card-subtitle>
-      </md-card-header>
-      <img md-card-image src=".././img/article1.jpeg">
-      <md-card-content>
-        <p>
-          美好的东西都是无需解释的。
-        </p>
-      </md-card-content>
-      <hr />
-      <md-card-actions>
-        <button md-button>> 阅读全文</button>
-      </md-card-actions>
-    </md-card>
-
-    <md-card class="article">
-      <md-card-header>
-        <md-card-title>极简化你的生活</md-card-title>
-        <md-card-subtitle>2017年1月11日</md-card-subtitle>
-      </md-card-header>
-      <md-card-content>
-        <p>
-            卢梭说过：“多余的财富只能购买多余的东西，人的灵魂所需要的东西是不需要花钱购买的。”
-            <br/>......
-        </p>
-      </md-card-content>
-      <hr />
-      <md-card-actions>
-        <button md-button>> 阅读全文</button>
-      </md-card-actions>
-    </md-card>
+    <div  *ngFor='let arti of article'>
+      <md-card class="article">
+        <md-card-header>
+          <md-card-title>{{arti.title}}</md-card-title>
+          <md-card-subtitle>2017年1月1日</md-card-subtitle>
+        </md-card-header>
+        <img md-card-image src=".././img/article1.jpeg" *ngIf="arti.id % 3 == 2">
+        <md-card-content>
+          <p>
+            {{arti.body}}
+          </p>
+        </md-card-content>
+        <md-card-actions>
+          <button md-button>阅读全文</button>
+        </md-card-actions>
+      </md-card>
+    </div>
   </div>
-  <div class="flex-item" fxFlex="2%"></div>
-  <div class="flex-item" fxFlex="28%">
-    <md-card class="tag">
+  <div class="flex-item" fxFlex="10px"></div>
+  <div class="flex-item" fxFlex>
+    <md-card class="tag tag1">
       <md-card-header>
-        <md-card-title>最新文章</md-card-title>
+        <p>最新文章</p>
       </md-card-header>
       <md-card-content>
-        <p>
-          玫瑰即玫瑰，花香无意义
-        </p>
-        <p>
-          极简化你的生活
+        <p *ngFor='let arti of article'>
+          {{arti.title}}
         </p>
       </md-card-content>
     </md-card>
 
-    <md-card class="tag">
+    <md-card class="tag tag2">
       <md-card-header>
-        <md-card-title>标签</md-card-title>
+        <p>标签</p>
       </md-card-header>
       <md-card-content>
         <span>

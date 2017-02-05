@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Article } from './article';
 import { ArticleService } from '../../services/article/article.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ArticleService } from '../../services/article/article.service';
   styleUrls: ['./article.component.sass']
 })
 export class ArticleComponent implements OnInit {
-  article: Article;
+  article: Article[];
 
   constructor(private articleService: ArticleService) {
     this.articleService.getArticle().subscribe(article => {
@@ -19,11 +20,4 @@ export class ArticleComponent implements OnInit {
   ngOnInit() {
   }
 
-}
-
-interface Article {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
 }
