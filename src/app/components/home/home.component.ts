@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../article/article';
-import { ArticleService } from '../../services/article/article.service';
 import { CanActivate, Router } from '@angular/router';
 
+import { ArticleService } from '../../services/article/article.service';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -18,8 +18,9 @@ export class HomeComponent implements OnInit {
     // 如果未登录，则跳转至 /welcome 页面
     if (this.authService.getUserInfo() == null)
       this.router.navigate(['/welcome']);
+
     this.articleService.getArticle().subscribe(article => {
-      this.article = article.slice(0,10);
+      this.article = article.slice(0, 10);
     });
   }
 

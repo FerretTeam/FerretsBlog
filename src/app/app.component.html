@@ -17,7 +17,7 @@
   </button>
   <button md-fab [mdMenuTriggerFor]='userAvatarMenu' class='user-avatar' *ngIf='user' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></button>
   <md-menu #userAvatarMenu='mdMenu'>
-    <button md-menu-item>退出登录</button>
+    <button md-menu-item (click)='signOut()'>退出登录</button>
   </md-menu>
   <button md-button class='toolbar-button' *ngIf='user == null'>注 册</button>
   <button md-button class='toolbar-button' *ngIf='user == null'>登 录</button>
