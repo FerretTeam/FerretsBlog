@@ -14,17 +14,13 @@ import { AuthService } from '../../services/auth/auth.service';
 export class HomeComponent implements OnInit {
   article: Article[] = [];
 
-<<<<<<< HEAD
-  constructor(private articleService: ArticleService) {
-    this.articleService.getArticle().subscribe(article => {
-      this.article = article.slice(0,10);
-    });
-=======
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private articleService: ArticleService, private router: Router, private authService: AuthService) {
     // 如果未登录，则跳转至 /welcome 页面
     if (this.authService.getUserInfo() == null)
       this.router.navigate(['/welcome']);
->>>>>>> origin/master
+    this.articleService.getArticle().subscribe(article => {
+      this.article = article.slice(0,10);
+    });
   }
 
   ngOnInit() {
