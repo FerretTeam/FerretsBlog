@@ -19,8 +19,8 @@
   <md-menu #userAvatarMenu='mdMenu'>
     <button md-menu-item (click)='signOut()'>退出登录</button>
   </md-menu>
-  <button md-button class='toolbar-button' *ngIf='user == null'>注 册</button>
-  <button md-button class='toolbar-button' *ngIf='user == null'>登 录</button>
+  <button md-button class='toolbar-button' *ngIf='user == null' (click)='login("sign-up")'>注 册</button>
+  <button md-button class='toolbar-button' *ngIf='user == null' (click)='login("sign-in")'>登 录</button>
 </md-toolbar>
 
 <div class='ferrets-blog-layout'>

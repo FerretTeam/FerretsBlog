@@ -18,11 +18,15 @@ export class AppComponent {
 
   ngOnInit() { }
 
-  signOut(event) {
+  signOut() {
     this.user = this.authService.removeUserInfo();
     // 如果成功退出，则跳转至 /welcome 页面
     if (this.user == null)
       this.router.navigate(['/welcome']);
+  }
+
+  login(pageName) {
+    this.router.navigate(['/login', pageName]);
   }
 
 }

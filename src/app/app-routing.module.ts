@@ -32,7 +32,7 @@ const appRouters: Routes = [
     component: WelcomeComponent
   },
   {
-    path: 'login',
+    path: 'login/:pageName',
     component: LoginComponent
   }
 ];
