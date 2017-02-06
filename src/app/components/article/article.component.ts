@@ -9,12 +9,10 @@ import { ArticleService } from '../../services/article/article.service';
   providers: [ArticleService]
 })
 export class ArticleComponent implements OnInit {
-  article: Article[];
+  articles: Article[];
 
   constructor(private articleService: ArticleService) {
-    this.articleService.getArticle().subscribe(article => {
-      this.article = article;
-    });
+    this.articles = this.articleService.getArticles();
   }
 
   ngOnInit() { }
