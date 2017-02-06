@@ -11,11 +11,13 @@ import { AuthService } from './services/auth/auth.service';
 })
 export class AppComponent {
   user: User;
+  hidden: boolean;
 
   constructor(private router: Router, private authService: AuthService) {
     this.router.events.subscribe(path => {
       this.user = this.authService.getUserInfo();
     });
+    this.hidden = true;
   }
 
   ngOnInit() { }
@@ -29,6 +31,14 @@ export class AppComponent {
 
   login(pageName) {
     this.router.navigate(['/login', pageName]);
+  }
+
+  search() {
+    this.hidden = false;
+  }
+
+  close() {
+    this.hidden = true;
   }
 
 }

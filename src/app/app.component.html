@@ -2,15 +2,22 @@
 
 <md-toolbar class='toolbar flex-container'>
   <div class='ferrets-blog-logo'></div>
-  <span class='ferrets-blog-title-ferrets'>Ferrets</span>
-  <span class='ferrets-blog-title-blog'>博客</span>
+  <span class='ferrets-blog-title-ferrets' fxHide.xs>Ferrets</span>
+  <span class='ferrets-blog-title-blog' fxHide.xs>博客</span>
   <span class='toolbar-filler'></span>
-  <button md-icon-button fxHide.gt-xs>
+  <!-- <button md-icon-button fxHide.gt-xs>
     <md-icon>search</md-icon>
   </button>
   <md-input-container fxHide.xs>
     <input md-input placeholder='搜索 Ferrets 博客'>
-  </md-input-container>
+  </md-input-container> -->
+  <button class="search-button" md-icon-button (click)="search()">
+    <md-icon>search</md-icon>
+  </button>
+  <input type="text" name="search" id="search-input" placeholder='搜索 Ferrets 博客' fxHide={{hidden}}>
+  <button class="close-button" md-icon-button fxHide={{hidden}} (click)="close()">
+    <md-icon>close</md-icon>
+  </button>
   <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章' *ngIf='user'>
     <md-icon>note_add</md-icon>
   </button>
