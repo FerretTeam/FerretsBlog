@@ -6,12 +6,25 @@
   left: 0px
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.24)
   z-index: 100
+  padding: 0 14% 0 12.8%
+  @media (max-width: 960px) and (orientation: landscape)
+    padding: 0 13.5% 0 11.4%
+  @media (max-width: 600px) and (orientation: landscape)
+    padding: 0px 16px
 
   .ferrets-blog-logo
     width: 40px
     height: 40px
     background-image: url('./assets/images/ferrets-blog-logo.png')
     background-size: 40px
+
+  .ferrets-blog-title-ferrets
+    font-size: 1.4em
+    margin-left: 14px
+
+  .ferrets-blog-title-blog
+    font-size: 1.4em
+    margin-left: 8px
 
   .toolbar-filler
     flex: 1 1 auto
