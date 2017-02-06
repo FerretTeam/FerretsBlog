@@ -1,37 +1,66 @@
-.article
-  margin-bottom: 15px
+.articles-container
+  padding: 0px 20px
 
-  md-card-title
-    font-size: 18px
-    overflow: hidden
-    text-overflow: ellipsis
-    white-space: nowrap
+  .article-date-container
+    width: 100%
+    margin: 8px 0px 16px 0px
+    height: 40px
+    position: relative
+    right: 20px
 
-  md-card-actions
-    border-top: 1px solid #ddd
+    .article-date-icon
+      color: #FFFFFF
+      background-color: #2196F3
 
-.tag
-  margin-bottom: 15px
-  padding: 0
-  border-width: 2px
-  border-style: solid
+    .article-date
+      color: rgb(114, 114, 114)
+      line-height: 40px
+      display: inline-block
+      vertical-align: top
+      margin-left: 8px
 
-  md-card-header
-    text-align: center
+  .article
+    margin-bottom: 15px
 
-  md-card-content
-    padding: 20px
+    .article-synopsis
+      color: rgb(114, 114, 114)
+      line-height: 20px
 
-.tag1
-  border-color: #F44336
+    md-card-actions
+      text-align: right
+      color: rgb(114, 114, 114)
 
-  md-card-header
-    color: #B71C1C
-    background-color: #F44336
+.tag-container
+  position: fixed
+  left: 62%
 
-.tag2
-  border-color: #2196F3
+  .tag
+    margin-bottom: 16px
+    padding: 0px
 
-  md-card-header
-    color: #0D47A1
-    background-color: #2196F3
+    .tag-item
+      width: 100%
+      text-align: left
+      font-weight: normal
+      border-radius: 0px
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+
+    .tag-footer
+      height: 8px
+      width: 100%
+
+    md-card-header
+      text-align: center
+
+    md-card-content
+      padding: 20px
+      margin: 0px
+
+  .next-page-button-container
+    text-align: right
+
+    button
+      color: #FFFFFF
+      background-color: #E91E63

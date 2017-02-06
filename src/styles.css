@@ -1,6 +1,12 @@
 /* 引入 Angular Material */
 @import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
 
+/* 对 Material 的修正 */
+md-chip {
+  outline: none;
+}
+
+/* 全局的 CSS */
 html {
   height: 100%;
 }

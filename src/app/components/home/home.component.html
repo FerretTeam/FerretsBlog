@@ -1,50 +1,52 @@
-<div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around start">
-  <div class="flex-item" fxFlex="10%" fxHide.xs fxHide.sm></div>
-  <div class="flex-item" fxFlex="50%">
-    <div  *ngFor='let arti of article'>
-      <md-card class="article">
-        <md-card-header>
-          <md-card-title>{{arti.title}}</md-card-title>
-          <md-card-subtitle>2017年1月1日</md-card-subtitle>
-        </md-card-header>
-        <img md-card-image src=".././assets/images/article1.jpeg" *ngIf="arti.id % 3 == 0">
+<div class='flex-container' fxLayout='row' fxLayout.xs='column' fxLayoutAlign='space-around start'>
+  <div class='flex-item' fxFlex='10%' fxHide.sm></div>
+  <div class='flex-item articles-container' fxFlex='50%' fxFlex.sm='80%'>
+    <div *ngFor='let article of articles'>
+      <div class='article-date-container'>
+        <button md-mini-fab class='article-date-icon'>
+          <md-icon>today</md-icon>
+        </button>
+        <span class='article-date'>{{article.date}}</span>
+      </div>
+      <md-card class='article'>
+        <img md-card-image src='{{article.image}}' *ngIf='article.image != null'>
         <md-card-content>
-          <p>
-            {{arti.body}}
-          </p>
+          <h2>{{article.title}}</h2>
+          <p class='article-synopsis'>{{article.synopsis}}</p>
         </md-card-content>
         <md-card-actions>
+          <button md-icon-button mdTooltip='修改文章'>
+            <md-icon>create</md-icon>
+          </button>
+          <button md-icon-button mdTooltip='分享文章'>
+            <md-icon>share</md-icon>
+          </button>
           <button md-button>阅读全文</button>
         </md-card-actions>
       </md-card>
     </div>
   </div>
-  <!-- <div class="flex-item" fxFlex="10px"></div> -->
-  <div class="flex-item" fxFlex="25%" fxHide.xs fxHide.sm>
-    <md-card class="tag tag1">
-      <md-card-header>
-        <p>最新文章</p>
-      </md-card-header>
+  <div class='flex-item' fxFlex='25%' fxHide.sm></div>
+  <div class='flex-item tag-container' fxFlex='25%' fxHide.sm>
+    <md-card class='tag'>
       <md-card-content>
-        <p *ngFor='let arti of article'>
-          {{arti.title}}
-        </p>
+        <h2>最热文章</h2>
+      </md-card-content>
+      <button md-button class='tag-item' *ngFor='let article of articles'>{{article.title}}</button>
+      <div class='tag-footer'></div>
+    </md-card>
+    <md-card class='tag'>
+      <md-card-content>
+        <h2>标 签</h2>
+        <md-chip-list>
+          <md-chip>算 法</md-chip>
+          <md-chip>游 记</md-chip>
+        </md-chip-list>
       </md-card-content>
     </md-card>
-
-    <md-card class="tag tag2">
-      <md-card-header>
-        <p>标签</p>
-      </md-card-header>
-      <md-card-content>
-        <span>
-          算法
-        </span>
-        <span>
-          游记
-        </span>
-      </md-card-content>
-    </md-card>
+    <div class='next-page-button-container'>
+      <button md-fab mdTooltip='下一页'><md-icon>arrow_forward</md-icon></button>
+    </div>
   </div>
-  <div class="flex-item" fxFlex="10%" fxHide.xs fxHide.sm></div>
+  <div class='flex-item' fxFlex='10%' fxHide.sm></div>
 </div>
