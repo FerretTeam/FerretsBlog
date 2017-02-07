@@ -51,6 +51,34 @@
         padding: 0px 16px 16px 16px
         color: rgb(114, 114, 114)
 
+  .m-articles-container
+
+    .m-article-container
+      height: 100%
+
+      .m-article-image-container
+        padding: 16px
+
+        .m-article-image
+          height: 100%
+          background-repeat: no-repeat
+          background-position: center center
+          background-size: cover
+          position: relative
+
+    .m-article-content-container
+      padding: 16px
+
+      .m-article-date
+        color: rgb(114, 114, 114)
+        font-size: 0.9em
+
+      span
+        font-size: 1.2em
+
+  .m-articles-container:not(:last-child)
+    border-bottom: 2px solid rgb(242, 242, 242)
+
   .tags-container
     display: inline-block
     position: fixed
