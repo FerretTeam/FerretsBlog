@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
 import { AuthService } from './services/auth/auth.service';
@@ -11,13 +11,16 @@ import { AuthService } from './services/auth/auth.service';
 })
 export class AppComponent {
   user: User;
-  hidden: boolean;
+  searchInputWidth: number;
+  searchCloseButtonOpacity: number;
+  @ViewChild('toolbarSearchInput') input;
 
   constructor(private router: Router, private authService: AuthService) {
     this.router.events.subscribe(path => {
       this.user = this.authService.getUserInfo();
     });
-    this.hidden = true;
+    this.searchInputWidth = 0;
+    this.searchCloseButtonOpacity = 0;
   }
 
   ngOnInit() { }
@@ -34,11 +37,14 @@ export class AppComponent {
   }
 
   search() {
-    this.hidden = false;
+    this.searchInputWidth = 160;
+    this.searchCloseButtonOpacity = 1;
+    this.input.nativeElement.focus();
   }
 
   close() {
-    this.hidden = true;
+    this.searchInputWidth = 0;
+    this.searchCloseButtonOpacity = 0;
   }
 
 }
