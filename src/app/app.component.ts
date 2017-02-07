@@ -39,7 +39,7 @@ export class AppComponent {
   search() {
     this.searchInputWidth = 160;
     this.searchCloseButtonOpacity = 1;
-    this.input.nativeElement.focus();
+    setTimeout(() => this.input.nativeElement.focus(), 600)
   }
 
   close() {

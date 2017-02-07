@@ -2,27 +2,29 @@
 
 <md-toolbar class='toolbar flex-container'>
   <div class='ferrets-blog-logo'></div>
-  <span class='ferrets-blog-title' fxHide.xs>Ferrets</span>
+  <span class='ferrets-blog-title'>Ferrets</span>
   <span class='toolbar-filler'></span>
 
-  <md-icon class='toolbar-search-button' (click)='search()'>search</md-icon>
-  <md-input-container class='toolbar-search-input' [style.width]='searchInputWidth + "px"'>
-    <input md-input #toolbarSearchInput>
+  <!-- 在非窄屏上显示的 toolbar 组件 -->
+  <md-icon class='toolbar-search-button' (click)='search()' fxHide.xs>search</md-icon>
+  <md-input-container class='toolbar-search-input' [style.width]='searchInputWidth + "px"' fxHide.xs>
+    <input md-input #toolbarSearchInput placeholder='搜索 Ferrets 博客'>
   </md-input-container>
-  <md-icon class='toolbar-close-button' [style.opacity]='searchCloseButtonOpacity' (click)='close()'>close</md-icon>
-
-  <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章' *ngIf='user'>
+  <md-icon class='toolbar-close-button' [style.opacity]='searchCloseButtonOpacity' (click)='close()' fxHide.xs>close</md-icon>
+  <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章' *ngIf='user' fxHide.xs>
     <md-icon>note_add</md-icon>
   </button>
-  <button md-icon-button mdTooltip='修改信息' *ngIf='user'>
+  <button md-icon-button mdTooltip='修改信息' *ngIf='user' fxHide.xs>
     <md-icon>settings</md-icon>
   </button>
-  <button md-fab [mdMenuTriggerFor]='userAvatarMenu' class='user-avatar' *ngIf='user' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></button>
-  <md-menu #userAvatarMenu='mdMenu'>
+  <button md-fab [mdMenuTriggerFor]='userAvatarMenu' class='user-avatar' *ngIf='user' [style.background-image]="'url(' + user.userAvatarUrl + ')'" fxHide.xs></button>
+  <md-menu #userAvatarMenu='mdMenu' fxHide.xs>
     <button md-menu-item (click)='signOut()'>退出登录</button>
   </md-menu>
-  <button md-button class='toolbar-button' *ngIf='user == null' (click)='login("sign-up")'>注 册</button>
-  <button md-button class='toolbar-button' *ngIf='user == null' (click)='login("sign-in")'>登 录</button>
+  <button md-button class='toolbar-button' *ngIf='user == null' (click)='login("sign-up")' fxHide.xs>注 册</button>
+  <button md-button class='toolbar-button' *ngIf='user == null' (click)='login("sign-in")' fxHide.xs>登 录</button>
+
+  <!-- 在窄屏上显示的 toolbar 组件 -->
 </md-toolbar>
 
 <div class='ferrets-blog-layout'>
