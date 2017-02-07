@@ -1,46 +1,51 @@
-<div class='flex-container' fxLayout='row' fxLayout.xs='column' fxLayoutAlign='space-around start'>
-  <div class='flex-item' fxFlex='10%' fxHide.sm></div>
-  <div class='flex-item articles-container' fxFlex='50%' fxFlex.sm='80%'>
-    <div *ngFor='let article of articles'>
-      <md-card class='article'>
-        <img md-card-image src='{{article.image}}' *ngIf='article.image != null'>
-        <md-card-content>
-          <h2>{{article.title}}</h2>
-          <p>{{article.date}}</p>
-          <p class='article-synopsis'>{{article.synopsis}}</p>
-        </md-card-content>
-        <md-card-actions>
-          <button md-icon-button mdTooltip='修改文章'>
-            <md-icon>create</md-icon>
-          </button>
-          <button md-icon-button mdTooltip='分享文章'>
-            <md-icon>share</md-icon>
-          </button>
-          <button md-button>阅读全文</button>
-        </md-card-actions>
-      </md-card>
-    </div>
-  </div>
-  <div class='flex-item' fxFlex='25%' fxHide.sm></div>
-  <div class='flex-item tag-container' fxFlex='25%' fxHide.sm>
-    <md-card class='tag'>
-      <md-card-content>
-        <h2>最热文章</h2>
-      </md-card-content>
-      <button md-button class='tag-item' *ngFor='let article of articles'>{{article.title}}</button>
-      <div class='tag-footer'></div>
-    </md-card>
-    <md-card class='tag'>
-      <md-card-content>
-        <h2>标 签</h2>
-      </md-card-content>
-      <md-card-content>
-        <md-chip-list>
-          <md-chip>算 法</md-chip>
-          <md-chip>游 记</md-chip>
-        </md-chip-list>
-      </md-card-content>
-    </md-card>
-  </div>
-  <div class='flex-item' fxFlex='10%' fxHide.sm></div>
+<div class='home-layout'>
+   <div class='articles-container'>
+     <!-- 在非窄屏上显示的文章界面 -->
+     <div fxHide.xs>
+       <md-card *ngFor='let article of articles'>
+         <!-- 有图片的 card 标题 -->
+         <div *ngIf='article.image' class='article-image' [style.background-image]="'url(' + article.image + ')'">
+           <span class='article-image-title'>{{article.title}}</span>
+         </div>
+         <!-- 无图片的 card 标题 -->
+         <div *ngIf='article.image == null' class='article-title'>
+           <span>{{article.title}}</span>
+         </div>
+         <md-card-content>
+           <span class='article-date'>{{article.date}}</span>
+           <p>{{article.synopsis}}</p>
+         </md-card-content>
+         <md-card-actions>
+           <button md-icon-button mdTooltip='修改文章'>
+             <md-icon>create</md-icon>
+           </button>
+           <button md-icon-button mdTooltip='分享文章'>
+             <md-icon>share</md-icon>
+           </button>
+           <button md-button>阅读全文</button>
+         </md-card-actions>
+       </md-card>
+     </div>
+
+     <!-- 在窄屏上显示的文章界面 -->
+     <div fxHide.gt-xs>456</div>
+   </div>
+   <div class='tags-container'>
+     <md-card class='tag'>
+       <div class='tag-title'><span>最热文章</span></div>
+       <button md-button class='tag-list-button' *ngFor='let article of articles'>{{article.title}}</button>
+       <div class='tag-footer'></div>
+     </md-card>
+     <md-card class='tag'>
+       <div class='tag-title'>
+         <span>标 签</span>
+       </div>
+       <md-card-content>
+         <md-chip-list>
+           <md-chip>算 法</md-chip>
+           <md-chip>游 记</md-chip>
+         </md-chip-list>
+       </md-card-content>
+     </md-card>
+   </div>
 </div>
