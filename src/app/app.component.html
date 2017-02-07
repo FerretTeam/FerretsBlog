@@ -8,7 +8,7 @@
   <!-- 在非窄屏上显示的 toolbar 组件 -->
   <md-icon class='toolbar-search-button' (click)='search()' fxHide.xs>search</md-icon>
   <md-input-container class='toolbar-search-input' [style.width]='searchInputWidth + "px"' fxHide.xs>
-    <input md-input #toolbarSearchInput placeholder='搜索 Ferrets 博客'>
+    <input md-input #toolbarSearchInput>
   </md-input-container>
   <md-icon class='toolbar-close-button' [style.opacity]='searchCloseButtonOpacity' (click)='close()' fxHide.xs>close</md-icon>
   <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章' *ngIf='user' fxHide.xs>
@@ -25,6 +25,26 @@
   <button md-button class='toolbar-button' *ngIf='user == null' (click)='login("sign-in")' fxHide.xs>登 录</button>
 
   <!-- 在窄屏上显示的 toolbar 组件 -->
+  <button md-fab [mdMenuTriggerFor]='toolbarMenu' class='user-avatar' *ngIf='user' [style.background-image]="'url(' + user.userAvatarUrl + ')'" fxHide.gt-xs></button>
+  <button md-icon-button fxHide.gt-xs [mdMenuTriggerFor]='toolbarMenu' *ngIf='user == null'>
+    <md-icon>menu</md-icon>
+  </button>
+  <md-menu #toolbarMenu='mdMenu'>
+    <button md-menu-item *ngIf='user == null' (click)='login("sign-up")'>注 册</button>
+    <button md-menu-item *ngIf='user == null' (click)='login("sign-in")'>登 录</button>
+    <button md-menu-item *ngIf='user'>
+      <md-icon>note_add</md-icon>
+      <span>发表文章</span>
+    </button>
+    <button md-menu-item *ngIf='user'>
+      <md-icon>settings</md-icon>
+      <span>修改信息</span>
+    </button>
+    <button md-menu-item *ngIf='user' (click)='signOut()'>
+      <md-icon>exit_to_app</md-icon>
+      <span>退出登录</span>
+    </button>
+  </md-menu>
 </md-toolbar>
 
 <div class='ferrets-blog-layout'>
