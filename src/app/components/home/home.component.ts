@@ -25,4 +25,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  read(id: number) {
+    let link = ['/article', id];
+    this.router.navigate(link);
+  }
+
 }
