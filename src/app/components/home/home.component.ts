@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
     this.tags.sort();
   }
 
-  read(id: number) {
+  gotoArticle(id: number) {
     let link = ['/article', id];
     this.router.navigate(link);
   }
