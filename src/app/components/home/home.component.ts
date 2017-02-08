@@ -36,6 +36,11 @@ export class HomeComponent implements OnInit {
     this.tags.sort();
   }
 
+  read(id: number) {
+    let link = ['/article', id];
+    this.router.navigate(link);
+  }
+
   ngOnInit() {
   }
 }
