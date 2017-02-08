@@ -6,7 +6,9 @@
       <md-card *ngFor='let article of articles'>
         <!-- 有图片的 card 标题 -->
         <div *ngIf='article.image' class='article-image' [style.background-image]="'url(' + article.image + ')'">
-          <span class='article-image-title'>{{article.title}}</span>
+          <div class='article-image-shadow'>
+            <span class='article-image-title'>{{article.title}}</span>
+          </div>
         </div>
         <!-- 无图片的 card 标题 -->
         <div *ngIf='article.image == null' class='article-title'>
@@ -23,7 +25,7 @@
           <button md-icon-button mdTooltip='分享文章'>
             <md-icon>share</md-icon>
           </button>
-          <button md-button>阅读全文</button>
+          <button class='article-read-more' md-raised-button>阅读全文</button>
         </md-card-actions>
       </md-card>
     </div>
