@@ -10,12 +10,19 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 
 export class ProfileComponent{
-  user: user;
+  user: User;
 
   constructor(private router: Router, private authService: AuthService) {
     // 如果未登录，则跳转至 /welcome 页面
-    if (this.authService.getUserInfo() == null)
+    this.user = this.authService.getUserInfo();
+    if (this.user == null)
       this.router.navigate(['/welcome']);
   }
 
+}
+
+export class User {
+  username: string;
+  email: string;
+  userAvatarUrl: string;
 }

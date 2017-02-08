@@ -18,7 +18,8 @@ export class AuthService {
   // 验证用户合法性，TODO: 实现用户合法性的安全验证
   checkUser() {
     let user = {
-      username: 'Ren',
+      username: 'An0nym6',
+      email: '0_0@liuren.link',
       userAvatarUrl: 'assets/images/user-avatar.jpg'
     };
     localStorage.setItem('user-info', JSON.stringify(user));

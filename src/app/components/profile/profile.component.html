@@ -1,0 +1,30 @@
+<div class='profile-layout'>
+  <div class='basic-info-container'>
+    <!-- 在非窄屏上显示的个人基本信息界面 -->
+    <div fxHide.xs>
+      <md-card>
+        <div class='user-info-container flex-container' fxLayout='row'>
+          <div class='flex-item user-avartar-container' fxFlex='120px'>
+            <div class='user-avartar' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></div>
+          </div>
+          <div class='flex-item username-container' fxFlex>
+            <div>
+              <span class='username'>{{user.username}}</span>
+              <span class='email'>{{user.email}}</span>
+            </div>
+          </div>
+        </div>
+      </md-card>
+    </div>
+
+    <!-- 在窄屏上显示的个人基本信息界面 -->
+    <div fxHide.gt-xs>
+      <md-card>
+        321
+      </md-card>
+    </div>
+  </div>
+  <div class='other-info-container'>
+
+  </div>
+</div>

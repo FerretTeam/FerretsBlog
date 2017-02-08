@@ -1,0 +1,54 @@
+.profile-layout
+  height: 100%
+  padding: 0 13.5% 0 13.5%
+  @media (max-width: 960px)
+    padding: 0 13% 0 13%
+  @media (max-width: 600px)
+    padding: 0px 8px
+
+  .basic-info-container
+    display: inline-block
+    width: calc(38.2% - 8px)
+    padding-right: 5px
+    @media (max-width: 960px)
+      width: 100%
+
+    md-card
+      padding: 0px
+
+      .user-info-container
+        height: 120px
+        border-bottom: 1px solid rgb(242, 242, 242)
+
+        .user-avartar-container
+          padding: 16px
+          border-radius: 44px
+
+          .user-avartar
+            background-repeat: no-repeat
+            background-position: center center
+            background-size: cover
+            height: 100%
+            border-radius: 44px
+
+        .username-container
+          display: flex
+          align-items: center
+          margin-left: 8px
+
+          .username
+            font-size: 1.2em
+            display: block
+            margin-bottom: 8px
+
+          .email
+            font-size: 0.8em
+            color: rgb(114, 114, 114)
+
+  .other-info-container
+    vertical-align: top
+    display: inline-block
+    width: calc(61.8% - 8px)
+    padding-left: 5px
+    @media (max-width: 960px)
+      display: none
