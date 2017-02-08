@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class HomeComponent implements OnInit {
   articles: Article[] = [];
+  tags: Tag[] = [];
 
   constructor(private articleService: ArticleService, private router: Router, private authService: AuthService) {
     // 如果未登录，则跳转至 /welcome 页面
@@ -20,9 +21,30 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/welcome']);
 
     this.articles = this.articleService.getArticles();
+    // 遍历文章统计标签
+    for (let article of this.articles) {
+      let isExist: boolean = false;
+      for (let tag of this.tags)
+        if (tag.tagName == article.tagName) {
+          tag.number++;
+          isExist = true;
+          break;
+        }
+      if (!isExist)
+        this.tags.push(new Tag(article.tagName, 1));
+    }
+    this.tags.sort();
   }
 
   ngOnInit() {
   }
+}
 
+export class Tag {
+  tagName: string;
+  number: number;
+  constructor(tagName: string, number: number) {
+    this.tagName = tagName;
+    this.number = number;
+  }
 }
