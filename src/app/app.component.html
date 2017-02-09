@@ -14,7 +14,7 @@
   <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章' *ngIf='user' fxHide.xs>
     <md-icon>note_add</md-icon>
   </button>
-  <button md-icon-button mdTooltip='修改信息' *ngIf='user' fxHide.xs>
+  <button md-icon-button mdTooltip='修改信息' *ngIf='user' (click)='gotoProfile()' fxHide.xs>
     <md-icon>settings</md-icon>
   </button>
   <button md-fab [mdMenuTriggerFor]='userAvatarMenu' class='user-avatar' *ngIf='user' [style.background-image]="'url(' + user.userAvatarUrl + ')'" fxHide.xs></button>

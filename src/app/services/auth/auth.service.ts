@@ -20,7 +20,10 @@ export class AuthService {
     let user = {
       username: 'An0nym6',
       email: '0_0@liuren.link',
-      userAvatarUrl: 'assets/images/user-avatar.jpg'
+      userAvatarUrl: 'assets/images/user-avatar.jpg',
+      totalCharacters: '9281',
+      totalReading: '2.3k',
+      totalLikes: '503'
     };
     localStorage.setItem('user-info', JSON.stringify(user));
     return JSON.parse(localStorage.getItem('user-info'));

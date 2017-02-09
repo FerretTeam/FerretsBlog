@@ -47,6 +47,10 @@ export class AppComponent {
     this.searchCloseButtonOpacity = 0;
   }
 
+  gotoProfile() {
+    this.router.navigate(['/profile']);
+  }
+
 }
 
 interface User {

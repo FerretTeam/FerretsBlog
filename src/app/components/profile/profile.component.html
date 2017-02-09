@@ -1,30 +1,48 @@
 <div class='profile-layout'>
   <div class='basic-info-container'>
-    <!-- 在非窄屏上显示的个人基本信息界面 -->
-    <div fxHide.xs>
-      <md-card>
-        <div class='user-info-container flex-container' fxLayout='row'>
-          <div class='flex-item user-avartar-container' fxFlex='120px'>
-            <div class='user-avartar' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></div>
-          </div>
-          <div class='flex-item username-container' fxFlex>
-            <div>
-              <span class='username'>{{user.username}}</span>
-              <span class='email'>{{user.email}}</span>
-            </div>
+    <md-card>
+      <div class='user-info-container flex-container' fxLayout='row'>
+        <div class='flex-item user-avartar-container' fxFlex='120px'>
+          <div class='user-avartar' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></div>
+        </div>
+        <div class='flex-item username-container' fxFlex>
+          <div>
+            <span class='username'>{{user.username}}</span>
+            <span class='email'>{{user.email}}</span>
           </div>
         </div>
-      </md-card>
-    </div>
-
-    <!-- 在窄屏上显示的个人基本信息界面 -->
-    <div fxHide.gt-xs>
-      <md-card>
-        321
-      </md-card>
-    </div>
+      </div>
+      <div class='flex-container' fxLayout='row'>
+        <div class='flex-item achievement-item' fxFlex mdTooltip='总字数'>
+          <md-icon>create</md-icon>
+          <span>{{user.totalCharacters}}</span>
+        </div>
+        <div class='flex-item achievement-item' fxFlex mdTooltip='总阅读量'>
+          <md-icon>remove_red_eye</md-icon>
+          <span>{{user.totalReading}}</span>
+        </div>
+        <div class='flex-item achievement-item' fxFlex mdTooltip='总赞数'>
+          <md-icon>favorite</md-icon>
+          <span>{{user.totalLikes}}</span>
+        </div>
+      </div>
+    </md-card>
   </div>
   <div class='other-info-container'>
-
+    <md-card>
+      <div class='other-info-title'><span>基本信息</span></div>
+      <div class='other-info-form'>
+        <md-input-container>
+          <input md-input placeholder='电子邮箱' value='none' value='{{user.email}}'>
+        </md-input-container>
+        <md-input-container>
+          <input md-input placeholder='自我介绍' value='none' value=''>
+        </md-input-container>
+        <md-input-container>
+          <input md-input placeholder='擅长领域' value='none' value=''>
+        </md-input-container>
+        <button md-raised-button class='submit-change-button'>提交修改</button>
+      </div>
+    </md-card>
   </div>
 </div>
