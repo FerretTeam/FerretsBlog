@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Article } from '../../components/article/article';
+
+import { Article } from './article';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -31,6 +32,7 @@ export class ArticleService {
       tagName: '科技资讯'
     }
   ];
+  
   constructor(private http: Http) { }
 
   getArticles() {

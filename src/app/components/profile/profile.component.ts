@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
+import { User } from '../../services/auth/user';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -18,13 +19,4 @@ export class ProfileComponent{
     if (this.user == null)
       this.router.navigate(['/welcome']);
   }
-}
-
-export class User {
-  username: string;
-  email: string;
-  userAvatarUrl: string;
-  totalCharacters: string;  // 为了排版便利，在 service 中将大数转换为 k 或 m
-  totalReading: string;
-  totalLikes: string;
 }
