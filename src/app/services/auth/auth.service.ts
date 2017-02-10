@@ -10,7 +10,9 @@ export class AuthService {
     userAvatarUrl: 'assets/images/user-avatar.jpg',
     totalCharacters: '9281',
     totalReading: '2.3k',
-    totalLikes: '503'
+    totalLikes: '503',
+    introduction: '',
+    field: ''
   }
 
   constructor() {}
