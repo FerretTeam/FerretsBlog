@@ -51,6 +51,10 @@ export class AppComponent {
     this.router.navigate(['/profile']);
   }
 
+  gotoHome() {
+    this.router.navigate(['/']);
+  }
+
 }
 
 interface User {
