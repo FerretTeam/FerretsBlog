@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MarkdownModule } from 'angular2-markdown';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -29,6 +30,7 @@ import { AuthService } from './services/auth/auth.service';
   ],
   imports: [
     MaterialModule.forRoot(),
+    MarkdownModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,

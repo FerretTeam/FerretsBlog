@@ -14,6 +14,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class ArticleComponent implements OnInit {
   article: Article;
+  data: string;
 
   constructor(private articleService: ArticleService, private router: Router,
               private activatedRoute: ActivatedRoute, private authService: AuthService) {
@@ -25,6 +26,7 @@ export class ArticleComponent implements OnInit {
       this.article = this.articleService.getArticle(params['id']);
     });
   }
+
 
   ngOnInit() {
   }

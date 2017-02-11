@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
 import { AuthService } from './services/auth/auth.service';
+import { User } from './services/auth/user';
 
 @Component({
   selector: 'app-root',
@@ -55,9 +56,4 @@ export class AppComponent {
     this.router.navigate(['/']);
   }
 
-}
-
-interface User {
-  username: string;
-  userAvatarUrl: string;
 }

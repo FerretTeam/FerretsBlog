@@ -1,4 +1,22 @@
-<div class='article-layout'>
-  <p>{{article.title}}</p>
-  <p>{{article.synopsis}}</p>
+<div class="article-layout">
+  <!-- 在非窄屏上显示的文章界面 -->
+  <div fxHide.xs fxLayout="column" fxLayoutAlign="center stretch">
+    <md-card>
+      <!-- 文章标题 -->
+      <div class="article-header">
+        <h1 class="article-header-title">{{article.title}}</h1>
+        <!-- <time>
+          <span class="article-header-data">{{article.date}}</span>
+        </time> -->
+      </div>
+      <!-- 图片-->
+      <section class="img-container">
+        <img class="article-img" *ngIf='article.image' src={{article.image}}>
+      </section>
+      <p class="article-synopsis" Markdown>{{article.synopsis}}</p>
+    </md-card>
+    <md-card>
+      <p>Comments</p>
+    </md-card>
+  </div>
 </div>
