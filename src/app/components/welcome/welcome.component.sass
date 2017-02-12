@@ -1,17 +1,35 @@
 .welcome-giant-paper
   width: 100%
   height: 560px
-  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('assets/images/welcome-background.jpg')
+  background: linear-gradient(rgba(0, 0, 0, 0.382), rgba(0, 0, 0, 0.382)), url('assets/images/welcome-background.jpg')
   background-repeat: no-repeat
   background-position: center center
   background-size: cover
   @media (max-width: 800px)
     height: 440px
 
-  .welcome-slogan-container
+  .welcome-slogan-align
     height: 100%
-    padding: 16px 13.5% 0 13.5%
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: 0px 13.5%
     @media (max-width: 960px)
-      padding: 16px 13% 0 13%
+      padding: 0px 13%
     @media (max-width: 600px)
-      padding: 8px
+      padding: 0px
+
+    .welcome-slogan-container
+      color: #FFFFFF
+
+      span
+        font-weight: 200
+        font-size: 40px
+        text-shadow: 0px 0px 2px #000000
+
+      .welcome-button-container
+        text-align: center
+        padding-top: 40px
+
+        button
+          background-color: #2196F3
