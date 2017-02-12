@@ -1,22 +1,27 @@
-<div class="article-layout">
+<link href='//cdn.bootcss.com/github-markdown-css/2.4.1/github-markdown.min.css' rel='stylesheet'>
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css' rel='stylesheet'>
+
+<div class='article-layout'>
   <!-- 在非窄屏上显示的文章界面 -->
-  <div fxHide.xs fxLayout="column" fxLayoutAlign="center stretch">
+  <div fxHide.xs fxLayout='column' fxLayoutAlign='center stretch'>
     <md-card>
-      <!-- 文章标题 -->
-      <div class="article-header">
-        <h1 class="article-header-title">{{article.title}}</h1>
-        <!-- <time>
-          <span class="article-header-data">{{article.date}}</span>
-        </time> -->
+      <!-- 有图片的文章的图片及标题 -->
+      <div class='article-image' *ngIf='article.image' [style.background-image]="'url(' + article.image + ')'">
+        <div class='article-header'>
+          <span class='article-header-title'>{{article.title}}</span>
+        </div>
       </div>
-      <!-- 图片-->
-      <section class="img-container">
-        <img class="article-img" *ngIf='article.image' src={{article.image}}>
-      </section>
-      <p class="article-synopsis" Markdown>{{article.contents}}</p>
-    </md-card>
-    <md-card>
-      <p>Comments</p>
+      <!-- 无图片的文章的图片及标题 -->
+      <div *ngIf='article.image == null' class='article-header'>
+        <span class='article-header-title'>{{article.title}}</span>
+      </div>
+      <div *ngIf='article.image' class='filler'></div>
+      <div class='article-date-container'>
+        <span class='article-date'>{{article.date}}</span>
+      </div>
+      <div class='article-body'>
+        <div class='content markdown-body' Markdown>{{article.contents}}</div>
+      </div>
     </md-card>
   </div>
 </div>

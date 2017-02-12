@@ -6,24 +6,51 @@
   @media (max-width: 600px)
     padding: 16px 8px
 
-  .article-header
-    height: auto
+  md-card
+    padding: 0px
 
-    .article-header-title
-      line-height: 48px
-
-    .article-header-data
-      position: relative
-      color: rgb(114,114,114)
-
-  .img-container
-    margin-left: -24px
-    margin-right: -24px
-
-    .article-img
-      width: 100%
-      height: auto
+    .article-image
+      height: 280px
       background-repeat: no-repeat
       background-position: center center
       background-size: cover
       position: relative
+
+      .article-header
+        width: calc(100% - 32px)
+        height: 61.8%
+        position: absolute
+        bottom: 0
+        left: 0
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0))
+
+        .article-header-title
+          position: absolute
+          bottom: 0
+          left: 0
+          padding: 16px
+          color: #FFFFFF
+          font-size: 32px
+          text-shadow: 0px 0px 2px #000000
+
+    .article-header
+      padding: 16px
+
+      .article-header-title
+        font-size: 32px
+
+    .filler
+      height: 16px
+
+    .article-date-container
+      padding: 0px 16px
+
+      .article-date
+        color: rgb(114, 114, 114)
+
+    .article-body
+      padding: 16px
+
+      .content
+        h1, h2, h3, h4, h5, h6
+          font-weight: normal !important
