@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../../services/article/article';
 import { Router } from '@angular/router';
 
+import { Article, Tag } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
 import { AuthService } from '../../services/auth/auth.service';
 
@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class HomeComponent implements OnInit {
   articles: Article[] = [];
+  popArticles: Article[] = [];
   tags: Tag[] = [];
 
   constructor(private articleService: ArticleService, private router: Router, private authService: AuthService) {
@@ -20,20 +21,12 @@ export class HomeComponent implements OnInit {
     if (this.authService.getUserInfo() == null)
       this.router.navigate(['/welcome']);
 
-    this.articles = this.articleService.getArticles();
-    // 遍历文章统计标签
-    for (let article of this.articles) {
-      let isExist: boolean = false;
-      for (let tag of this.tags)
-        if (tag.tagName == article.tagName) {
-          tag.number++;
-          isExist = true;
-          break;
-        }
-      if (!isExist)
-        this.tags.push(new Tag(article.tagName, 1));
-    }
-    this.tags.sort();
+    // 获得第 1 页的文章
+    this.articles = this.articleService.getArticles(1);
+    // 获取最热文章
+    this.popArticles = this.articleService.getPopularArticles();
+    // 获取标签
+    this.tags = this.articleService.getTags();
   }
 
   gotoArticle(id: number) {
@@ -42,14 +35,5 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-}
-
-export class Tag {
-  tagName: string;
-  number: number;
-  constructor(tagName: string, number: number) {
-    this.tagName = tagName;
-    this.number = number;
   }
 }

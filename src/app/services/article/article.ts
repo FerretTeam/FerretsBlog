@@ -7,3 +7,12 @@ export class Article {
   tagName: string;
   contents: string;
 }
+
+export class Tag {
+  tagName: string;
+  number: number;
+  constructor(tagName: string, number: number) {
+    this.tagName = tagName;
+    this.number = number;
+  }
+}
