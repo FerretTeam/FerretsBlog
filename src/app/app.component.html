@@ -46,8 +46,16 @@
 </md-toolbar>
 
 <!-- 占位 -->
-<md-toolbar></md-toolbar>
+<div class='flex-container holy-grail' fxLayout='column'>
+  <md-toolbar></md-toolbar>
 
-<div class='ferrets-blog-layout'>
-  <router-outlet></router-outlet>
+  <div class='flex-item ferrets-blog-layout' fxFlex='100%'>
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class='footer'>
+    <a href='https://angular.io/'>Angular 2</a> · <a href='https://cli.angular.io/'>Angular CLI</a> · <a href='http://expressjs.com/'>Express</a> · <a href='https://www.mongodb.com/'>MongoDB</a> · <a href='https://www.npmjs.com/'>npm</a> · <a href='https://nodejs.org/en/'>Node.js</a> · <a href='https://github.com/'>Github</a> · <a href='https://www.qcloud.com/'>腾讯云</a>
+    <br>
+    Ferrets 博客 / 粤ICP备16077413号
+  </div>
 </div>

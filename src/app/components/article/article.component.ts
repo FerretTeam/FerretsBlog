@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth/auth.service';
 import * as marked from 'marked';
 import highlightjs from 'highlight.js';
 
-
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',

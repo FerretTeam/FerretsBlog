@@ -67,7 +67,7 @@ export class ArticleService {
   }
 
   getPopularArticles() {
-    return this.articles.slice(0, 3);
+    return this.articles.slice(0, 5);
   }
 
   getTags() {
