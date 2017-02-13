@@ -5,6 +5,9 @@ import { ActivatedRoute, Params, Router} from '@angular/router';
 import { Article } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
 import { AuthService } from '../../services/auth/auth.service';
+import * as marked from 'marked';
+import highlightjs from 'highlight.js';
+
 
 @Component({
   selector: 'app-article',
@@ -25,9 +28,20 @@ export class ArticleComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.article = this.articleService.getArticle(params['id']);
     });
+
+    // 设定marked的参数
+    const renderer = new marked.Renderer();
+    renderer.code = (code, language) => {
+      const validLang = !!(language && highlightjs.getLanguage(language));
+      const highlighted = validLang ? highlightjs.highlight(language, code).value : code;
+      return `<pre><code class="hljs ${language}">${highlighted}</code></pre>`;
+    };
+
+    marked.setOptions({ renderer });
   }
 
   ngOnInit() {
+    document.getElementById('article-content').innerHTML = marked(this.article.contents);
   }
 
 }
