@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
   articles: Article[] = [];
   popArticles: Article[] = [];
   tags: Tag[] = [];
+  pageNumber: number;
+  maxPageNumber: number;
 
   constructor(private articleService: ArticleService, private router: Router, private authService: AuthService) {
     // 如果未登录，则跳转至 /welcome 页面
@@ -22,7 +24,9 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/welcome']);
 
     // 获得第 1 页的文章
-    this.articles = this.articleService.getArticles(1);
+    this.pageNumber = 1;
+    this.articles = this.articleService.getArticles(this.pageNumber);
+    this.maxPageNumber = this.articleService.getMaxPageNumber();
     // 获取最热文章
     this.popArticles = this.articleService.getPopularArticles();
     // 获取标签
@@ -32,6 +36,17 @@ export class HomeComponent implements OnInit {
   gotoArticle(id: number) {
     let link = ['/article', id];
     this.router.navigate(link);
+  }
+
+  turnPage(dir: number) {
+    let newPageNumber: number = this.pageNumber + dir;
+    let newArticles: Article[] = [];
+    newArticles = this.articleService.getArticles(newPageNumber);
+    if (newArticles != null) {
+      this.articles = newArticles;
+      this.pageNumber = newPageNumber;
+      window.scrollTo(0, 0);
+    }
   }
 
   ngOnInit() {

@@ -27,6 +27,16 @@
           <button md-button (click)='gotoArticle(article.id)' class='article-read-more' md-raised-button>阅读全文</button>
         </md-card-actions>
       </md-card>
+
+      <div class='page-controller'>
+        <button *ngIf='pageNumber != 1' md-mini-fab class='page-button' (click)='turnPage(-1)'>
+          <md-icon>arrow_back</md-icon>
+        </button>
+        <span class='page-number'>第 {{pageNumber}} 页</span>
+        <button *ngIf='pageNumber != maxPageNumber' md-mini-fab class='page-button' (click)='turnPage(1)'>
+          <md-icon>arrow_forward</md-icon>
+        </button>
+      </div>
     </div>
 
     <!-- 在窄屏上显示的文章界面 -->

@@ -53,7 +53,13 @@ export class ArticleService {
 
   getArticles(pageNum: number) {
     pageNum--;
+    if (pageNum < 0 || pageNum > Math.ceil(this.articles.length / 10))
+      return null;
     return this.articles.slice(pageNum * 10, pageNum * 10 + 10);
+  }
+
+  getMaxPageNumber() {
+    return Math.ceil(this.articles.length / 10);
   }
 
   getArticle(id: number) {

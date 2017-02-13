@@ -19,6 +19,7 @@ export class AppComponent {
   constructor(private router: Router, private authService: AuthService) {
     this.router.events.subscribe(path => {
       this.user = this.authService.getUserInfo();
+      window.scrollTo(0, 0);
     });
     this.searchInputWidth = 0;
     this.searchCloseButtonOpacity = 0;
