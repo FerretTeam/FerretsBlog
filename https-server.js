@@ -49,11 +49,8 @@ const server = https.createServer({
  */
 server.listen(port, () => console.log(`Ferrets Blog running on localhost:${port}`));
 
-const httpServer = http.createServer(app);
-
 // 增加从 http 到 https 的重定向
-httpServer.get('*', function(req, res) {
-  res.redirect('https://ferrets.me' + req.url)
-})
-
-httpServer.listen(80);
+http.createServer(function (req, res) {
+  res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+  res.end();
+}).listen(80);
