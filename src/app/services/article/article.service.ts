@@ -50,7 +50,7 @@ export class ArticleService {
       userAvatarUrl: '.././assets/images/user-avatar.jpg',
       message: 'Cormorant 是来自以色列的 Urban Aeronautics 开发的载人无人机，拥有垂直升降功能，并且配有标准的直升机引擎，尾部配有两个助推器，其最高时速能够达到 115 英里(大约 185 公里)。',
       time: '1 天前',
-      likes: 16
+      likes: 7
     }
   ];
 

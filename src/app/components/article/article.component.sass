@@ -4,10 +4,11 @@
   @media (max-width: 960px)
     padding: 16px 13%
   @media (max-width: 600px)
-    padding: 16px 8px
+    padding: 8px
 
-  md-card
+  .article-container
     padding: 0px
+    margin-bottom: 16px
 
     .article-image
       height: 280px
@@ -54,3 +55,39 @@
       .content
         h1, h2, h3, h4, h5, h6
           font-weight: normal !important
+
+  .comments-container
+    padding: 0px
+
+    .comments-title-container
+      padding: 16px
+
+      span
+        font-size: 32px
+
+    .comment
+      padding: 16px
+
+      .comment-avatar
+        width: 48px
+        height: 48px
+        border-radius: 24px
+        background-repeat: no-repeat
+        background-position: center center
+        background-size: cover
+
+      .comment-main
+        padding-left: 16px
+
+        .comment-time
+          color: rgb(114, 114, 114)
+          margin-bottom: 8px
+        .comment-likes
+          color: rgb(114, 114, 114)
+          margin-top: 8px
+          text-align: right
+
+          span
+            line-height: 24px
+            display: inline-block
+            vertical-align: top
