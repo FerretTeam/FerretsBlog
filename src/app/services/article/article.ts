@@ -16,3 +16,11 @@ export class Tag {
     this.number = number;
   }
 }
+
+export class Comment {
+  username: string;
+  userAvatarUrl: string;
+  message: string;
+  time: string;
+  likes: number;
+}
