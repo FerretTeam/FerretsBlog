@@ -1,6 +1,8 @@
 export class User {
+  id: string;
   // 基本信息
   username: string;
+  password: string;
   email: string;
   userAvatarUrl: string;
   // 成就

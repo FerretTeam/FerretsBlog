@@ -3,7 +3,7 @@ import { CanActivate, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 
-import { User } from '../../services/auth/user';
+import { User } from '../../services/user/user';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -24,6 +24,7 @@ export class ProfileComponent{
   }
 
   updateUserInfo(formData) {
+    console.log(formData);
     this.user.email = formData.email;
     this.user.introduction = formData.introduction;
     this.user.field = formData.field;

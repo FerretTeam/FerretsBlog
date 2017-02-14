@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MarkdownModule } from 'angular2-markdown';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -16,6 +15,10 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoginComponent } from './components/login/login.component';
 import { ArticleService } from './services/article/article.service';
 import { AuthService } from './services/auth/auth.service';
+import { UserService } from './services/user/user.service';
+
+import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
+import { InMemoryDataService }  from './services/user/in-memory-data.service';
 
 // Define the routes
 
@@ -30,14 +33,14 @@ import { AuthService } from './services/auth/auth.service';
   ],
   imports: [
     MaterialModule.forRoot(),
-    MarkdownModule.forRoot(),
+    InMemoryWebApiModule.forRoot(InMemoryDataService),
     BrowserModule,
     FormsModule,
     HttpModule,
     RoutingModule,
     FlexLayoutModule
   ],
-  providers: [ArticleService, AuthService],
+  providers: [ArticleService, AuthService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
