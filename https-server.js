@@ -2,6 +2,7 @@
 const express = require('express');
 const path = require('path');
 const https = require('https');
+const http = require('http');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
@@ -46,4 +47,13 @@ const server = https.createServer({
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`API running on localhost:${port}`));
+server.listen(port, () => console.log(`Ferrets Blog running on localhost:${port}`));
+
+const httpServer = http.createServer(app);
+
+// 增加从 http 到 https 的重定向
+httpServer.get('*', function(req, res) {
+  res.redirect('https://ferrets.me' + req.url)
+})
+
+httpServer.listen(80);
