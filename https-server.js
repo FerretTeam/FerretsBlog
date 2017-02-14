@@ -47,7 +47,7 @@ const server = https.createServer({
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`Ferrets Blog running on localhost:${port}`));
+server.listen(port, () => console.log(`Ferrets Blog is running on localhost:${port}`));
 
 // 增加从 http 到 https 的重定向
 http.createServer(function (req, res) {
