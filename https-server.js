@@ -2,11 +2,12 @@
 const express = require('express');
 const path = require('path');
 const https = require('https');
+const http = require('http');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
 // Get our API routes
-const api = require('./server/routes/api');
+const api = require('./routes/api');
 
 const app = express();
 
@@ -46,4 +47,10 @@ const server = https.createServer({
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`API running on localhost:${port}`));
+server.listen(port, () => console.log(`Ferrets Blog is running on localhost:${port}`));
+
+// 增加从 http 到 https 的重定向
+http.createServer(function (req, res) {
+  res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+  res.end();
+}).listen(80);

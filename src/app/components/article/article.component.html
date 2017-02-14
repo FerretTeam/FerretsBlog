@@ -1,9 +1,9 @@
 <link href='//cdn.bootcss.com/github-markdown-css/2.4.1/github-markdown.min.css' rel='stylesheet'>
 
 <div class='article-layout'>
-  <!-- 在非窄屏上显示的文章界面 -->
-  <div fxHide.xs fxLayout='column' fxLayoutAlign='center stretch'>
-    <md-card>
+  <div fxLayout='column' fxLayoutAlign='center stretch'>
+    <!-- 文章部分 -->
+    <md-card class='article-container'>
       <!-- 有图片的文章的图片及标题 -->
       <div class='article-image' *ngIf='article.image' [style.background-image]="'url(' + article.image + ')'">
         <div class='article-header'>
@@ -20,6 +20,25 @@
       </div>
       <div class='article-body'>
         <div class='content markdown-body' id="article-content"></div>
+      </div>
+    </md-card>
+    <!-- 评论部分 -->
+    <md-card class='comments-container'>
+      <div class='comments-title-container'>
+        <span>评论</span>
+      </div>
+      <div class='comment flex-container' fxLayout='row' *ngFor='let comment of comments'>
+        <div class='comment-avatar' [style.background-image]="'url(' + comment.userAvatarUrl + ')'"></div>
+        <div class='comment-main flex-item' fxFlex>
+          <div class='comment-time'>{{comment.time}}</div>
+          <div>{{comment.message}}</div>
+          <div class='comment-likes'>
+            <button md-icon-button>
+              <md-icon>favorite</md-icon>
+            </button>
+            <span>{{comment.likes}} 人点赞</span>
+          </div>
+        </div>
       </div>
     </md-card>
   </div>
