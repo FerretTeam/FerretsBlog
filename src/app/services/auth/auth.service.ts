@@ -4,7 +4,7 @@ import { User } from '../user/user';
 @Injectable()
 export class AuthService {
   user: User = {
-    id: '1',
+    id: 1,
     username: 'An0nym6',
     password: '',
     email: '0_0@liuren.link',
