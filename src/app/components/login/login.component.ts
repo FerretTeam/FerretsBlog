@@ -12,19 +12,14 @@ import { User } from '../../services/user/user';
 export class LoginComponent implements OnInit {
   user: User;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {
-  }
+  constructor(private router: Router, private route: ActivatedRoute,
+              private authService: AuthService) {}
 
-  ngOnInit() { }
-
-  signinCheck() {
+  signIn() {
     this.user = this.authService.getUserInfo();
     if (this.user != null) {
       this.router.navigate(['/home']);
     }
-  }
-
-  signupCheck() {
   }
 
   login(pageName) {

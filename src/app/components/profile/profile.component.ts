@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 
 import { User } from '../../services/user/user';
@@ -11,7 +10,6 @@ import { AuthService } from '../../services/auth/auth.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.sass']
 })
-
 export class ProfileComponent{
   user: User;
 

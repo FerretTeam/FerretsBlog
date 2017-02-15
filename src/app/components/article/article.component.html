@@ -27,7 +27,7 @@
       <div class='comments-title-container'>
         <span>评论</span>
       </div>
-      <div class='comment flex-container' fxLayout='row' *ngFor='let comment of comments'>
+      <div class='comment flex-container' fxLayout='row' *ngFor='let comment of article.comments'>
         <div class='comment-avatar' [style.background-image]="'url(' + comment.userAvatarUrl + ')'"></div>
         <div class='comment-main flex-item' fxFlex>
           <div class='comment-time'>{{comment.time}}</div>
