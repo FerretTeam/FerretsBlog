@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() { }
 
   signinCheck() {
-    this.user = this.authService.getUserInfo();
+    this.user = this.authService.checkUser();
     if (this.user != null) {
       this.router.navigate(['/home']);
     }
