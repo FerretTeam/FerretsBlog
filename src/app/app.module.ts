@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -13,10 +13,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ArticleComponent } from './components/article/article.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoginComponent } from './components/login/login.component';
-
-import { AuthService } from './services/auth/auth.service';
 import { ArticleService } from './services/article/article.service';
-import { UserService } from './services/user/user.service';
+import { AuthService } from './services/auth/auth.service';
+// Define the routes
 
 @NgModule({
   declarations: [
@@ -35,7 +34,7 @@ import { UserService } from './services/user/user.service';
     RoutingModule,
     FlexLayoutModule
   ],
-  providers: [AuthService, ArticleService, UserService],
+  providers: [ArticleService, AuthService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

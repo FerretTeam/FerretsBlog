@@ -34,8 +34,6 @@ export class HomeComponent implements OnInit {
     this.tags = this.articleService.getTags();
   }
 
-  ngOnInit() {}
-
   gotoArticle(id: number) {
     let link = ['/article', id];
     this.router.navigate(link);
@@ -51,5 +49,5 @@ export class HomeComponent implements OnInit {
       window.scrollTo(0, 0);
     }
   }
-
+  
 }
