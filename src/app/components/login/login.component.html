@@ -5,15 +5,15 @@
   <md-card class='login-card'>
     <form #signupInfo='ngForm' class='info-form'>
       <md-input-container class='login-input'>
-        <input md-input placeholder='用户名' name="up-username">
+        <input md-input placeholder='用户名' name="up_username">
       </md-input-container>
       <md-input-container class='login-input'>
-        <input md-input placeholder='电子邮箱' type='email' name="up-e-mail">
+        <input md-input placeholder='电子邮箱' type='email' name="up_mail">
       </md-input-container>
       <md-input-container class='login-input'>
-        <input md-input placeholder='密 码' type='password' name="up-password">
+        <input md-input placeholder='密 码' type='password' name="up_password">
       </md-input-container>
-      <button md-raised-button class='sign-up-button' (click)='signupCheck(signupInfo.value)'>注 册</button>
+      <button md-raised-button class='sign-up-button' (click)='signupCheck()'>注 册</button>
     </form>
   </md-card>
   <md-card>
@@ -28,12 +28,12 @@
   <md-card class='login-card'>
     <form #signinInfo='ngForm' class='info-form'>
       <md-input-container class='login-input'>
-        <input md-input placeholder='用户名或电子邮箱' type="text" name="in-username">
+        <input md-input placeholder='用户名或电子邮箱' type="text" name="username">
       </md-input-container>
       <md-input-container class='login-input'>
-        <input md-input placeholder='密 码' type='password' name="in-password">
+        <input md-input placeholder='密 码' type='password' name="password">
       </md-input-container>
-      <button md-raised-button class='sign-up-button' (click)='signinCheck(signinInfo.value)'>登 录</button>
+      <button md-raised-button class='sign-up-button' (click)='signinCheck()'>登 录</button>
     </form>
   </md-card>
   <md-card>

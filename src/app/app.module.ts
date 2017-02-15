@@ -15,11 +15,6 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoginComponent } from './components/login/login.component';
 import { ArticleService } from './services/article/article.service';
 import { AuthService } from './services/auth/auth.service';
-import { UserService } from './services/user/user.service';
-
-import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
-import { InMemoryDataService }  from './services/user/in-memory-data.service';
-
 // Define the routes
 
 @NgModule({
@@ -33,14 +28,13 @@ import { InMemoryDataService }  from './services/user/in-memory-data.service';
   ],
   imports: [
     MaterialModule.forRoot(),
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
     BrowserModule,
     FormsModule,
     HttpModule,
     RoutingModule,
     FlexLayoutModule
   ],
-  providers: [ArticleService, AuthService, UserService],
+  providers: [ArticleService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

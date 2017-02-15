@@ -28,9 +28,8 @@ export class AppComponent {
   ngOnInit() { }
 
   signOut() {
-    this.user = this.authService.removeUserInfo();
     // 如果成功退出，则跳转至 /welcome 页面
-    if (this.user == null)
+    if (this.authService.removeUserInfo())
       this.router.navigate(['/welcome']);
   }
 

@@ -17,14 +17,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() { }
 
-  signinCheck(signinData) {
-    console.log(signinData);
-    if (this.authService.checkUser() != null)
+  signinCheck() {
+    this.user = this.authService.getUserInfo();
+    if (this.user != null) {
       this.router.navigate(['/home']);
+    }
   }
 
-  signupCheck(signupData) {
-
+  signupCheck() {
   }
 
   login(pageName) {
