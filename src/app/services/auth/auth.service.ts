@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Passport } from './passport';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable()
 export class AuthService {
@@ -8,8 +9,10 @@ export class AuthService {
 
   // 加密密码
   encryptPassword(password: string) {
-    // TODO 实现密码的加密
-    return password;
+    let temp: string = password;
+    for (let i = 0; i < 5; i++)
+      temp = String(Md5.hashStr(temp));
+    return temp;
   }
 
   // 获取本地凭证
