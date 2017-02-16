@@ -42,7 +42,7 @@
     <!-- 在窄屏上显示的文章界面 -->
     <div fxHide.gt-xs>
       <md-card>
-        <div *ngFor='let article of articles' class='m-articles-container'>
+        <div *ngFor='let article of articles' class='m-articles-container' (click)='gotoArticle(article.id)'>
           <!-- 有图片的 card 模板 -->
           <div *ngIf='article.image' class='flex-container m-article-container' fxLayout='row'>
             <div class='flex-item m-article-content-container' fxFlex='61.8%'>
@@ -61,6 +61,15 @@
           </div>
         </div>
       </md-card>
+      <div class='page-controller'>
+        <button *ngIf='pageNumber != 1' md-mini-fab class='page-button' (click)='turnPage(-1)'>
+          <md-icon>arrow_back</md-icon>
+        </button>
+        <span class='page-number'>第 {{pageNumber}} 页</span>
+        <button *ngIf='pageNumber != maxPageNumber' md-mini-fab class='page-button' (click)='turnPage(1)'>
+          <md-icon>arrow_forward</md-icon>
+        </button>
+      </div>
     </div>
   </div>
 

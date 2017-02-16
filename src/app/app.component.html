@@ -34,7 +34,7 @@
       <md-icon>note_add</md-icon>
       <span>发表文章</span>
     </button>
-    <button md-menu-item *ngIf='user'>
+    <button md-menu-item *ngIf='user' (click)='gotoProfile()'>
       <md-icon>settings</md-icon>
       <span>修改信息</span>
     </button>
