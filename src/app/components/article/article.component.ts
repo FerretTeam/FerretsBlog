@@ -27,7 +27,6 @@ export class ArticleComponent implements OnInit {
     // 取回文章的信息
     this.activatedRoute.params.subscribe(params => {
       this.article = this.articleService.getArticle(params['id']);
-      this.comments = this.articleService.getComments(params['id']);
     });
 
     // 设定 marked 的参数
