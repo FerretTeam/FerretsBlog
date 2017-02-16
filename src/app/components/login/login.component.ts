@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../services/user/user';
@@ -12,10 +12,9 @@ import { User } from '../../services/user/user';
 export class LoginComponent implements OnInit {
   user: User;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {
-  }
+  constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   signinCheck() {
     this.user = this.authService.checkUser();
@@ -24,8 +23,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  signupCheck() {
-  }
+  signupCheck() {}
 
   login(pageName) {
     this.router.navigate(['/login', pageName]);

@@ -29,7 +29,7 @@ export class AppComponent {
 
   signOut() {
     // 如果成功退出，则跳转至 /welcome 页面
-    if (this.authService.removeUserInfo())
+    if (this.authService.removeUserInfo() == null)
       this.router.navigate(['/welcome']);
   }
 

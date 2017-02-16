@@ -10,8 +10,7 @@ export class WelcomeComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   login() {
     this.router.navigate(['/login/sign-up']);

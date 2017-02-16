@@ -6,7 +6,7 @@
   <!-- 在非窄屏上显示的 toolbar 组件 -->
   <md-icon class='toolbar-search-button' (click)='search()' fxHide.xs>search</md-icon>
   <md-input-container class='toolbar-search-input' [style.width]='searchInputWidth + "px"' fxHide.xs>
-    <input md-input #toolbarSearchInput>
+    <input mdInput #toolbarSearchInput>
   </md-input-container>
   <md-icon class='toolbar-close-button' [style.opacity]='searchCloseButtonOpacity' (click)='close()' fxHide.xs>close</md-icon>
   <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章' *ngIf='user' fxHide.xs>

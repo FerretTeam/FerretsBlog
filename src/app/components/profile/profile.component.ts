@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 
 import { User } from '../../services/user/user';
@@ -24,7 +23,6 @@ export class ProfileComponent{
   }
 
   updateUserInfo(formData) {
-    console.log(formData);
     this.user.email = formData.email;
     this.user.introduction = formData.introduction;
     this.user.field = formData.field;
@@ -34,4 +32,5 @@ export class ProfileComponent{
       duration: 2000,
     });
   }
+
 }

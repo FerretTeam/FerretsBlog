@@ -33,13 +33,13 @@
       <div class='other-info-title'><span>基本信息</span></div>
       <form #otherInfo='ngForm' class='other-info-form'>
         <md-input-container>
-          <input md-input placeholder='电子邮箱' name='email' [ngModel]='user.email'>
+          <input mdInput placeholder='电子邮箱' name='email' [ngModel]='user.email'>
         </md-input-container>
         <md-input-container>
-          <input md-input placeholder='自我介绍' name='introduction' [ngModel]='user.introduction'>
+          <input mdInput placeholder='自我介绍' name='introduction' [ngModel]='user.introduction'>
         </md-input-container>
         <md-input-container>
-          <input md-input placeholder='擅长领域' name='field' [ngModel]='user.field'>
+          <input mdInput placeholder='擅长领域' name='field' [ngModel]='user.field'>
         </md-input-container>
         <button md-raised-button (click)='updateUserInfo(otherInfo.value)' class='submit-change-button'>提交修改</button>
       </form>
