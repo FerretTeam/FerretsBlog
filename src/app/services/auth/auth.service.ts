@@ -1,42 +1,34 @@
 import { Injectable } from '@angular/core';
-import { User } from '../user/user';
+import { Passport } from './passport';
 
 @Injectable()
 export class AuthService {
-  user: User = {
-    id: 1,
-    username: 'An0nym6',
-    password: '',
-    email: '0_0@liuren.link',
-    userAvatarUrl: 'assets/images/user-avatar.jpg',
-    totalCharacters: '9281',
-    totalReading: '2.3k',
-    totalLikes: '503',
-    introduction: '',
-    field: ''
- }
 
   constructor() {}
 
-  // 获取存储在本地的用户信息
-  getUserInfo() {
-    return JSON.parse(localStorage.getItem('user-info'));
+  // 加密密码
+  encryptPassword(password: string) {
+    // TODO 实现密码的加密
+    return password;
   }
 
-  removeUserInfo() {
-    localStorage.removeItem('user-info');
-    return JSON.parse(localStorage.getItem('user-info'));
+  // 获取本地凭证
+  getPassport() {
+    return JSON.parse(localStorage.getItem('passport'));
   }
 
-  checkUser() {
-    localStorage.setItem('user-info', JSON.stringify(this.user));
-    return JSON.parse(localStorage.getItem('user-info'));
+  // 登入
+  signIn(username: string, password: string) {
+    let passport: Passport = new Passport(username, this.encryptPassword(password));
+    // TODO 将生成的凭证上传验证
+    localStorage.setItem('passport', JSON.stringify(passport));
+    return true;
   }
 
-  updateUser(user) {
-    this.user = user;
-    localStorage.setItem('user-info', JSON.stringify(this.user));
-    return JSON.parse(localStorage.getItem('user-info'));
+  // 登出
+  signOut() {
+    localStorage.removeItem('passport');
+    return true;
   }
 
 }

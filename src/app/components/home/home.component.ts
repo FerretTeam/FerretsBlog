@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  providers: [ ArticleService ],
+  providers: [ ArticleService, AuthService ],
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   constructor(private articleService: ArticleService, private router: Router,
               private authService: AuthService) {
     // 如果未登录，则跳转至 /welcome 页面
-    if (this.authService.getUserInfo() == null)
+    if (this.authService.getPassport() == null)
       this.router.navigate(['/welcome']);
 
     // 获得第 1 页的文章
@@ -52,5 +52,5 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
 }

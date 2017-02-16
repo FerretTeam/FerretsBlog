@@ -2,7 +2,6 @@ export class User {
   id: number;
   // 基本信息
   username: string;
-  password: string;
   email: string;
   userAvatarUrl: string;
   // 成就
@@ -13,18 +12,19 @@ export class User {
   introduction: string;
   field: string;
 
-  constructor () {
-    this.id = 0;
-    this.username = '';
-    this.password = '';
-    this.email = '';
-    this.userAvatarUrl = '';
+  constructor (id:number, username: string, email: string, userAvatarUrl: string,
+               totalCharacters: string, totalReading: string, totalLikes: string,
+               introduction: string, field: string) {
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.userAvatarUrl = userAvatarUrl;
     // 成就
-    this.totalCharacters = '';  // 为了排版便利，在 service 中将大数转换为 k 或 m
-    this.totalReading = '';
-    this.totalLikes = '';
+    this.totalCharacters = totalCharacters;  // 为了排版便利，在 service 中将大数转换为 k 或 m
+    this.totalReading = totalReading;
+    this.totalLikes = totalLikes;
     // 详细信息
-    this.introduction = '';
-    this.field = '';
+    this.introduction = introduction;
+    this.field = field;
   }
 }

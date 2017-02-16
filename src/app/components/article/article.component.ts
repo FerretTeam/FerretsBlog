@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth/auth.service';
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.sass'],
-  providers: [ArticleService]
+  providers: [ArticleService, AuthService]
 })
 export class ArticleComponent implements OnInit {
   article: Article;
@@ -22,7 +22,7 @@ export class ArticleComponent implements OnInit {
   constructor(private articleService: ArticleService, private router: Router,
               private activatedRoute: ActivatedRoute, private authService: AuthService) {
     // 如果未登录，则跳转至 /welcome 页面
-    if (this.authService.getUserInfo() == null)
+    if (this.authService.getPassport() == null)
       this.router.navigate(['/welcome']);
     // 取回文章的信息
     this.activatedRoute.params.subscribe(params => {

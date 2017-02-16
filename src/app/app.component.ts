@@ -2,23 +2,28 @@ import { Component, ViewChild } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
 import { AuthService } from './services/auth/auth.service';
+import { UserService } from './services/user/user.service';
 import { User } from './services/user/user';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
-  providers: [AuthService]
+  providers: [ AuthService, UserService ]
 })
 export class AppComponent {
-  user: User;
   searchInputWidth: number;
   searchCloseButtonOpacity: number;
   @ViewChild('toolbarSearchInput') input;
+  user: User = null;
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService,
+              private userService: UserService) {
     this.router.events.subscribe(path => {
-      this.user = this.authService.getUserInfo();
+      if (this.authService.getPassport())
+        this.user = this.userService.getUserInfo();
+      else
+        this.user = null;
       window.scrollTo(0, 0);
     });
     this.searchInputWidth = 0;
@@ -29,7 +34,7 @@ export class AppComponent {
 
   signOut() {
     // 如果成功退出，则跳转至 /welcome 页面
-    if (this.authService.removeUserInfo() == null)
+    if (this.authService.signOut())
       this.router.navigate(['/welcome']);
   }
 
