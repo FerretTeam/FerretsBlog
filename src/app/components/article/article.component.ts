@@ -27,6 +27,7 @@ export class ArticleComponent implements OnInit {
     // 取回文章的信息
     this.activatedRoute.params.subscribe(params => {
       this.article = this.articleService.getArticle(params['id']);
+      this.comments = this.article.comments;
     });
 
     // 设定 marked 的参数
@@ -42,6 +43,15 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit() {
     document.getElementById('article-content').innerHTML = marked(this.article.contents);
+  }
+
+  addComment() {
+    var newComment = new Comment('test','.././assets/images/default-avatar.png' , 'test', '1小时前', 0);
+    this.comments.push(newComment);
+  }
+
+  gotoSignin() {
+    this.router.navigate(['/login', 'sign-in']);
   }
 
 }
