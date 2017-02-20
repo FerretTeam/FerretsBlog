@@ -46,7 +46,8 @@ export class ArticleComponent implements OnInit {
   }
 
   addComment() {
-    var newComment = new Comment('test','.././assets/images/default-avatar.png' , 'test', '1小时前', 0);
+    var message = (<HTMLInputElement>document.getElementById('comment-content')).value;
+    var newComment = new Comment('test','.././assets/images/default-avatar.png' , message, '1小时前', 0);
     this.comments.push(newComment);
   }
 
