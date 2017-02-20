@@ -34,7 +34,7 @@
           <div class='sign-container' fxHide='true'>
             <button md-raised-button class='sign-button' (click)='gotoSignin()'>登 录</button>
           </div>
-          <textarea name='content' id='comment-content' placeholder='发表评论' value='none'></textarea>
+          <textarea name='content' rows="6" id='comment-content' placeholder='发表评论' value='none'></textarea>
         </div>
         <div class='edit-tool'>
           <button md-raised-button class='sign-button' (click)='addComment()'>发 布</button>
@@ -45,7 +45,7 @@
         <div class='comment-avatar' [style.background-image]="'url(' + comment.userAvatarUrl + ')'"></div>
         <div class='comment-main flex-item' fxFlex>
           <div class='comment-time'>{{comment.time}}</div>
-          <div>{{comment.message}}</div>
+          <div class='comment-message'>{{comment.message}}</div>
           <div class='comment-likes'>
             <button md-icon-button>
               <md-icon>favorite</md-icon>
