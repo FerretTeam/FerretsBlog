@@ -8,8 +8,7 @@ import { User } from '../../services/user/user';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass'],
-  providers: [ UserService, AuthService ]
+  styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
   user: User = null;

@@ -7,20 +7,23 @@ import highlightjs from 'highlight.js';
 import { Article, Comment } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../services/user/user';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.sass'],
-  providers: [ArticleService, AuthService]
+  styleUrls: ['./article.component.sass']
 })
 export class ArticleComponent implements OnInit {
   article: Article;
   data: string;
   comments: Comment[];
+  user: User;
+
 
   constructor(private articleService: ArticleService, private router: Router,
-              private activatedRoute: ActivatedRoute, private authService: AuthService) {
+              private userService: UserService,private activatedRoute: ActivatedRoute, private authService: AuthService) {
     // 如果未登录，则跳转至 /welcome 页面
     if (this.authService.getPassport() == null)
       this.router.navigate(['/welcome']);
@@ -29,6 +32,8 @@ export class ArticleComponent implements OnInit {
       this.article = this.articleService.getArticle(params['id']);
       this.comments = this.article.comments;
     });
+
+    this.user = this.userService.getUserInfo();
 
     // 设定 marked 的参数
     const renderer = new marked.Renderer();
@@ -49,6 +54,8 @@ export class ArticleComponent implements OnInit {
     var message = (<HTMLInputElement>document.getElementById('comment-content')).value;
     var newComment = new Comment('test','.././assets/images/default-avatar.png' , message, '1小时前', 0);
     this.comments.push(newComment);
+    var displayDate = new Date().toLocaleDateString();
+    console.log(displayDate);
   }
 
   gotoSignin() {

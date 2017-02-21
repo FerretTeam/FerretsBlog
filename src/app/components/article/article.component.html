@@ -30,7 +30,7 @@
       <!-- 添加新评论 -->
       <div>
         <div class='new-comment flex-container' fxLayout='row'>
-          <img class='comment-avatar' src='.././assets/images/default-avatar.png'>
+          <div class='comment-avatar' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></div>
           <div class='sign-container' fxHide='true'>
             <button md-raised-button class='sign-button' (click)='gotoSignin()'>登 录</button>
           </div>

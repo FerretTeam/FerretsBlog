@@ -9,8 +9,7 @@ import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.sass'],
-  providers: [ UserService, AuthService ]
+  styleUrls: ['./profile.component.sass']
 })
 
 export class ProfileComponent{
