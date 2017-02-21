@@ -30,7 +30,7 @@ export class AppComponent {
     this.searchCloseButtonOpacity = 0;
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   signOut() {
     // 如果成功退出，则跳转至 /welcome 页面
@@ -54,7 +54,8 @@ export class AppComponent {
   }
 
   gotoProfile() {
-    this.router.navigate(['/profile']);
+    if (this.user != null)
+      this.router.navigate([this.user.username, 'profile']);
   }
 
   gotoHome() {

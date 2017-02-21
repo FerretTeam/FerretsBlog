@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { AuthService } from '../../services/auth/auth.service';
+import { UserService } from '../../services/user/user.service';
+
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -8,7 +11,11 @@ import { Router } from '@angular/router';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService,
+              private userService: UserService) {
+    if (this.authService.getPassport() != null)
+      this.router.navigate([this.userService.getUserInfo().username, 'home']);
+  }
 
   ngOnInit() {}
 

@@ -12,19 +12,19 @@ import { LoginComponent } from './components/login/login.component';
 const appRouters: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'welcome',
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: ':user/home',
     component: HomeComponent
   },
   {
-    path: 'profile',
+    path: ':user/profile',
     component: ProfileComponent
   },
   {
-    path: 'article/:id',
+    path: ':user/article/:id',
     component: ArticleComponent
   },
   {

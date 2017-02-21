@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Article, Tag } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   maxPageNumber: number;
 
   constructor(private articleService: ArticleService, private router: Router,
-              private authService: AuthService) {
+              private authService: AuthService, private userService: UserService) {
     // 如果未登录，则跳转至 /welcome 页面
     if (this.authService.getPassport() == null)
       this.router.navigate(['/welcome']);
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   gotoArticle(id: number) {
-    let link = ['/article', id];
+    let link = [this.userService.getUserInfo().username, 'article', id];
     this.router.navigate(link);
   }
 

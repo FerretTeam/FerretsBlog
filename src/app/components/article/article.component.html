@@ -30,10 +30,11 @@
       <!-- 添加新评论 -->
       <div>
         <div class='new-comment flex-container' fxLayout='row'>
-          <div class='comment-avatar' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></div>
-          <div class='sign-container' fxHide='true'>
-            <button md-raised-button class='sign-button' (click)='gotoSignin()'>登 录</button>
-          </div>
+          <div class='comment-avatar default-avatar' *ngIf='user == null'></div>
+          <div class='comment-avatar' *ngIf='user' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></div>
+          <!-- <div class='sign-container' fxHide='true'>
+            <button md-raised-button class='sign-button' (click)='gotoSignIn()'>登 录</button>
+          </div> -->
           <textarea name='content' rows="6" id='comment-content' placeholder='发表评论' value='none'></textarea>
         </div>
         <div class='edit-tool'>

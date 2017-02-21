@@ -6,9 +6,9 @@ import highlightjs from 'highlight.js';
 
 import { Article, Comment } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
-import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../services/user/user';
 import { UserService } from '../../services/user/user.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-article',
@@ -21,19 +21,17 @@ export class ArticleComponent implements OnInit {
   comments: Comment[];
   user: User;
 
-
   constructor(private articleService: ArticleService, private router: Router,
-              private userService: UserService,private activatedRoute: ActivatedRoute, private authService: AuthService) {
-    // 如果未登录，则跳转至 /welcome 页面
-    if (this.authService.getPassport() == null)
-      this.router.navigate(['/welcome']);
+              private userService: UserService, private activatedRoute: ActivatedRoute,
+              private authService: AuthService) {
     // 取回文章的信息
     this.activatedRoute.params.subscribe(params => {
       this.article = this.articleService.getArticle(params['id']);
       this.comments = this.article.comments;
     });
 
-    this.user = this.userService.getUserInfo();
+    if (this.authService.getPassport() != null)
+      this.user = this.userService.getUserInfo();
 
     // 设定 marked 的参数
     const renderer = new marked.Renderer();
@@ -58,7 +56,7 @@ export class ArticleComponent implements OnInit {
     console.log(displayDate);
   }
 
-  gotoSignin() {
+  gotoSignIn() {
     this.router.navigate(['/login', 'sign-in']);
   }
 
