@@ -8,7 +8,7 @@ export class UserService {
   user: User;
 
   constructor(private authService: AuthService) {
-    this.user = new User(1, 'An0nym6', '0_0@liuren.link', 'assets/images/user-avatar.jpg',
+    this.user = new User(1, 'An0nym6', '0_0@liuren.link', '/assets/images/user-avatar.jpg',
                          '9281', '2.3k', '503', '', '');
   }
 

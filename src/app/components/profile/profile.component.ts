@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 
 export class ProfileComponent{
-  user: User;
+  user: User = null;
 
   constructor(private router: Router, private authService: AuthService,
               public snackBar: MdSnackBar, private userService: UserService) {
