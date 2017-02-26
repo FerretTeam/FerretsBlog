@@ -1,39 +1,49 @@
+<link href='//cdn.bootcss.com/github-markdown-css/2.4.1/github-markdown.min.css' rel='stylesheet'>
+
 <div class='edit-layout'>
   <md-card class='editor-wrapper'>
-    <input class='title' placeholder="标 题" >
+    <input class='title' id='article-title' placeholder="标 题" >
     <hr/>
     <div class='toolbar'>
       <button md-icon-button mdTooltip='预览' (click)='contentChange()' fxHide.xs>
         <md-icon>visibility</md-icon>
       </button>
-      <button md-icon-button mdTooltip='加粗' (click)='bold()' fxHide.xs>
-        <md-icon>format_bold</md-icon>
-      </button>
-      <button md-icon-button mdTooltip='斜体' (click)='italic()' fxHide.xs>
-        <md-icon>format_italic</md-icon>
-      </button>
-      <button md-icon-button mdTooltip='代码' (click)='code()' fxHide.xs>
-        <md-icon>code</md-icon>
-      </button>
-      <button md-icon-button mdTooltip='列表' (click)='list()' fxHide.xs>
-        <md-icon>format_list_numbered</md-icon>
-      </button>
     </div>
     <div class='content-before' fxHide='{{check}}'>
-      <textarea id='content-before' placeholder="在此文本框内使用Markdown语法编辑文章，点击工具栏的第一个按钮预览">### Strong and Emphasize
+      <textarea id='content-before'>
+## Markdown
 
-  ```
-  *emphasize*    **strong**
-  _emphasize_    __strong__
-  ```
+Markdown is a text formatting syntax inspired on plain text email. In the words of its creator, John Gruber:
 
-**Shortcuts**
+The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions.
+Syntax Guide
 
-- Add/remove bold:
+Strong and Emphasize
+
+*emphasize*    **strong**
+_emphasize_    __strong__
+
+Headers
+
+Atx-style headers:
+
+# h1
+## h2
+### h3
+…
+Closing # are optional.
+
+```C
+#include "stdio.h"
+
+int main() {
+  return 0;
+}
+```
       </textarea>
     </div>
     <div class='content-after' fxHide='{{!check}}'>
-      <div id='content-after'></div>
+      <div id='content-after' class='markdown-body'></div>
     </div>
     <div class='submit'>
       <button md-raised-button class='submit-button' (click)='submit()'>发 布</button>

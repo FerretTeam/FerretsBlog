@@ -9,7 +9,6 @@ import highlightjs from 'highlight.js';
 })
 export class EditComponent implements OnInit {
   check: boolean
-  middle: string
 
   constructor() {
     this.check = false;
@@ -24,12 +23,19 @@ export class EditComponent implements OnInit {
     marked.setOptions({ renderer });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   contentChange() {
     this.check = !this.check;
-    document.getElementById('content-after').innerHTML = marked((<HTMLInputElement>document.getElementById('content-before')).value);
+    document.getElementById('content-after').innerHTML = marked(document.getElementById('content-before').innerHTML);
+  }
+
+  submit() {
+    var title = (<HTMLInputElement>document.getElementById('article-title')).value;
+    if ( title == '') {
+      console.log('Input title');
+    }
+    // add article
   }
 
 
