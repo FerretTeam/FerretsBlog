@@ -17,7 +17,8 @@ export class EditComponent implements OnInit {
   data: string;
   comments: Comment[];
 
-  constructor(private articleService: ArticleService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private articleService: ArticleService, private router: Router,
+              private activatedRoute: ActivatedRoute) {
     this.check = false;
     // 设定 marked 的参数
     const renderer = new marked.Renderer();
@@ -29,7 +30,7 @@ export class EditComponent implements OnInit {
 
     marked.setOptions({ renderer });
 
-    // 取回文章信息
+    // 尝试读取文章的编号
     this.activatedRoute.params.subscribe(params => {
       this.param = params['id'];
     });
@@ -37,9 +38,12 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     if (this.param) {
+      // 取回文章
       this.article = this.articleService.getArticle(this.param);
       this.comments = this.article.comments;
+      (<HTMLInputElement>document.getElementById('article-title')).value = this.article.title;
       document.getElementById('content-before').innerHTML = this.article.contents;
+      document.getElementById('submit-button').innerHTML = '更 新';
     }
   }
 

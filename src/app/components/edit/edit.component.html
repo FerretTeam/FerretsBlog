@@ -2,26 +2,25 @@
 
 <div class='edit-layout'>
   <md-card class='editor-wrapper'>
-    <input class='title' id='article-title' placeholder="标 题" >
-    <hr/>
+    <input class='title' id='article-title' placeholder='文章标题'>
     <div class='toolbar'>
-      <button md-icon-button mdTooltip='预览' (click)='contentChange()' fxHide.xs>
+      <button md-icon-button mdTooltip='预 览' (click)='contentChange()' fxHide.xs>
         <md-icon>visibility</md-icon>
       </button>
     </div>
     <div class='content-before' fxHide='{{check}}'>
       <textarea id='content-before'>
-## Markdown
+## 用 Markdown 创建新的文章
 
-Markdown is a text formatting syntax inspired on plain text email. In the words of its creator, John Gruber:
+```
+在 Ferrets 博客，你可以用你的方式畅所欲言。
+```
 
-The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions.
-Syntax Guide
+* 点击上面的“眼睛”按钮预览文章
 
-Strong and Emphasize
+* 你可以使用加粗字或斜体字：*斜体* _emphasize_ 、 **加粗** __strong__ 、 ***斜体加粗*** ___both___
 
-*emphasize*    **strong**
-_emphasize_    __strong__
+* 你可以高亮你的代码：
 
 ```C
 #include "stdio.h"
@@ -30,13 +29,15 @@ int main() {
   return 0;
 }
 ```
+
+* 你可以在 [这里] (https://github.com/younghz/Markdown)找到更多关于 Markdown 的信息。
       </textarea>
     </div>
     <div class='content-after' fxHide='{{!check}}'>
       <div id='content-after' class='markdown-body'></div>
     </div>
     <div class='submit'>
-      <button md-raised-button class='submit-button' (click)='submit()'>发 布</button>
+      <button md-raised-button class='submit-button' (click)='submit()' id='submit-button'>发 布</button>
     </div>
   </md-card>
 </div>
