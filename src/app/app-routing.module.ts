@@ -8,6 +8,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ArticleComponent } from './components/article/article.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoginComponent } from './components/login/login.component';
+import { EditComponent } from './components/edit/edit.component';
 
 const appRouters: Routes = [
   {
@@ -26,6 +27,10 @@ const appRouters: Routes = [
   {
     path: ':user/article/:id',
     component: ArticleComponent
+  },
+  {
+    path: ':user/edit',
+    component: EditComponent
   },
   {
     path: 'welcome',

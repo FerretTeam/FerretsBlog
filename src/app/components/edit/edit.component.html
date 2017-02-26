@@ -1,0 +1,42 @@
+<div class='edit-layout'>
+  <md-card class='editor-wrapper'>
+    <input class='title' placeholder="标 题" >
+    <hr/>
+    <div class='toolbar'>
+      <button md-icon-button mdTooltip='预览' (click)='contentChange()' fxHide.xs>
+        <md-icon>visibility</md-icon>
+      </button>
+      <button md-icon-button mdTooltip='加粗' (click)='bold()' fxHide.xs>
+        <md-icon>format_bold</md-icon>
+      </button>
+      <button md-icon-button mdTooltip='斜体' (click)='italic()' fxHide.xs>
+        <md-icon>format_italic</md-icon>
+      </button>
+      <button md-icon-button mdTooltip='代码' (click)='code()' fxHide.xs>
+        <md-icon>code</md-icon>
+      </button>
+      <button md-icon-button mdTooltip='列表' (click)='list()' fxHide.xs>
+        <md-icon>format_list_numbered</md-icon>
+      </button>
+    </div>
+    <div class='content-before' fxHide='{{check}}'>
+      <textarea id='content-before' placeholder="在此文本框内使用Markdown语法编辑文章，点击工具栏的第一个按钮预览">### Strong and Emphasize
+
+  ```
+  *emphasize*    **strong**
+  _emphasize_    __strong__
+  ```
+
+**Shortcuts**
+
+- Add/remove bold:
+      </textarea>
+    </div>
+    <div class='content-after' fxHide='{{!check}}'>
+      <div id='content-after'></div>
+    </div>
+    <div class='submit'>
+      <button md-raised-button class='submit-button' (click)='submit()'>发 布</button>
+    </div>
+  </md-card>
+</div>

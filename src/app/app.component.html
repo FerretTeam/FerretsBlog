@@ -9,7 +9,7 @@
     <input mdInput #toolbarSearchInput>
   </md-input-container>
   <md-icon class='toolbar-close-button' [style.opacity]='searchCloseButtonOpacity' (click)='close()' fxHide.xs>close</md-icon>
-  <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章' *ngIf='user' fxHide.xs>
+  <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章' *ngIf='user' (click)='gotoEdit()' fxHide.xs>
     <md-icon>note_add</md-icon>
   </button>
   <button md-icon-button mdTooltip='修改信息' *ngIf='user' (click)='gotoProfile()' fxHide.xs>
@@ -30,7 +30,7 @@
   <md-menu #toolbarMenu='mdMenu'>
     <button md-menu-item *ngIf='user == null' (click)='login("sign-up")'>注 册</button>
     <button md-menu-item *ngIf='user == null' (click)='login("sign-in")'>登 录</button>
-    <button md-menu-item *ngIf='user'>
+    <button md-menu-item *ngIf='user' (click)='gotoEdit()'>
       <md-icon>note_add</md-icon>
       <span>发表文章</span>
     </button>

@@ -62,4 +62,9 @@ export class AppComponent {
     this.router.navigate(['/']);
   }
 
+  gotoEdit() {
+    if (this.user != null)
+      this.router.navigate([this.user.username, 'edit']);
+  }
+
 }

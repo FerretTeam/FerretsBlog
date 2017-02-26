@@ -17,6 +17,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ArticleService } from './services/article/article.service';
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
+import { EditComponent } from './components/edit/edit.component';
 // Define the routes
 
 @NgModule({
@@ -26,7 +27,8 @@ import { UserService } from './services/user/user.service';
     ProfileComponent,
     ArticleComponent,
     WelcomeComponent,
-    LoginComponent
+    LoginComponent,
+    EditComponent
   ],
   imports: [
     MaterialModule.forRoot(),
