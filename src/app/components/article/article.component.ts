@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 import 'rxjs/add/operator/switchMap';
 import * as marked from 'marked';
 import highlightjs from 'highlight.js';
@@ -22,8 +23,8 @@ export class ArticleComponent implements OnInit {
   user: User;
 
   constructor(private articleService: ArticleService, private router: Router,
-              private userService: UserService, private activatedRoute: ActivatedRoute,
-              private authService: AuthService) {
+              public snackBar: MdSnackBar, private userService: UserService,
+              private activatedRoute: ActivatedRoute, private authService: AuthService) {
     // 取回文章的信息
     this.activatedRoute.params.subscribe(params => {
       this.article = this.articleService.getArticle(params['id']);
@@ -50,10 +51,13 @@ export class ArticleComponent implements OnInit {
 
   addComment() {
     var message = (<HTMLInputElement>document.getElementById('comment-content')).value;
-    var newComment = new Comment('test','.././assets/images/default-avatar.png' , message, '1小时前', 0);
+    var newComment = new Comment(this.user.username, this.user.userAvatarUrl, message, '刚刚', 0);
     this.comments.push(newComment);
-    var displayDate = new Date().toLocaleDateString();
-    console.log(displayDate);
+    this.snackBar.open('发布成功', '知道了', {
+      duration: 2000,
+    });
+    // TODO 将评论与时间关联
+    // var displayDate = new Date().toLocaleDateString();
   }
 
   gotoSignIn() {

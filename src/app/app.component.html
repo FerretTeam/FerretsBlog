@@ -1,23 +1,26 @@
 <md-toolbar class='toolbar flex-container'>
   <div class='ferrets-blog-logo' (click)='gotoHome()'></div>
-  <span class='ferrets-blog-title'>Ferrets</span>
   <span class='toolbar-filler'></span>
 
   <!-- 在非窄屏上显示的 toolbar 组件 -->
-  <md-icon class='toolbar-search-button' (click)='search()' fxHide.xs>search</md-icon>
-  <md-input-container class='toolbar-search-input' [style.width]='searchInputWidth + "px"' fxHide.xs>
+  <md-icon class='toolbar-search-button' (click)='search()'>search</md-icon>
+  <md-input-container class='toolbar-search-input' [style.width]='searchInputWidth + "px"'>
     <input mdInput #toolbarSearchInput>
   </md-input-container>
-  <md-icon class='toolbar-close-button' [style.opacity]='searchCloseButtonOpacity' (click)='close()' fxHide.xs>close</md-icon>
+  <md-icon class='toolbar-close-button' [style.opacity]='searchCloseButtonOpacity' (click)='close()'>close</md-icon>
   <button md-icon-button class='toolbar-icon-add' mdTooltip='发表文章' *ngIf='user' (click)='gotoEdit()' fxHide.xs>
     <md-icon>note_add</md-icon>
   </button>
-  <button md-icon-button mdTooltip='修改信息' *ngIf='user' (click)='gotoProfile()' fxHide.xs>
-    <md-icon>settings</md-icon>
-  </button>
   <button md-fab [mdMenuTriggerFor]='userAvatarMenu' class='user-avatar' *ngIf='user' [style.background-image]="'url(' + user.userAvatarUrl + ')'" fxHide.xs></button>
   <md-menu #userAvatarMenu='mdMenu' fxHide.xs>
-    <button md-menu-item (click)='signOut()'>退出登录</button>
+    <button md-menu-item *ngIf='user' (click)='gotoProfile()'>
+      <md-icon>settings</md-icon>
+      <span>修改信息</span>
+    </button>
+    <button md-menu-item *ngIf='user' (click)='signOut()'>
+      <md-icon>exit_to_app</md-icon>
+      <span>退出登录</span>
+    </button>
   </md-menu>
   <button md-button class='toolbar-button' *ngIf='user == null' (click)='login("sign-up")' fxHide.xs>注 册</button>
   <button md-button class='toolbar-button' *ngIf='user == null' (click)='login("sign-in")' fxHide.xs>登 录</button>
@@ -30,10 +33,6 @@
   <md-menu #toolbarMenu='mdMenu'>
     <button md-menu-item *ngIf='user == null' (click)='login("sign-up")'>注 册</button>
     <button md-menu-item *ngIf='user == null' (click)='login("sign-in")'>登 录</button>
-    <button md-menu-item *ngIf='user' (click)='gotoEdit()'>
-      <md-icon>note_add</md-icon>
-      <span>发表文章</span>
-    </button>
     <button md-menu-item *ngIf='user' (click)='gotoProfile()'>
       <md-icon>settings</md-icon>
       <span>修改信息</span>
@@ -46,17 +45,17 @@
 </md-toolbar>
 
 <!-- 占位 -->
-<div class='flex-container holy-grail' fxLayout='column'>
+<div class='flex-container holy-grail'>
   <md-toolbar></md-toolbar>
 
-  <div class='flex-item ferrets-blog-layout' fxFlex='100%'>
+  <div class='ferrets-blog-layout'>
     <router-outlet></router-outlet>
   </div>
 
-  <div class='footer'>
+  <footer class='footer'>
     <hr>
       <a href='http://www.ifanr.com/'>爱范儿</a> · <a href='https://www.huxiu.com/'>虎嗅网</a> · <a href='https://www.qcloud.com/'>腾讯云</a> · <a href='http://www.feng.com/'>威锋网</a> · <a href='http://www.sina.com.cn/'>新浪网</a> · <a href='https://www.zhihu.com/'>知乎</a> · <a href='https://github.com/'>Github</a> · <a href='http://www.zealer.com/'>ZEALER</a> · <a href='http://36kr.com/'>36氪</a>
     <br>
     <a class='record' href='http://www.miitbeian.gov.cn'>Ferrets 博客 / 粤ICP备16077413号-2</a>
-  </div>
+  </footer>
 </div>
