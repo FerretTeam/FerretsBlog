@@ -39,5 +39,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# 数据库
+/data
+
 # 证书文件
 /ssl
