@@ -18,7 +18,6 @@ import { ArticleService } from './services/article/article.service';
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
 import { EditComponent } from './components/edit/edit.component';
-import { CodemirrorModule } from 'ng2-codemirror';
 // Define the routes
 
 @NgModule({
@@ -37,8 +36,7 @@ import { CodemirrorModule } from 'ng2-codemirror';
     FormsModule,
     HttpModule,
     RoutingModule,
-    FlexLayoutModule,
-    CodemirrorModule
+    FlexLayoutModule
   ],
   providers: [ArticleService, AuthService, UserService],
   bootstrap: [AppComponent]
