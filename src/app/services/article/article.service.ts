@@ -66,7 +66,7 @@ export class ArticleService {
 
   constructor(private http: Http) {
     let i: number;
-    for (i = 0; i < 27; i++) {
+    for (i = 0; i < 77; i++) {
       // 深拷贝
       var newArticle = new Article(i, this.rawArticles[i % 3].date, this.rawArticles[i % 3].image,
                                    this.rawArticles[i % 3].title, this.rawArticles[i % 3].synopsis,
