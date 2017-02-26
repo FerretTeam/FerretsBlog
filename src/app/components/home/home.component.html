@@ -18,7 +18,7 @@
           <p class='article-synopsis'>{{article.synopsis}}</p>
         </md-card-content>
         <md-card-actions>
-          <button md-icon-button mdTooltip='修改文章'>
+          <button md-icon-button (click)='gotoEdit(article.id)' mdTooltip='修改文章'>
             <md-icon>create</md-icon>
           </button>
           <button md-icon-button mdTooltip='分享文章'>

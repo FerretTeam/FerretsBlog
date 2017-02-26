@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as marked from 'marked';
 import highlightjs from 'highlight.js';
+import { Article, Comment } from '../../services/article/article';
+import { ArticleService } from '../../services/article/article.service';
+import { ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -9,8 +12,12 @@ import highlightjs from 'highlight.js';
 })
 export class EditComponent implements OnInit {
   check: boolean
+  param: number
+  article: Article;
+  data: string;
+  comments: Comment[];
 
-  constructor() {
+  constructor(private articleService: ArticleService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.check = false;
     // 设定 marked 的参数
     const renderer = new marked.Renderer();
@@ -21,9 +28,20 @@ export class EditComponent implements OnInit {
     };
 
     marked.setOptions({ renderer });
+
+    // 取回文章信息
+    this.activatedRoute.params.subscribe(params => {
+      this.param = params['id'];
+    });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.param) {
+      this.article = this.articleService.getArticle(this.param);
+      this.comments = this.article.comments;
+      document.getElementById('content-before').innerHTML = this.article.contents;
+    }
+  }
 
   contentChange() {
     this.check = !this.check;

@@ -46,6 +46,11 @@ export class HomeComponent implements OnInit {
     this.router.navigate(link);
   }
 
+  gotoEdit(id: number) {
+    let link = [this.userService.getUserInfo().username, 'edit', id];
+    this.router.navigate(link);
+  }
+
   turnPage(newPageNumber: number) {
     let newArticles: Article[] = [];
     newArticles = this.articleService.getArticles(newPageNumber);

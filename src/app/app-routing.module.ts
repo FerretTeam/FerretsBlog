@@ -33,6 +33,10 @@ const appRouters: Routes = [
     component: EditComponent
   },
   {
+    path: ':user/edit/:id',
+    component: EditComponent
+  },
+  {
     path: 'welcome',
     component: WelcomeComponent
   },
