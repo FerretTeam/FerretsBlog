@@ -13,6 +13,7 @@ import { ActivatedRoute, Router} from '@angular/router';
 export class EditComponent implements OnInit {
   check: boolean
   param: number
+  update: boolean
   article: Article;
   data: string;
   comments: Comment[];
@@ -34,30 +35,42 @@ export class EditComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.param = params['id'];
     });
+
+    this.update = false;
   }
 
   ngOnInit() {
     if (this.param) {
       // 取回文章
+      this.update = true;
       this.article = this.articleService.getArticle(this.param);
       this.comments = this.article.comments;
       (<HTMLInputElement>document.getElementById('article-title')).value = this.article.title;
       document.getElementById('content-before').innerHTML = this.article.contents;
-      document.getElementById('submit-button').innerHTML = '更 新';
     }
   }
 
   contentChange() {
     this.check = !this.check;
     document.getElementById('content-after').innerHTML = marked(document.getElementById('content-before').innerHTML);
+    // var element  = document.getElementById('content-after');
+    // if(element.className == "markdown-body"){
+    //     element.className += ' content-after-avtice';
+    // }else{
+    //     element.className = 'markdown-body';
+    // }
   }
 
-  submit() {
+  submitArticle() {
     var title = (<HTMLInputElement>document.getElementById('article-title')).value;
     if ( title == '') {
       console.log('Input title');
     }
     // add article
+  }
+
+  updateArticle() {
+    // update article
   }
 
 

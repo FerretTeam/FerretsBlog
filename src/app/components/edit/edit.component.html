@@ -33,11 +33,14 @@ int main() {
 * 你可以在 [这里] (https://github.com/younghz/Markdown)找到更多关于 Markdown 的信息。
       </textarea>
     </div>
-    <div class='content-after' fxHide='{{!check}}'>
+    <div class='content-after' fxHide={{!check}}>
       <div id='content-after' class='markdown-body'></div>
     </div>
-    <div class='submit'>
-      <button md-raised-button class='submit-button' (click)='submit()' id='submit-button'>发 布</button>
+    <div class='submit' fxHide='{{update}}'>
+      <button md-raised-button class='submit-button' (click)='submitArticle()' id='submit-button'>发 布</button>
+    </div>
+    <div class='update' fxHide='{{!update}}'>
+      <button md-raised-button class='update-button' (click)='updateArticle()' id='update-button'>更 新</button>
     </div>
   </md-card>
 </div>
