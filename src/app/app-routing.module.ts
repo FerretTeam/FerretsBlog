@@ -17,7 +17,7 @@ const appRouters: Routes = [
     pathMatch: 'full'
   },
   {
-    path: ':user/home',
+    path: ':user/home/:page',
     component: HomeComponent
   },
   {

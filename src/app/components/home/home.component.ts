@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Article, Tag } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
@@ -21,20 +21,33 @@ export class HomeComponent implements OnInit {
   localPageNumbers: number[] = [];
 
   constructor(private articleService: ArticleService, private router: Router,
-              private authService: AuthService, private userService: UserService) {
+              private authService: AuthService, private userService: UserService,
+              private activatedRoute: ActivatedRoute) {
     // 如果未登录，则跳转至 /welcome 页面
     if (this.authService.getPassport() == null)
       this.router.navigate(['/welcome']);
 
-    // 获得第 1 页的文章
-    this.pageNumber = 1;
-    this.articles = this.articleService.getArticles(this.pageNumber);
-    this.maxPageNumber = this.articleService.getMaxPageNumber();
-    if (this.maxPageNumber > 5) {
-      for (let i = 1; i <= 5; i++) this.localPageNumbers.push(i);
-    } else {
-      for (let i = 1; i <= this.maxPageNumber; i++) this.localPageNumbers.push(i);
-    }
+    this.activatedRoute.params.subscribe(params => {
+      // 获取指定页的文章
+      this.pageNumber = parseInt(params['page']);
+      this.articles = this.articleService.getArticles(this.pageNumber);
+      this.maxPageNumber = this.articleService.getMaxPageNumber();
+      // 计算显示在下方的页码有哪些
+      this.localPageNumbers = [];
+      if (this.pageNumber <= 3) {
+        for (let i = 1; i <= Math.min(this.maxPageNumber, 5); i++)
+          this.localPageNumbers.push(i);
+      } else {
+        let count: number = 0;
+        for (let i = Math.min(this.maxPageNumber, this.pageNumber + 2); i > 0; i--) {
+          this.localPageNumbers.push(i);
+          count++;
+          if (count >= 5) break;
+        }
+        this.localPageNumbers.reverse();
+      }
+    });
+
     // 获取最热文章
     this.popArticles = this.articleService.getPopularArticles();
     // 获取标签
@@ -52,28 +65,8 @@ export class HomeComponent implements OnInit {
   }
 
   turnPage(newPageNumber: number) {
-    let newArticles: Article[] = [];
-    newArticles = this.articleService.getArticles(newPageNumber);
-    if (newArticles != null) {
-      this.articles = newArticles;
-      this.pageNumber = newPageNumber;
-      this.maxPageNumber = this.articleService.getMaxPageNumber();
-      // 计算显示在下方的页码有哪些
-      this.localPageNumbers = [];
-      if (this.pageNumber <= 3) {
-        for (let i = 1; i <= Math.min(this.maxPageNumber, 5); i++)
-          this.localPageNumbers.push(i);
-      } else {
-        let count: number = 0;
-        for (let i = Math.min(this.maxPageNumber, this.pageNumber + 2); i > 0; i--) {
-          this.localPageNumbers.push(i);
-          count++;
-          if (count >= 5) break;
-        }
-        this.localPageNumbers.reverse();
-      }
-      window.scrollTo(0, 0);
-    }
+    let link = [this.userService.getUserInfo().username, 'home', newPageNumber];
+    this.router.navigate(link);
   }
 
   ngOnInit() {
