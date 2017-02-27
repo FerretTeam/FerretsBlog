@@ -36,9 +36,10 @@ int main() {
     </div>
 
     <div class='cover-style'>
-      <div class='cover'>
+      <div>
         选择封面图片
-        <image-upload [max]="1" [preview]="true" [buttonCaption]="'Select Image'"></image-upload>
+        <input type='file' accept='image/x-png, image/jpeg' (change)='changeListner($event)' id='article-image'>
+        <img id='selected-image'>
       </div>
       <div class='digest'>
         文章摘要

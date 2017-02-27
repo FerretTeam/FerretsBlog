@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     if (this.authService.signIn('', ''))
       this.user = this.userService.getUserInfo();
     if (this.user != null)
-      this.router.navigate([this.user.username, 'home']);
+      this.router.navigate([this.user.username, 'home', 1]);
   }
 
   signUpCheck() {}

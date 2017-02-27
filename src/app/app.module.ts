@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ImageUploadModule } from 'angular2-image-upload';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -33,7 +32,6 @@ import { EditComponent } from './components/edit/edit.component';
   ],
   imports: [
     MaterialModule.forRoot(),
-    ImageUploadModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,

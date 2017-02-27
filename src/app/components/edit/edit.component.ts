@@ -75,5 +75,15 @@ export class EditComponent implements OnInit {
     // update article
   }
 
+  changeListner(event) {
+    var reader = new FileReader();
+    var image = (<HTMLInputElement>document.getElementById('selected-image'));
+
+    reader.onload = function(e: any) {
+      image.src = e.target.result;
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+  }
 
 }
