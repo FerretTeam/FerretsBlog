@@ -34,6 +34,19 @@ int main() {
       </textarea>
       <div id='content-after' class='markdown-body content-after'></div>
     </div>
+
+    <div class='cover-style'>
+      <div class='cover'>
+        选择封面图片
+        <image-upload [max]="1" [preview]="true" [buttonCaption]="'Select Image'"></image-upload>
+      </div>
+      <div class='digest'>
+        文章摘要
+        <span>选填，如果不填写会默认选择正文前60个字</span>
+        <textarea id='digest-content'></textarea>
+      </div>
+    </div>
+
     <div class='submit' fxHide='{{update}}'>
       <button md-raised-button class='submit-button' (click)='submitArticle()' id='submit-button'>发 布</button>
     </div>

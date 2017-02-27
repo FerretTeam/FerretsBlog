@@ -11,16 +11,19 @@ import { ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./edit.component.sass']
 })
 export class EditComponent implements OnInit {
-  check: boolean
-  param: number
-  update: boolean
+  check: boolean;
+  param: number;
+  update: boolean;
   article: Article;
   data: string;
   comments: Comment[];
+  imageurl: string;
 
   constructor(private articleService: ArticleService, private router: Router,
               private activatedRoute: ActivatedRoute) {
     this.check = false;
+    this.update = false;
+
     // 设定 marked 的参数
     const renderer = new marked.Renderer();
     renderer.code = (code, language) => {
@@ -31,12 +34,11 @@ export class EditComponent implements OnInit {
 
     marked.setOptions({ renderer });
 
-    // 尝试读取文章的编号
+    // 读取文章的编号
     this.activatedRoute.params.subscribe(params => {
       this.param = params['id'];
     });
 
-    this.update = false;
   }
 
   ngOnInit() {
