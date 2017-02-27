@@ -4,11 +4,11 @@
   <md-card class='editor-wrapper'>
     <input class='title' id='article-title' placeholder='文章标题'>
     <div class='toolbar'>
-      <button md-icon-button mdTooltip='预 览' (click)='contentChange()' fxHide.xs>
+      <button md-icon-button (click)='contentChange()' fxHide.xs>
         <md-icon>visibility</md-icon>
       </button>
     </div>
-    <div class='content-before' fxHide='{{check}}'>
+    <div class='content'>
       <textarea id='content-before'>
 ## 用 Markdown 创建新的文章
 
@@ -32,9 +32,7 @@ int main() {
 
 * 你可以在 [这里] (https://github.com/younghz/Markdown)找到更多关于 Markdown 的信息。
       </textarea>
-    </div>
-    <div class='content-after' fxHide={{!check}}>
-      <div id='content-after' class='markdown-body'></div>
+      <div id='content-after' class='markdown-body content-after'></div>
     </div>
     <div class='submit' fxHide='{{update}}'>
       <button md-raised-button class='submit-button' (click)='submitArticle()' id='submit-button'>发 布</button>

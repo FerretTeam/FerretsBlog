@@ -53,12 +53,12 @@ export class EditComponent implements OnInit {
   contentChange() {
     this.check = !this.check;
     document.getElementById('content-after').innerHTML = marked(document.getElementById('content-before').innerHTML);
-    // var element  = document.getElementById('content-after');
-    // if(element.className == "markdown-body"){
-    //     element.className += ' content-after-avtice';
-    // }else{
-    //     element.className = 'markdown-body';
-    // }
+    var element  = document.getElementById('content-after');
+    if(element.className == "markdown-body content-after"){
+        element.className += ' content-after-active';
+    }else{
+        element.className = 'markdown-body content-after';
+    }
   }
 
   submitArticle() {
