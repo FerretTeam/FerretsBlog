@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+
 import { Passport } from './passport';
 import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable()
 export class AuthService {
   private headers = new Headers({'Content-Type': 'application/json'});
-
+  
   constructor(private http: Http) {}
 
   // 加密密码

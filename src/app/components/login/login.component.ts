@@ -14,15 +14,11 @@ import { Validator } from '../../services/auth/validator'
 })
 export class LoginComponent implements OnInit {
   user: User = null;
-  username: string = '';
   errorMessage: string = '';
   validator: Validator = new Validator();
 
   constructor(private router: Router, private authService: AuthService,
               private userService: UserService, public snackBar: MdSnackBar) {
-    // 试图获取用户的用户名
-    let temp: User = this.userService.getUserInfo();
-    if (temp != null) this.username = temp.username;
     // 进入这个页面则退出当前登录
     this.authService.signOut();
   }
@@ -52,7 +48,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.user.username, 'home', 1]);
         } else {
           this.authService.signOut();
-          this.errorMessage = '登录失败';
+          this.errorMessage = data;
         }
       }
     );
@@ -81,7 +77,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.user.username, 'home', 1]);
         } else {
           this.authService.signOut();
-          this.errorMessage = '注册失败';
+          this.errorMessage = data;
         }
       }
     );
