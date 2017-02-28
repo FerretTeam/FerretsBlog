@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const mongoose = require('mongoose');
 
-// Database settings
+// 设置数据库
 const databaseUrl = 'mongodb://localhost:5050/ferrets-blog-database';
 mongoose.connect(databaseUrl);
 

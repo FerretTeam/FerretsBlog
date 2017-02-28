@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   signInCheck() {
-    if (this.authService.signIn('', ''))
+    if (this.authService.signIn('liuren', '123123'))
       this.user = this.userService.getUserInfo();
     if (this.user != null)
       this.router.navigate([this.user.username, 'home', 1]);
