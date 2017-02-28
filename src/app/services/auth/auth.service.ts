@@ -23,21 +23,26 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('passport'));
   }
 
-  // 登入
+  // 登录
   signIn(username: string, password: string) {
+    // 清空本地缓存
+    localStorage.removeItem('passport');
+    // 创建新的凭证
     let passport: Passport = new Passport(username, this.encryptPassword(password));
-
-    // TODO 将生成的凭证上传验证
+    // 将凭证发往后端进行校验，成功则将其缓存到本地
     this.http.post('/api/sign-in', JSON.stringify(passport), {headers: this.headers})
              .toPromise()
-             .then(res => console.log(res.json()));
-
-    localStorage.setItem('passport', JSON.stringify(passport));
-    return true;
+             .then((res) => {
+               if (res.json() == 'true') localStorage.setItem('passport', JSON.stringify(passport));
+             });
+    // 若缓存成功则登录成功，反之则没有
+    if (JSON.parse(localStorage.getItem('passport')) != null) return true;
+    else return false;
   }
 
   // 登出
   signOut() {
+    // 清空本地缓存
     localStorage.removeItem('passport');
     return true;
   }

@@ -12,10 +12,22 @@ const passportSchema = new mongoose.Schema({
 // 定义模型
 const Passport = mongoose.model('Passport', passportSchema);
 
-// GET api listing
+// 登录
 router.post('/sign-in', (req, res) => {
-  console.log(req.body);
-  res.json('123');
+  // 创建新的凭证
+  var passport = new Passport({
+    username: req.body.username,
+    encryptedPassword: req.body.encryptedPassword
+  });
+  // 在数据库中进行比对，若匹配则用户登录成功
+  Passport.find(passport, function(err, passport_) {
+    if (err) {
+      console.error(err);
+      res.json(false);
+    }
+    if (passport_.length != 1) res.json(false);
+    else res.json(true);
+  });
 });
 
 module.exports = router;
