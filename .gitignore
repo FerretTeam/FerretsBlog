@@ -41,6 +41,8 @@ Thumbs.db
 
 # 数据库
 /data
+mongod.log
+mongod.pid
 
 # 证书文件
 /ssl

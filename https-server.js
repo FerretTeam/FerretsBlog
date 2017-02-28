@@ -5,52 +5,54 @@ const https = require('https');
 const http = require('http');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const mongoose = require('mongoose');
 
-// Get our API routes
-const api = require('./routes/api');
+// Database settings
+const databaseUrl = 'mongodb://localhost:5050/ferrets-blog-database';
+mongoose.connect(databaseUrl);
 
-const app = express();
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // Get our API routes
+  const api = require('./routes/api');
 
-// Parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+  const app = express();
 
-// Point static path to dist
-app.use(express.static(path.join(__dirname, 'dist')));
+  // Parsers for POST data
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
 
-// Set our api routes
-app.use('/api', api);
+  // Point static path to dist
+  app.use(express.static(path.join(__dirname, 'dist')));
 
-// Catch all other routes and return the index file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
-});
+  // Set our api routes
+  app.use('/api', api);
 
-/**
- * Get port from environment and store in Express.
- */
+  // Catch all other routes and return the index file
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+  });
 
-const port = process.env.PORT || '443';
-app.set('port', port);
+  // Get port from environment and store in Express.
+  const port = process.env.PORT || '443';
+  app.set('port', port);
 
-var privateKey = fs.readFileSync('./ssl/2_ferrets.me.key');
-var certificate = fs.readFileSync('./ssl/1_ferrets.me_bundle.crt');
+  var privateKey = fs.readFileSync('./ssl/2_ferrets.me.key');
+  var certificate = fs.readFileSync('./ssl/1_ferrets.me_bundle.crt');
 
-/**
- * Create HTTPS server.
- */
-const server = https.createServer({
-  key: privateKey,
-  cert: certificate
-}, app);
+  // Create HTTPS server.
+  const server = https.createServer({
+    key: privateKey,
+    cert: certificate
+  }, app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-server.listen(port, () => console.log(`Ferrets Blog is running on localhost:${port}`));
+  // Listen on provided port, on all network interfaces.
+  server.listen(port, () => console.log(`Ferrets Blog is running on localhost:${port}`));
 
-// 增加从 http 到 https 的重定向
-http.createServer(function (req, res) {
-  res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-  res.end();
-}).listen(80);
+  // 增加从 http 到 https 的重定向
+  http.createServer(function (req, res) {
+    res.writeHead(301, { 'Location': 'https://' + req.headers['host'] + req.url });
+    res.end();
+  }).listen(80);
+}
