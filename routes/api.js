@@ -23,11 +23,17 @@ router.post('/sign-in', (req, res) => {
   Passport.find(passport, function(err, passport_) {
     if (err) {
       console.error(err);
-      res.json(false);
+      res.json('false');
     }
     if (passport_.length != 1) res.json(false);
-    else res.json(true);
+    else res.json('true');
   });
+});
+
+// 注册
+router.post('/sign-up', (req, res) => {
+  console.log(req.body);
+  res.json('true');
 });
 
 module.exports = router;
