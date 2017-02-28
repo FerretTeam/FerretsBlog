@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as marked from 'marked';
 import highlightjs from 'highlight.js';
-import { Article, Comment } from '../../services/article/article';
+import { Article } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
 import { ActivatedRoute, Router} from '@angular/router';
 
@@ -16,7 +16,6 @@ export class EditComponent implements OnInit {
   update: boolean;
   article: Article;
   data: string;
-  comments: Comment[];
   imageurl: string;
 
   constructor(private articleService: ArticleService, private router: Router,
@@ -46,7 +45,6 @@ export class EditComponent implements OnInit {
       // 取回文章
       this.update = true;
       this.article = this.articleService.getArticle(this.param);
-      this.comments = this.article.comments;
       (<HTMLInputElement>document.getElementById('article-title')).value = this.article.title;
       document.getElementById('content-before').innerHTML = this.article.contents;
     }
@@ -71,19 +69,20 @@ export class EditComponent implements OnInit {
     // add article
   }
 
+  changeListner(event) {
+   var reader = new FileReader();
+   var image = (<HTMLInputElement>document.getElementById('selected-image'));
+
+   reader.onload = function(e: any) {
+     image.src = e.target.result;
+   };
+
+   reader.readAsDataURL(event.target.files[0]);
+ }
+
   updateArticle() {
     // update article
   }
 
-  changeListner(event) {
-    var reader = new FileReader();
-    var image = (<HTMLInputElement>document.getElementById('selected-image'));
-
-    reader.onload = function(e: any) {
-      image.src = e.target.result;
-    };
-
-    reader.readAsDataURL(event.target.files[0]);
-  }
 
 }

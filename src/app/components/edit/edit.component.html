@@ -2,10 +2,11 @@
 
 <div class='edit-layout'>
   <md-card class='editor-wrapper'>
-    <input class='title' id='article-title' placeholder='文章标题'>
+    <input class='title' maxlength="20" id='article-title' placeholder='请在此输入文章标题'>
     <div class='toolbar'>
-      <button md-icon-button (click)='contentChange()' fxHide.xs>
-        <md-icon>visibility</md-icon>
+      <button md-icon-button mdTooltip='预览' (click)='contentChange()' fxHide.xs>
+        <md-icon fxHide='{{check}}'>visibility</md-icon>
+        <md-icon fxHide='{{!check}}'>mode_edit</md-icon>
       </button>
     </div>
     <div class='content'>
@@ -36,15 +37,15 @@ int main() {
     </div>
 
     <div class='cover-style'>
-      <div>
+      <div class='cover-img'>
         选择封面图片
         <input type='file' accept='image/x-png, image/jpeg' (change)='changeListner($event)' id='article-image'>
         <img id='selected-image'>
       </div>
       <div class='digest'>
         文章摘要
-        <span>选填，如果不填写会默认选择正文前60个字</span>
-        <textarea id='digest-content'></textarea>
+        <textarea id='digest-content' #text maxlength="60" ></textarea>
+        <md-hint align="end">{{text.value.length}} / 60</md-hint>
       </div>
     </div>
 
