@@ -69,14 +69,20 @@ export class LoginComponent implements OnInit {
     // 调用 service 注册，注册成功则获取用户信息
     this.authService.signUp(formData.username_, formData.password_).subscribe(
       (data) => {
-        if (data == 'true')
-          this.user = this.userService.createNewUser(formData.username_, formData.email_);
-        // 如果成功注册，则路由至登录页面，否则报错
-        if (this.user != null) {
-          this.snackBar.open('注册成功', '知道了', {
-            duration: 2000,
-          });
-          this.router.navigate(['/login', 'sign-in']);
+        if (data == 'true') {
+          this.userService.createNewUser(formData.username_, formData.email_).subscribe(
+            (data_) => {
+              this.user = data_;
+              // 如果成功注册，则路由至登录页面，否则报错
+              if (this.user != null) {
+                this.snackBar.open('注册成功', '知道了', {
+                  duration: 2000,
+                });
+                this.authService.signOut();
+                this.router.navigate(['/login', 'sign-in']);
+              }
+            }
+          );
         } else {
           this.authService.signOut();
           this.errorMessage = data;

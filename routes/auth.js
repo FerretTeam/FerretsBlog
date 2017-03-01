@@ -1,17 +1,8 @@
 const mongoose = require('mongoose');
 
-module.exports = function(router) {
-  // 定义模式
-  const passportSchema = new mongoose.Schema({
-    username: String,
-    encryptedPassword: String
-  });
-
-  // 定义模型
-  const Passport = mongoose.model('Passport', passportSchema);
-
+module.exports = function(router, Passport) {
   // 后端校验
-  validator = function(passport) {
+  authValidator = function(passport) {
     // 从凭证中取出数据
     var username = passport.username;
     var password = passport.encryptedPassword;
@@ -44,7 +35,7 @@ module.exports = function(router) {
       encryptedPassword: req.body.encryptedPassword
     });
     // 进行后端校验
-    var errorMessage = validator(passport);
+    var errorMessage = authValidator(passport);
     if (errorMessage != '')
       res.json(errorMessage);
     // 在数据库中进行比对，若匹配则用户登录成功
@@ -67,7 +58,7 @@ module.exports = function(router) {
       encryptedPassword: req.body.encryptedPassword
     });
     // 进行后端校验
-    var errorMessage = validator(passport);
+    var errorMessage = authValidator(passport);
     if (errorMessage != '')
       res.json(errorMessage);
     // 在数据库中比对，确保没有重名用户

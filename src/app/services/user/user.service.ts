@@ -22,11 +22,10 @@ export class UserService {
     let passport: Passport = this.authService.getPassport();
     if (passport != null) {
       // 将用户信息发往后端创建一个新的用户
-      this.http.post('/api/create-user',
-                     {passport: JSON.stringify(passport), username: username, email: email},
-                     {headers: this.headers})
-               .map((res) => res.json());
-      return this.user;
+      return this.http.post('/api/create-user',
+                            {passport: JSON.stringify(passport), username: username, email: email},
+                            {headers: this.headers})
+                      .map(res => res.json());
     }
   }
 
