@@ -21,7 +21,7 @@ router.post('/sign-in', (req, res) => {
   });
   // 在数据库中进行比对，若匹配则用户登录成功
   Passport.find({username: passport.username,
-                 password: passport.password}, function(err, passport_) {
+                 encryptedPassword: passport.encryptedPassword}, function(err, passport_) {
     if (err) {
       console.error(err);
       res.json('出现异常，请联系管理员');
