@@ -5,13 +5,13 @@
   <md-card class='login-card'>
     <form #signUpInfo='ngForm' class='info-form'>
       <md-input-container class='login-input'>
-        <input mdInput placeholder='用户名' [ngModel] name='username_' (blur)='signUpValidator(signUpInfo.value)'>
+        <input mdInput placeholder='用户名' [ngModel] name='username_' (blur)='signUpValidator(signUpInfo.value, 0)'>
       </md-input-container>
       <md-input-container class='login-input'>
-        <input mdInput placeholder='电子邮箱' [ngModel] type='email' name='email_' (blur)='signUpValidator(signUpInfo.value)'>
+        <input mdInput placeholder='电子邮箱' [ngModel] type='email' name='email_' (blur)='signUpValidator(signUpInfo.value, 1)'>
       </md-input-container>
       <md-input-container class='login-input'>
-        <input mdInput placeholder='密 码' [ngModel] type='password' name='password_' (blur)='signUpValidator(signUpInfo.value)'>
+        <input mdInput placeholder='密 码' [ngModel] type='password' name='password_' (blur)='signUpValidator(signUpInfo.value, 2)'>
       </md-input-container>
       <div class='error-message'>{{errorMessage}}</div>
       <button md-raised-button class='sign-up-button' (click)='signUpCheck(signUpInfo.value)'>注 册</button>
@@ -29,10 +29,10 @@
   <md-card class='login-card'>
     <form #signInInfo='ngForm' class='info-form'>
       <md-input-container class='login-input'>
-        <input mdInput placeholder='用户名或电子邮箱' type='text' name='username' [ngModel] (blur)='signInValidator(signInInfo.value)'>
+        <input mdInput placeholder='用户名' type='text' name='username' [ngModel] (blur)='signInValidator(signInInfo.value, 0)'>
       </md-input-container>
       <md-input-container class='login-input'>
-        <input mdInput placeholder='密 码' type='password' name='password' [ngModel] (blur)='signInValidator(signInInfo.value)'>
+        <input mdInput placeholder='密 码' type='password' name='password' [ngModel] (blur)='signInValidator(signInInfo.value, 1)'>
       </md-input-container>
       <div class='error-message'>{{errorMessage}}</div>
       <button md-raised-button class='sign-up-button' (click)='signInCheck(signInInfo.value)'>登 录</button>

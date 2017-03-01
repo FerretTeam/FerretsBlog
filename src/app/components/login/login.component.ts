@@ -21,17 +21,19 @@ export class LoginComponent implements OnInit {
               private userService: UserService, public snackBar: MdSnackBar) {
     // 进入这个页面则退出当前登录
     this.authService.signOut();
+    // 页面发生变化时清空报错
+    this.router.events.subscribe(path => this.errorMessage = '');
   }
 
   ngOnInit() {}
 
-  signInValidator(formData) {
-    this.errorMessage = this.validator.signInValidator(formData);
+  signInValidator(formData, inputId) {
+    this.errorMessage = this.validator.signInValidator(formData, inputId);
   }
 
   signInCheck(formData) {
     // 用户名密码须通过校验
-    this.signInValidator(formData);
+    this.signInValidator(formData, -1);
     if (this.errorMessage != '') return;
 
     this.user = null;
@@ -54,13 +56,13 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  signUpValidator(formData) {
-    this.errorMessage = this.validator.signUpValidator(formData);
+  signUpValidator(formData, inputId) {
+    this.errorMessage = this.validator.signUpValidator(formData, inputId);
   }
 
   signUpCheck(formData) {
     // 上传的信息必须通过校验
-    this.signUpValidator(formData);
+    this.signUpValidator(formData, -1);
     if (this.errorMessage != '') return;
 
     this.user = null;
@@ -84,7 +86,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(pageName) {
-    this.errorMessage = '';
     this.router.navigate(['/login', pageName]);
   }
 }
