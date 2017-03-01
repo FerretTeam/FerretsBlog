@@ -43,7 +43,7 @@ export class ArticleService {
   rawComments: Comment[] = [
     {
       username: '桉',
-      userAvatarUrl: '.././assets/images/user-avatar2.png',
+      userAvatarUrl: '.././assets/images/user-avatar2.jpg',
       message: '到目前为止，飞行汽车仍然是一个概念，虽然不少人都希望这类交通工具能够缓解甚至解决当前的城市交通问题。今天，我们就来说一说那些正在开发的飞行汽车。',
       time: '2 小时前',
       likes: 16

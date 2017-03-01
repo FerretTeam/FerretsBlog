@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   // 注册
-  signUp(username: string, email:string, password: string) {
+  signUp(username: string, password: string) {
     // 清空本地缓存
     localStorage.removeItem('passport');
     // 创建新的凭证并存入本地（若注册失败将在调用处调用 signOut() 删除）
