@@ -22,6 +22,7 @@ export class EditComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
     this.mode = '预 览';
     this.update = false;
+    this.imageurl = null;
 
     // 设定 marked 的参数
     const renderer = new marked.Renderer();
@@ -37,7 +38,6 @@ export class EditComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.param = params['id'];
     });
-
   }
 
   ngOnInit() {
@@ -47,6 +47,7 @@ export class EditComponent implements OnInit {
       this.article = this.articleService.getArticle(this.param);
       (<HTMLInputElement>document.getElementById('article-title')).value = this.article.title;
       document.getElementById('content-before').innerHTML = this.article.contents;
+      this.imageurl = this.article.image;
     }
   }
 
@@ -62,26 +63,28 @@ export class EditComponent implements OnInit {
     }
   }
 
-  submitArticle() {
-    var title = (<HTMLInputElement>document.getElementById('article-title')).value;
-    if ( title == '') {
-      console.log('Input title');
-    }
-    // add article
-  }
-
   changeListner(event) {
     var reader = new FileReader();
-    //  var image = (<HTMLInputElement>document.getElementById('selected-image'));
-    //
-    //  reader.onload = function(e: any) {
-    //    image.src = e.target.result;
-    //  };
+    var image = (<HTMLInputElement>document.getElementById('selected-image'));
+
+    reader.onload = function(e: any) {
+      image.style.backgroundImage = 'url(' + e.target.result + ')';
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  removeCurrentImage() {
+    var image = (<HTMLInputElement>document.getElementById('selected-image'));
+    image.style.backgroundImage = 'url()';
+  }
+
+  submitArticle() {
+    // TODO 提交文章
   }
 
   updateArticle() {
-    // update article
+    // TODO 更新文章
   }
-
 
 }

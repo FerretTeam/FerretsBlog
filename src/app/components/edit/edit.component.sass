@@ -67,15 +67,38 @@
       margin-bottom: 8px
       font-size: 22px
 
+    #selected-image
+      height: 135px
+      width: 240px
+      background-repeat: no-repeat
+      background-position: center center
+      background-size: cover
+      display: inline-block
+
     .img-upload-button
-      height: 90px
-      width: 120px
+      height: 135px
+      width: 240px
       text-align: center
-      line-height: 90px
-      border: 1px solid #f2f2f2
-      color: #2196F3
+      line-height: 135px
+      color: #FFFFFF
+      background: rgba(0, 0, 0, 0.2)
       display: inline-block
       vertical-align: top
+      position: absolute
+      transition: background 0.3s
+      -moz-transition: background 0.3s
+      -webkit-transition: background 0.3s
+      transition-timing-function: ease-in-out
+      -moz-transition-timing-function: ease-in-out
+      -webkit-transition-timing-function: ease-in-out
+
+    .img-upload-button:hover
+      background: rgba(0, 0, 0, 0.4)
+
+    .delete-button
+      color: rgb(114, 114, 114)
+      vertical-align: bottom
+      display: inline-block
 
     .cover-img
       padding: 16px
@@ -100,7 +123,6 @@
         color: rgb(200, 200, 200)
         position: relative
 
-
     .submit
       padding: 16px
       text-align: right
@@ -110,7 +132,7 @@
          color: white
 
     .update
-      padding-top: 16px
+      padding: 16px
       text-align: right
 
       .update-button

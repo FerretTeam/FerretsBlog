@@ -45,8 +45,10 @@ int main() {
   <md-card class='editor-wrapper'>
     <div class='cover-img'>
       <div class='title'>封面图片</div>
-      <label for='article-image' class='img-upload-button'>浏览文件</label>
+      <label for='article-image' class='img-upload-button'>选择图片</label>
+      <div id='selected-image' [style.background-image]="'url(' + imageurl + ')'"></div>
       <input type='file' accept='image/x-png, image/jpeg' (change)='changeListner($event)' id='article-image'>
+      <button md-icon-button (click)='removeCurrentImage()' class='delete-button'><md-icon>delete</md-icon></button>
     </div>
     <div class='digest'>
       <div class='title'>文章摘要</div>
