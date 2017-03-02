@@ -20,10 +20,14 @@ export class UserService {
 
   // 获取用户信息
   getUserInfo() {
-    // TODO 从后端获取用户信息
-    // let passport = this.authService.getPassport();
-    // return this.http.post('/api/get-user', JSON.stringify(passport), {headers: this.headers})
-    //                 .map((res) => res.json());
+    let passport = this.authService.getPassport();
+    this.http.post('/api/get-user', JSON.stringify(passport), {headers: this.headers})
+             .map((res) => {
+               let temp = res.json();
+               return new User(temp.id, temp.username, temp.email, temp.userAvatarUrl,
+                               temp.totalCharacters, temp.totalReading, temp.totalLikes,
+                               temp.introduction, temp.field);
+             });
     return this.user;
   }
 
