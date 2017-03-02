@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 import { AuthService } from '../auth/auth.service';
 import { Passport } from '../auth/passport';
@@ -19,7 +20,10 @@ export class UserService {
 
   // 获取用户信息
   getUserInfo() {
-    // TODO 将 authService.getPassport() 和获取请求一并发往服务器
+    // TODO 从后端获取用户信息
+    // let passport = this.authService.getPassport();
+    // return this.http.post('/api/get-user', JSON.stringify(passport), {headers: this.headers})
+    //                 .map((res) => res.json());
     return this.user;
   }
 

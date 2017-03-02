@@ -17,9 +17,10 @@ module.exports = function(router, Passport, User) {
 
   // 获取用户
   router.post('/get-user', (req, res) => {
-    checkPassport(JSON.parse(req.body.passport), function(data) {
+    checkPassport(req.body, function(data) {
       if (data == 'true') {
         // TODO 获取用户信息
+        res.json('haha');
       } else {
         // 返回报错信息
         res.json(data);
