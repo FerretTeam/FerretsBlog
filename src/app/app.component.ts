@@ -22,6 +22,8 @@ export class AppComponent {
     this.router.events.subscribe(path => {
       if (this.authService.getPassport() != null)
         this.userService.getUserInfo().subscribe(data => this.user = data);
+      else
+        this.user = null;
       window.scrollTo(0, 0);
     });
     this.searchInputWidth = 0;

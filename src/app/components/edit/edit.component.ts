@@ -11,7 +11,7 @@ import { ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./edit.component.sass']
 })
 export class EditComponent implements OnInit {
-  check: boolean;
+  mode: string;
   param: number;
   update: boolean;
   article: Article;
@@ -20,7 +20,7 @@ export class EditComponent implements OnInit {
 
   constructor(private articleService: ArticleService, private router: Router,
               private activatedRoute: ActivatedRoute) {
-    this.check = false;
+    this.mode = '预 览';
     this.update = false;
 
     // 设定 marked 的参数
@@ -51,7 +51,8 @@ export class EditComponent implements OnInit {
   }
 
   contentChange() {
-    this.check = !this.check;
+    if (this.mode == '预 览') this.mode = '编 写';
+    else this.mode = '预 览';
     document.getElementById('content-after').innerHTML = marked(document.getElementById('content-before').innerHTML);
     var element  = document.getElementById('content-after');
     if(element.className == "markdown-body content-after"){
@@ -70,15 +71,13 @@ export class EditComponent implements OnInit {
   }
 
   changeListner(event) {
-   var reader = new FileReader();
-   var image = (<HTMLInputElement>document.getElementById('selected-image'));
-
-   reader.onload = function(e: any) {
-     image.src = e.target.result;
-   };
-
-   reader.readAsDataURL(event.target.files[0]);
- }
+    var reader = new FileReader();
+    //  var image = (<HTMLInputElement>document.getElementById('selected-image'));
+    //
+    //  reader.onload = function(e: any) {
+    //    image.src = e.target.result;
+    //  };
+  }
 
   updateArticle() {
     // update article

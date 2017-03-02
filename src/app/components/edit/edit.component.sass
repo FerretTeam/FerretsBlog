@@ -6,8 +6,9 @@
   @media (max-width: 600px)
     padding: 8px
 
-  .editor-wrapper
+  .editor-main-wrapper
     padding: 16px
+    margin-bottom: 16px
 
     .title
       width: 100%
@@ -15,7 +16,7 @@
       padding: 8px 0px
       outline: 0
       border: none
-      // border-bottom: 1px solid rgb(220, 220, 220)
+      border-bottom: 1px solid #f2f2f2
 
     .toolbar
       margin: 4px 0px
@@ -35,7 +36,7 @@
         font-size: 16px
         width: calc(100% - 18px)
         height: 400px
-        border: 1px solid rgb(220, 220, 220)
+        border: 1px solid #f2f2f2
         outline: 0
         resize: none
         z-index: 0
@@ -46,7 +47,7 @@
         position: absolute
         top: 0
         left: 100%
-        border: 1px solid rgb(220, 220, 220)
+        border: 1px solid #f2f2f2
         width: calc(100% - 18px)
         overflow: auto
         height: 400px
@@ -59,31 +60,49 @@
       .content-after-active
         left: 0
 
-    .cover-style
-      padding-top: 24px
+  .editor-wrapper
+    padding: 0px
 
-      .cover-img
-        
+    .title
+      margin-bottom: 8px
+      font-size: 22px
 
-      .digest
-        margin-top: 16px
-        width: 100%
+    .img-upload-button
+      height: 90px
+      width: 120px
+      text-align: center
+      line-height: 90px
+      border: 1px solid #f2f2f2
+      color: #2196F3
+      display: inline-block
+      vertical-align: top
 
-        textarea
-          padding: 8px
-          width: calc(100% - 18px)
-          border: 1px solid rgb(220, 220, 220)
-          outline: 0
-          resize: none
-          z-index: 0
+    .cover-img
+      padding: 16px
 
-        .mat-hint
-          color: rgb(200, 200, 200)
-          position: relative
+      #article-image
+        display: none
+
+    .digest
+      padding: 0px 16px
+      width: calc(100% - 32px)
+
+      textarea
+        padding: 8px
+        font-size: 16px
+        width: calc(100% - 18px)
+        border: 1px solid #f2f2f2
+        outline: 0
+        resize: none
+        z-index: 0
+
+      .mat-hint
+        color: rgb(200, 200, 200)
+        position: relative
 
 
     .submit
-      padding-top: 16px
+      padding: 16px
       text-align: right
 
       .submit-button
