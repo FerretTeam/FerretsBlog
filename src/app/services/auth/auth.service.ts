@@ -30,7 +30,7 @@ export class AuthService {
     // 创建新的凭证并存入本地（若登录失败将在调用处调用 signOut() 删除）
     let passport: Passport = new Passport(username, this.encryptPassword(password));
     localStorage.setItem('passport', JSON.stringify(passport));
-    // 将凭证发往后端进行校验，成功则将其缓存到本地
+    // 将凭证发往后端进行校验
     return this.http.post('/api/sign-in', JSON.stringify(passport), {headers: this.headers})
                     .map((res) => res.json());
   }
@@ -43,14 +43,18 @@ export class AuthService {
   }
 
   // 注册
-  signUp(username: string, password: string) {
+  signUp(username: string, email:string, password: string) {
     // 清空本地缓存
     localStorage.removeItem('passport');
     // 创建新的凭证并存入本地（若注册失败将在调用处调用 signOut() 删除）
     let passport: Passport = new Passport(username, this.encryptPassword(password));
     localStorage.setItem('passport', JSON.stringify(passport));
-    // 将凭证发往后端进行注册，成功则将其缓存到本地
-    return this.http.post('/api/sign-up', JSON.stringify(passport), {headers: this.headers})
+    // 将用户信息发往后端进行注册
+    return this.http.post('/api/sign-up',
+                          {username: username,
+                           email: email,
+                           encryptedPassword: this.encryptPassword(password)},
+                          {headers: this.headers})
                     .map(res => res.json());
   }
 

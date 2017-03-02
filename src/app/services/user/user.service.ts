@@ -17,18 +17,6 @@ export class UserService {
                          '9281', '2.3k', '503', '', '');
   }
 
-  // 创建新的用户
-  createNewUser(username: string, email: string) {
-    let passport: Passport = this.authService.getPassport();
-    if (passport != null) {
-      // 将用户信息发往后端创建一个新的用户
-      return this.http.post('/api/create-user',
-                            {passport: JSON.stringify(passport), username: username, email: email},
-                            {headers: this.headers})
-                      .map(res => res.json());
-    }
-  }
-
   // 获取用户信息
   getUserInfo() {
     // TODO 将 authService.getPassport() 和获取请求一并发往服务器
