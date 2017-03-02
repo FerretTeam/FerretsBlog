@@ -7,6 +7,15 @@ export class Validator {
 
   constructor() {}
 
+  // 清空所有 input 的访问记录
+  clearVisits() {
+    this.isSignInUsernameVisited = false;
+    this.isSignInPasswordVisited = false;
+    this.isSignUpUsernameVisited = false;
+    this.isSignUpEmailVisited = false;
+    this.isSignUpPasswordVisited = false;
+  }
+
   // 登录的校验器
   signInValidator(formData, inputId) {
     // 判断哪些 input 已经被访问过

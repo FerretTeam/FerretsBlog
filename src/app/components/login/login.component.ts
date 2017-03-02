@@ -21,8 +21,11 @@ export class LoginComponent implements OnInit {
               private userService: UserService, public snackBar: MdSnackBar) {
     // 进入这个页面则退出当前登录
     this.authService.signOut();
-    // 页面发生变化时清空报错
-    this.router.events.subscribe(path => this.errorMessage = '');
+    // 页面发生变化时清空报错和 input 的访问记录
+    this.router.events.subscribe(path => {
+      this.errorMessage = '';
+      this.validator.clearVisits();
+    });
   }
 
   ngOnInit() {}

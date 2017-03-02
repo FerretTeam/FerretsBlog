@@ -15,19 +15,19 @@ module.exports = function(router, Passport, User) {
       errorMessage = '用户名不能为空';
     else if (username.length < 5 || username.length > 10)
       errorMessage = '用户名长度需在 5 到 10 之间';
-    else if (username.match(usernameRegex) == null)
+    else if (String(username).match(usernameRegex) == null)
       errorMessage = '用户名只能由字母和数字组成';
 
     // 对邮箱进行校验
     else if (email == null || email == undefined || email == '')  // 防止为空的恶意攻击
       errorMessage = '邮箱不符合格式规范';
-    else if (email.match(emailRegex) == null)
+    else if (String(email).match(emailRegex) == null)
       errorMessage = '邮箱不符合格式规范';
 
     // 对密码进行校验
     else if (password == null || password == undefined || password == '')  // 防止为空的恶意攻击
       errorMessage = '密码不符合哈希后值的格式';
-    else if (password.match(passwordRegex) == null)
+    else if (String(password).match(passwordRegex) == null)
       errorMessage = '密码不符合哈希后值的格式';
 
     return errorMessage;
@@ -41,7 +41,7 @@ module.exports = function(router, Passport, User) {
       encryptedPassword: req.body.encryptedPassword
     });
     // 进行后端校验
-    var errorMessage = authValidator(passport);
+    var errorMessage = authValidator(passport.username, '0_0@liuren.link', passport.encryptedPassword);
     if (errorMessage != '') {
       res.json(String(errorMessage));
       return;
