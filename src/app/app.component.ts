@@ -20,10 +20,8 @@ export class AppComponent {
   constructor(private router: Router, private authService: AuthService,
               private userService: UserService) {
     this.router.events.subscribe(path => {
-      if (this.authService.getPassport())
-        this.user = this.userService.getUserInfo();
-      else
-        this.user = null;
+      if (this.authService.getPassport() != null)
+        this.userService.getUserInfo().subscribe(data => this.user = data);
       window.scrollTo(0, 0);
     });
     this.searchInputWidth = 0;

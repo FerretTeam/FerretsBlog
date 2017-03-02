@@ -42,20 +42,17 @@ module.exports = function(router, Passport, User) {
     });
     // 进行后端校验
     var errorMessage = authValidator(passport.username, '0_0@liuren.link', passport.encryptedPassword);
-    if (errorMessage != '') {
-      res.json(String(errorMessage));
-      return;
-    }
+    if (errorMessage != '')
+      return res.json(String(errorMessage));
     // 在数据库中进行比对，若匹配则用户登录成功
     Passport.find({username: passport.username,
                    encryptedPassword: passport.encryptedPassword}, function(err, passport_) {
       if (err) {
         console.error(err);
-        res.json('出现异常，请联系管理员：001');
-        return;
+        return res.json('出现异常，请联系管理员：001');
       }
-      if (passport_.length != 1) res.json('用户不存在或密码错误');
-      else res.json('true');
+      if (passport_.length != 1) return res.json('用户不存在或密码错误');
+      else return res.json('true');
     });
   });
 
@@ -68,19 +65,16 @@ module.exports = function(router, Passport, User) {
     });
     // 进行后端校验
     var errorMessage = authValidator(passport.username, req.body.email, passport.encryptedPassword);
-    if (errorMessage != '') {
-      res.json(String(errorMessage));
-      return;
-    }
+    if (errorMessage != '')
+      return res.json(String(errorMessage));
     // 在数据库中比对，确保没有重名用户
     Passport.find({username: passport.username}, function(err, passport_) {
       if (err) {
         console.error(err);
-        res.json('出现异常，请联系管理员：002');
-        return;
+        return res.json('出现异常，请联系管理员：002');
       }
       if (passport_.length >= 1) {
-        res.json('该用户名已存在，请尝试其他其他用户名');
+        return res.json('该用户名已存在，请尝试其他其他用户名');
       } else {
         passport.save(function(err, passport) {
           if (err) return res.json('出现异常，请联系管理员：003');
@@ -98,7 +92,7 @@ module.exports = function(router, Passport, User) {
           });
           user.save(function(err, user) {
             if (err) return res.json('出现异常，请联系管理员：004');
-            res.json('true');
+            return res.json('true');
           });
         });
       }

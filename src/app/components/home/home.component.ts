@@ -55,18 +55,30 @@ export class HomeComponent implements OnInit {
   }
 
   gotoArticle(id: number) {
-    let link = [this.userService.getUserInfo().username, 'article', id];
-    this.router.navigate(link);
+    if (this.authService.getPassport() != null) {
+      this.userService.getUserInfo().subscribe((data) => {
+        let link = [data.username, 'article', id];
+        this.router.navigate(link);
+      });
+    }
   }
 
   gotoEdit(id: number) {
-    let link = [this.userService.getUserInfo().username, 'edit', id];
-    this.router.navigate(link);
+    if (this.authService.getPassport() != null) {
+      this.userService.getUserInfo().subscribe((data) => {
+        let link = [data.username, 'edit', id];
+        this.router.navigate(link);
+      });
+    }
   }
 
   turnPage(newPageNumber: number) {
-    let link = [this.userService.getUserInfo().username, 'home', newPageNumber];
-    this.router.navigate(link);
+    if (this.authService.getPassport() != null) {
+      this.userService.getUserInfo().subscribe((data) => {
+        let link = [data.username, 'home', newPageNumber];
+        this.router.navigate(link);
+      });
+    }
   }
 
   ngOnInit() {

@@ -43,14 +43,19 @@ export class LoginComponent implements OnInit {
     // 调用 service 登录，登录成功则获取用户信息
     this.authService.signIn(formData.username, formData.password).subscribe(
       (data) => {
-        if (data == 'true')
-          this.user = this.userService.getUserInfo();
-        // 如果成功登录，则路由至 home，否则报错
-        if (this.user != null) {
-          this.snackBar.open('登录成功', '知道了', {
-            duration: 2000,
-          });
-          this.router.navigate([this.user.username, 'home', 1]);
+        if (data == 'true') {
+          if (this.authService.getPassport() != null) {
+            this.userService.getUserInfo().subscribe((data_) => {
+              this.user = data_;
+              // 如果成功登录，则路由至 home，否则报错
+              if (this.user != null) {
+                this.snackBar.open('登录成功', '知道了', {
+                  duration: 2000,
+                });
+                this.router.navigate([this.user.username, 'home', 1]);
+              }
+            });
+          }
         } else {
           this.authService.signOut();
           this.errorMessage = data;
@@ -73,14 +78,18 @@ export class LoginComponent implements OnInit {
     this.authService.signUp(formData.username_, formData.email_, formData.password_).subscribe(
       (data) => {
         if (data == 'true') {
-          this.user = this.userService.getUserInfo();
-          // 如果成功注册，则路由至登录页面，否则报错
-          if (this.user != null) {
-            this.snackBar.open('注册成功', '知道了', {
-              duration: 2000,
+          if (this.authService.getPassport() != null) {
+            this.userService.getUserInfo().subscribe((data_) => {
+              this.user = data_;
+              // 如果成功注册，则路由至登录页面，否则报错
+              if (this.user != null) {
+                this.snackBar.open('注册成功', '知道了', {
+                  duration: 2000,
+                });
+                this.authService.signOut();
+                this.router.navigate(['/login', 'sign-in']);
+              }
             });
-            this.authService.signOut();
-            this.router.navigate(['/login', 'sign-in']);
           }
         } else {
           this.authService.signOut();

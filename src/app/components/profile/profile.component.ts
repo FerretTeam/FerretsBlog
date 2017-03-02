@@ -21,7 +21,7 @@ export class ProfileComponent{
     if (this.authService.getPassport() == null)
       this.router.navigate(['/welcome']);
     else
-      this.user = this.userService.getUserInfo();
+      this.userService.getUserInfo().subscribe(data => this.user = data);
   }
 
   updateUserInfo(formData) {

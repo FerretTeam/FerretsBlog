@@ -31,8 +31,9 @@ export class ArticleComponent implements OnInit {
       this.comments = this.article.comments;
     });
 
+    // 取回用户信息
     if (this.authService.getPassport() != null)
-      this.user = this.userService.getUserInfo();
+      this.userService.getUserInfo().subscribe(data => this.user = data);
 
     // 设定 marked 的参数
     const renderer = new marked.Renderer();
