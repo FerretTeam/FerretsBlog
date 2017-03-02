@@ -57,7 +57,10 @@ export class AppComponent {
   }
 
   gotoHome() {
-    this.router.navigate(['/']);
+    if (this.user != null)
+      this.router.navigate([this.user.username, 'home', 1]);
+    else
+      this.router.navigate(['/welcome']);
   }
 
   gotoEdit() {
