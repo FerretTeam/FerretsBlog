@@ -65,18 +65,18 @@ export class EditComponent implements OnInit {
 
   changeListner(event) {
     var reader = new FileReader();
-    var image = (<HTMLInputElement>document.getElementById('selected-image'));
+    var that = this;
 
     reader.onload = function(e: any) {
-      image.style.backgroundImage = 'url(' + e.target.result + ')';
+      that.imageurl = e.target.result;
     };
 
-    reader.readAsDataURL(event.target.files[0]);
+    if (event.target.files[0] != undefined)
+      reader.readAsDataURL(event.target.files[0]);
   }
 
   removeCurrentImage() {
-    var image = (<HTMLInputElement>document.getElementById('selected-image'));
-    image.style.backgroundImage = 'url()';
+    this.imageurl = null;
   }
 
   submitArticle() {
