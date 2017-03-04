@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-
 module.exports = function(router, Passport, User) {
   // 校验凭证是否合法
   checkPassport = function(passport, callback) {

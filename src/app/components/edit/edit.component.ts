@@ -11,12 +11,12 @@ import { ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./edit.component.sass']
 })
 export class EditComponent implements OnInit {
-  mode: string;
-  param: number;
-  update: boolean;
-  article: Article;
-  data: string;
-  imageurl: string;
+  param: number;  // URL 参数的个数
+  update: boolean;  // 创建新的文章还是更新文章
+  mode: string;  // 编辑文章还是预览文章
+
+  article: Article;  // 显示的文章
+  imageurl: string;  // 背景图片
 
   constructor(private articleService: ArticleService, private router: Router,
               private activatedRoute: ActivatedRoute) {

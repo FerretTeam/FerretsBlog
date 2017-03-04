@@ -29,5 +29,7 @@ const User = mongoose.model('User', userSchema);
 router = require('./auth')(router, Passport, User);
 // 用户模块
 router = require('./user')(router, Passport, User);
+// 文章模块
+router = require('./article')(router);
 
 module.exports = router;

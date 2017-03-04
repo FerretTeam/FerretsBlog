@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-
 module.exports = function(router, Passport, User) {
   // 后端校验
   authValidator = function(username, email, password) {
@@ -83,9 +81,9 @@ module.exports = function(router, Passport, User) {
             username: req.body.username,
             email: req.body.email,
             userAvatarUrl: '/assets/images/default-avatar.jpg',
-            totalCharacters: 10293692,
-            totalReading: 5820,
-            totalLikes: 302,
+            totalCharacters: 0,
+            totalReading: 0,
+            totalLikes: 0,
             introduction: '',
             field: ''
           });
