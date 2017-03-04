@@ -9,7 +9,6 @@ export class ArticleService {
   // 文章假数据
   rawArticles: Article[] = [
     {
-      id: 0,
       date: '2016 年 8 月 16 日',
       image: null,
       title: '春运堵车不怕了 以后我们出门坐飞行汽车',
@@ -19,7 +18,6 @@ export class ArticleService {
       comments: []
     },
     {
-      id: 1,
       date: '2017 年 2 月 6 日',
       image: '.././assets/images/article1.jpeg',
       title: '玫瑰即玫瑰 花香无意义',
@@ -29,7 +27,6 @@ export class ArticleService {
       comments: []
     },
     {
-      id: 2,
       date: '2016 年 6 月 3 日',
       image: '.././assets/images/article3.jpg',
       title: '中国光通信新突破：一根光纤可供 135 亿人同时通话',
@@ -46,14 +43,14 @@ export class ArticleService {
       userAvatarUrl: '.././assets/images/user-avatar2.jpg',
       message: '到目前为止，飞行汽车仍然是一个概念，虽然不少人都希望这类交通工具能够缓解甚至解决当前的城市交通问题。今天，我们就来说一说那些正在开发的飞行汽车。',
       time: '2 小时前',
-      likes: 16
+      likes: '16'
     },
     {
       username: 'An0nym6',
       userAvatarUrl: '.././assets/images/user-avatar.jpg',
       message: 'Cormorant 是来自以色列的 Urban Aeronautics 开发的载人无人机，拥有垂直升降功能，并且配有标准的直升机引擎，尾部配有两个助推器，其最高时速能够达到 115 英里(大约 185 公里)。',
       time: '1 天前',
-      likes: 7
+      likes: '7'
     }
   ];
 
@@ -68,7 +65,7 @@ export class ArticleService {
     let i: number;
     for (i = 0; i < 77; i++) {
       // 深拷贝
-      var newArticle = new Article(i, this.rawArticles[i % 3].date, this.rawArticles[i % 3].image,
+      var newArticle = new Article(this.rawArticles[i % 3].date, this.rawArticles[i % 3].image,
                                    this.rawArticles[i % 3].title, this.rawArticles[i % 3].synopsis,
                                    this.rawArticles[i % 3].tagName, this.rawArticles[i % 3].contents,
                                    this.rawComments);

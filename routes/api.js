@@ -25,6 +25,29 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
+// 定义文章
+const articleSchma = new mongoose.Schema({
+  author: mongoose.Schema.ObjectId,  // 文章作者的 _id
+  date: Date,
+  image: String,
+  title: String,
+  synopsis: String,
+  tagName: [String],
+  contents: String
+});
+const Article = mongoose.model('Article', articleSchma);
+
+// 定义评论
+const commentSchema = new mongoose.Schema({
+  article: mongoose.Schema.ObjectId,  // 文章的 _id
+  username: String,
+  userAvatarUrl: String,
+  message: String,
+  time: Date,
+  likes: Number
+});
+const Comment = mongoose.model('Comment', commentSchema);
+
 // 认证模块
 router = require('./auth')(router, Passport, User);
 // 用户模块

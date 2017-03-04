@@ -3,10 +3,10 @@ export class Comment {
   userAvatarUrl: string;
   message: string;
   time: string;
-  likes: number;
+  likes: string;
 
   constructor(username: string, userAvatarUrl: string, message: string,
-              time: string, likes: number) {
+              time: string, likes: string) {
     this.username = username;
     this.userAvatarUrl = userAvatarUrl;
     this.message = message;
@@ -16,7 +16,6 @@ export class Comment {
 }
 
 export class Article {
-  id: number;
   date: string;
   image: string;
   title: string;
@@ -25,11 +24,11 @@ export class Article {
   contents: string;
   comments: Comment[];
 
-  constructor(id: number, date: string, image: string, title: string,
+  constructor(date: string, image: string, title: string,
               synopsis: string, tagName: string, contents: string,
               comments: Comment[]) {
-    this.id = id; this.date = date; this.image = image; this.title = title;
-    this.synopsis = synopsis; this.tagName = tagName; this.contents = contents;
+    this.date = date; this.image = image; this.title = title; this.synopsis = synopsis;
+    this.tagName = tagName; this.contents = contents;
     // 深拷贝 comments
     this.comments = [];
     for (let comment of comments) {
