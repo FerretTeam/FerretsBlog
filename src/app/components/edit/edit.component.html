@@ -47,7 +47,7 @@ int main() {
       <div class='title'>封面图片</div>
       <label for='article-image' class='img-upload-button'></label>
       <div id='selected-image' [style.background-image]="'url(' + imageurl + ')'">
-        <span *ngIf='imageurl == null'>浏览图片</span>
+        <span class='empty' *ngIf='imageurl == null'>浏览图片</span>
         <span class='changeImage' *ngIf='imageurl != null'>更改图片</span>
       </div>
       <input type='file' accept='image/x-png, image/jpeg' (change)='imageChange($event)' id='article-image'>
