@@ -49,7 +49,7 @@ module.exports = function(router, Passport, User) {
                    encryptedPassword: passport.encryptedPassword}, function(err, passport_) {
       if (err) {
         console.error(err);
-        return res.json('出现异常，请联系管理员：001');
+        return res.json('错误 001：出现异常，请联系管理员');
       }
       if (passport_.length != 1) return res.json('用户不存在或密码错误');
       else return res.json('true');
@@ -71,13 +71,13 @@ module.exports = function(router, Passport, User) {
     Passport.find({username: passport.username}, function(err, passport_) {
       if (err) {
         console.error(err);
-        return res.json('出现异常，请联系管理员：002');
+        return res.json('错误 002：出现异常，请联系管理员');
       }
       if (passport_.length >= 1) {
         return res.json('该用户名已存在，请尝试其他其他用户名');
       } else {
         passport.save(function(err, passport) {
-          if (err) return res.json('出现异常，请联系管理员：003');
+          if (err) return res.json('错误 003：出现异常，请联系管理员');
           // 创建新的用户
           var user = new User({
             id: 0,
@@ -91,7 +91,7 @@ module.exports = function(router, Passport, User) {
             field: ''
           });
           user.save(function(err, user) {
-            if (err) return res.json('出现异常，请联系管理员：004');
+            if (err) return res.json('错误 004：出现异常，请联系管理员');
             return res.json('true');
           });
         });

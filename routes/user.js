@@ -7,7 +7,7 @@ module.exports = function(router, Passport, User) {
                    encryptedPassword: passport.encryptedPassword}, function(err, passport_) {
       if (err) {
         console.error(err);
-        callback('出现异常，请联系管理员：005');
+        callback('错误 005：出现异常，请联系管理员');
         return;
       }
       if (passport_.length != 1) callback('用户不存在或密码错误');
@@ -30,10 +30,10 @@ module.exports = function(router, Passport, User) {
         User.find({username: req.body.username}, function(err, user_) {
           if (err) {
             console.error(err);
-            callback('出现异常，请联系管理员：006');
+            callback('错误 006：出现异常，请联系管理员');
             return;
           }
-          if (user_.length != 1) return res.json('出现异常，请联系管理员：007');
+          if (user_.length != 1) return res.json('错误 007：出现异常，请联系管理员');
           else return res.json(user_[0]);
         });
       } else {

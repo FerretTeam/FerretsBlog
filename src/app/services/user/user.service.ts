@@ -24,8 +24,10 @@ export class UserService {
     return this.http.post('/api/get-user', JSON.stringify(passport), {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
-                      if (temp == 'INVALID_REQUEST')
+                      if (temp == 'INVALID_REQUEST' || temp.id == undefined) {
+                        console.error(temp);
                         return null;
+                      }
                       return new User(temp.id, temp.username, temp.email, temp.userAvatarUrl,
                                       temp.totalCharacters, temp.totalReading, temp.totalLikes,
                                       temp.introduction, temp.field);
