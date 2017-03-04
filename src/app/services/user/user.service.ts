@@ -10,18 +10,45 @@ import { User } from './user';
 export class UserService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  // 假数据
-  user: User;
+  constructor(private http: Http, private authService: AuthService) {}
 
-  constructor(private http: Http, private authService: AuthService) {
-    this.user = new User('An0nym6', '0_0@liuren.link', '/assets/images/user-avatar.jpg',
-                         '9281', '2.3k', '503', '', '');
+  // 为了排版便利，在 service 中将大数转换为 k 或 m
+  numberToString(num: number) {
+    if (num > 1000000)
+      return String((num / 1000000).toFixed(1)) + 'm';
+    else if (num > 1000)
+      return String((num / 1000).toFixed(1)) + 'k';
+    else
+      return String(num);
   }
 
   // 获取用户信息
   getUserInfo() {
     let passport = this.authService.getPassport();
-    return this.http.post('/api/get-user', JSON.stringify(passport), {headers: this.headers})
+    return this.http.post('/api/get-user', passport, {headers: this.headers})
+                    .map((res) => {
+                      let temp = res.json();
+                      if (temp == 'INVALID_REQUEST' || temp.username == undefined) {
+                        console.error(temp);
+                        return null;
+                      }
+                      // 创建新的用户
+                      return new User(temp.username, temp.email, temp.userAvatarUrl,
+                                      this.numberToString(temp.totalCharacters),
+                                      this.numberToString(temp.totalReading),
+                                      this.numberToString(temp.totalLikes),
+                                      temp.introduction, temp.field);
+                    });
+  }
+
+  // 更新用户信息
+  updateUser(user) {
+    let passport = this.authService.getPassport();
+    return this.http.post('/api/update-user',
+                          {passport: passport, userAvatarUrl: user.userAvatarUrl,
+                           email: user.email, introduction: user.introduction,
+                           field: user.field},
+                          {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
                       if (temp == 'INVALID_REQUEST' || temp.username == undefined) {
@@ -30,36 +57,16 @@ export class UserService {
                       }
                       // 为了排版便利，在 service 中将大数转换为 k 或 m
                       let tempTotalCharacters: string, tempTotalReading: string, tempTotalLikes: string;
-                      if (temp.totalCharacters > 1000000)
-                        tempTotalCharacters = String((temp.totalCharacters / 1000000).toFixed(1)) + 'm';
-                      else if (temp.totalCharacters > 1000)
-                        tempTotalCharacters = String((temp.totalCharacters / 1000).toFixed(1)) + 'k';
-                      else
-                        tempTotalCharacters = String(temp.totalCharacters);
-                      if (temp.totalReading > 1000000)
-                        tempTotalReading = String((temp.totalReading / 1000000).toFixed(1)) + 'm';
-                      else if (temp.totalReading > 1000)
-                        tempTotalReading = String((temp.totalReading / 1000).toFixed(1)) + 'k';
-                      else
-                        tempTotalReading = String(temp.totalReading);
-                      if (temp.totalLikes > 1000000)
-                        tempTotalLikes = String((temp.totalLikes / 1000000).toFixed(1)) + 'm';
-                      else if (temp.totalLikes > 1000)
-                        tempTotalLikes = String((temp.totalLikes / 1000).toFixed(1)) + 'k';
-                      else
-                        tempTotalLikes = String(temp.totalLikes);
-
+                      tempTotalCharacters = this.numberToString(temp.totalCharacters);
+                      tempTotalReading = this.numberToString(temp.totalReading);
+                      tempTotalLikes = this.numberToString(temp.totalLikes);
                       // 创建新的用户
                       return new User(temp.username, temp.email, temp.userAvatarUrl,
-                                      tempTotalCharacters, tempTotalReading, tempTotalLikes,
+                                      this.numberToString(temp.totalCharacters),
+                                      this.numberToString(temp.totalReading),
+                                      this.numberToString(temp.totalLikes),
                                       temp.introduction, temp.field);
                     });
-  }
-
-  updateUser(user) {
-    // TODO 将 authService.getPassport() 和更新请求一并发往服务器
-    this.user = user;
-    return this.user;
   }
 
 }

@@ -31,7 +31,7 @@ export class AuthService {
     let passport: Passport = new Passport(username, this.encryptPassword(password));
     localStorage.setItem('passport', JSON.stringify(passport));
     // 将凭证发往后端进行校验
-    return this.http.post('/api/sign-in', JSON.stringify(passport), {headers: this.headers})
+    return this.http.post('/api/sign-in', passport, {headers: this.headers})
                     .map((res) => res.json());
   }
 

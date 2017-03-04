@@ -50,7 +50,7 @@ int main() {
         <span *ngIf='imageurl == null'>浏览图片</span>
         <span class='changeImage' *ngIf='imageurl != null'>更改图片</span>
       </div>
-      <input type='file' accept='image/x-png, image/jpeg' (change)='changeListner($event)' id='article-image'>
+      <input type='file' accept='image/x-png, image/jpeg' (change)='imageChange($event)' id='article-image'>
       <button md-icon-button (click)='removeCurrentImage()' class='delete-button'><md-icon>delete</md-icon></button>
     </div>
     <div class='digest'>

@@ -29,10 +29,28 @@ export class ProfileComponent{
     this.user.introduction = formData.introduction;
     this.user.field = formData.field;
     // 提交修改
-    this.user = this.userService.updateUser(this.user);
-    this.snackBar.open('修改成功', '知道了', {
-      duration: 2000,
-    });
+    this.userService.updateUser(this.user).subscribe(
+      (data) => {
+        if (data != null) {
+          this.user = data;
+          this.snackBar.open('修改成功', '知道了', { duration: 2000 });
+        } else {
+          this.snackBar.open('修改失败，请检查报错信息', '知道了', { duration: 2000 });
+        }
+      }
+    );
+  }
+
+  avatarChange(event) {
+    var reader = new FileReader();
+    var that = this;
+
+    reader.onload = function(e: any) {
+      that.user.userAvatarUrl = e.target.result;
+    };
+
+    if (event.target.files[0] != undefined)
+      reader.readAsDataURL(event.target.files[0]);
   }
 
 }

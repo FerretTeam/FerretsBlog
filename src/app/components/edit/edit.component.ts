@@ -63,7 +63,7 @@ export class EditComponent implements OnInit {
     }
   }
 
-  changeListner(event) {
+  imageChange(event) {
     var reader = new FileReader();
     var that = this;
 

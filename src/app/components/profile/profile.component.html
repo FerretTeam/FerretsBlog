@@ -3,6 +3,8 @@
     <md-card>
       <div class='user-info-container flex-container' fxLayout='row'>
         <div class='flex-item user-avartar-container' fxFlex='120px'>
+          <label for='user-avartar' class='user-avartar-cover'>更换头像</label>
+          <input type='file' accept='image/x-png, image/jpeg' (change)='avatarChange($event)' id='user-avartar'>
           <div class='user-avartar' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></div>
         </div>
         <div class='flex-item username-container' fxFlex>

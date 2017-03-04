@@ -54,9 +54,7 @@ export class ArticleComponent implements OnInit {
     var message = (<HTMLInputElement>document.getElementById('comment-content')).value;
     var newComment = new Comment(this.user.username, this.user.userAvatarUrl, message, '刚刚', 0);
     this.comments.push(newComment);
-    this.snackBar.open('发布成功', '知道了', {
-      duration: 2000,
-    });
+    this.snackBar.open('发布成功', '知道了', { duration: 2000 });
     // TODO 将评论与时间关联
     // var displayDate = new Date().toLocaleDateString();
   }

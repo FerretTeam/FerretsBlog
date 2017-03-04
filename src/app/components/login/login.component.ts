@@ -49,9 +49,7 @@ export class LoginComponent implements OnInit {
               this.user = data_;
               // 如果成功登录，则路由至 home，否则报错
               if (this.user != null) {
-                this.snackBar.open('登录成功', '知道了', {
-                  duration: 2000,
-                });
+                this.snackBar.open('登录成功', '知道了', { duration: 2000 });
                 this.router.navigate([this.user.username, 'home', 1]);
               }
             });
@@ -83,9 +81,7 @@ export class LoginComponent implements OnInit {
               this.user = data_;
               // 如果成功注册，则路由至登录页面，否则报错
               if (this.user != null) {
-                this.snackBar.open('注册成功', '知道了', {
-                  duration: 2000,
-                });
+                this.snackBar.open('注册成功', '知道了', { duration: 2000 });
                 this.authService.signOut();
                 this.router.navigate(['/login', 'sign-in']);
               }
