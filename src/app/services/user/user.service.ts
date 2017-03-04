@@ -14,7 +14,7 @@ export class UserService {
   user: User;
 
   constructor(private http: Http, private authService: AuthService) {
-    this.user = new User(1, 'An0nym6', '0_0@liuren.link', '/assets/images/user-avatar.jpg',
+    this.user = new User('An0nym6', '0_0@liuren.link', '/assets/images/user-avatar.jpg',
                          '9281', '2.3k', '503', '', '');
   }
 
@@ -24,12 +24,34 @@ export class UserService {
     return this.http.post('/api/get-user', JSON.stringify(passport), {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
-                      if (temp == 'INVALID_REQUEST' || temp.id == undefined) {
+                      if (temp == 'INVALID_REQUEST' || temp.username == undefined) {
                         console.error(temp);
                         return null;
                       }
-                      return new User(temp.id, temp.username, temp.email, temp.userAvatarUrl,
-                                      temp.totalCharacters, temp.totalReading, temp.totalLikes,
+                      // 为了排版便利，在 service 中将大数转换为 k 或 m
+                      let tempTotalCharacters: string, tempTotalReading: string, tempTotalLikes: string;
+                      if (temp.totalCharacters > 1000000)
+                        tempTotalCharacters = String((temp.totalCharacters / 1000000).toFixed(1)) + 'm';
+                      else if (temp.totalCharacters > 1000)
+                        tempTotalCharacters = String((temp.totalCharacters / 1000).toFixed(1)) + 'k';
+                      else
+                        tempTotalCharacters = String(temp.totalCharacters);
+                      if (temp.totalReading > 1000000)
+                        tempTotalReading = String((temp.totalReading / 1000000).toFixed(1)) + 'm';
+                      else if (temp.totalReading > 1000)
+                        tempTotalReading = String((temp.totalReading / 1000).toFixed(1)) + 'k';
+                      else
+                        tempTotalReading = String(temp.totalReading);
+                      if (temp.totalLikes > 1000000)
+                        tempTotalLikes = String((temp.totalLikes / 1000000).toFixed(1)) + 'm';
+                      else if (temp.totalLikes > 1000)
+                        tempTotalLikes = String((temp.totalLikes / 1000).toFixed(1)) + 'k';
+                      else
+                        tempTotalLikes = String(temp.totalLikes);
+
+                      // 创建新的用户
+                      return new User(temp.username, temp.email, temp.userAvatarUrl,
+                                      tempTotalCharacters, tempTotalReading, tempTotalLikes,
                                       temp.introduction, temp.field);
                     });
   }

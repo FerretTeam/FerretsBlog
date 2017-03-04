@@ -80,13 +80,12 @@ module.exports = function(router, Passport, User) {
           if (err) return res.json('错误 003：出现异常，请联系管理员');
           // 创建新的用户
           var user = new User({
-            id: 0,
             username: req.body.username,
             email: req.body.email,
             userAvatarUrl: '/assets/images/default-avatar.jpg',
-            totalCharacters: '0',
-            totalReading: '0',
-            totalLikes: '0',
+            totalCharacters: 10293692,
+            totalReading: 5820,
+            totalLikes: 302,
             introduction: '',
             field: ''
           });

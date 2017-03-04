@@ -1,5 +1,4 @@
 export class User {
-  id: number;
   // 基本信息
   username: string;
   email: string;
@@ -12,10 +11,10 @@ export class User {
   introduction: string;
   field: string;
 
-  constructor (id:number, username: string, email: string, userAvatarUrl: string,
+  constructor (username: string, email: string, userAvatarUrl: string,
                totalCharacters: string, totalReading: string, totalLikes: string,
                introduction: string, field: string) {
-    this.id = id;
+    // 基本信息
     this.username = username;
     this.email = email;
     this.userAvatarUrl = userAvatarUrl;
