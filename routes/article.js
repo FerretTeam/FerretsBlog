@@ -64,7 +64,7 @@ module.exports = function(router, Passport, Article) {
   });
 
   // 创建文章
-  // post passport, article
+  // post passport && article
   router.post('/create-new-article', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
@@ -117,24 +117,23 @@ module.exports = function(router, Passport, Article) {
       } else {
         if (passport.length != 1) return res.json('该用户不存在！');
         else {
-          // 检查是否存在更新后的同名文章
+          // 如果更改了标题，检查是否存在更新后的同名文章
           if (originalTitle != req.body.title) {
             Article.find({author: passport.id, title: req.body.title}, function(err, article) {
               if (article.length >= 1) return res.json('更改后的文章标题已经被占用');
             });
-          } else {
-            // 更新用户的文章信息
-            Article.findOneAndUpdate({author: passport.id, },
-                                    {$set:{date: req.body.date,
-                                          image: req.body.image,
-                                          title: req.body.title,
-                                          synopsis: req.body.synopsis,
-                                          tagName: req.body.tagName,
-                                          contents: req.body.contents}}, {new: true}, function(err, article){
-              if (err) return res.json('错误 015：出现异常，请联系管理员');
-              else return res.json('true');
-            });
           }
+          // 更新用户的文章信息
+          Article.findOneAndUpdate({author: passport.id, title: originalTitle},
+                                  {$set:{date: req.body.date,
+                                        image: req.body.image,
+                                        title: req.body.title,
+                                        synopsis: req.body.synopsis,
+                                        tagName: req.body.tagName,
+                                        contents: req.body.contents}}, {new: true}, function(err, article){
+            if (err) return res.json('错误 015：出现异常，请联系管理员');
+            else return res.json('true');
+          });
         }
       }
     });
