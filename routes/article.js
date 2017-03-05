@@ -17,7 +17,6 @@ module.exports = function(router, Passport, Article) {
       } else {
         var pageNumber = req.body.pageNumber;
         var articleNumber = articles.length;
-        console.log(articles.slice(pageNumber * 10, Math.min(pageNumber * 10 + 10, articleNumber)));
         if (pageNumber < 0 || pageNumber > Math.ceil(articleNumber / 10))
           return res.json('页码错误')
         else
