@@ -65,7 +65,7 @@ module.exports = function(router, Passport, Article) {
   });
 
   // 创建文章
-  // post passport, article
+  // post passport && article
   router.post('/create-new-article', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
