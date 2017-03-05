@@ -21,7 +21,7 @@ export class EditComponent implements OnInit {
   mode: string;  // 编辑文章还是预览文章
 
   article: Article;  // 显示的文章
-  imageurl: string;  // 背景图片
+  imageUrl: string = '';  // 背景图片
   tags: string[] = [];  // 文章标签
   tagInputValue: string;  // 文章标签的字符串缓冲
   tagInputVisibility: boolean = true;
@@ -30,7 +30,7 @@ export class EditComponent implements OnInit {
               private articleService: ArticleService, private authService: AuthService) {
     this.mode = '预 览';
     this.update = false;
-    this.imageurl = null;
+    this.imageUrl = null;
 
     // 如果未登录，则跳转至 /welcome 页面
     this.passport = this.authService.getPassport();
@@ -65,7 +65,7 @@ export class EditComponent implements OnInit {
           // 设置文章内容
           document.getElementById('content-before').innerHTML = this.article.contents;
           // 设置文章封面图片
-          this.imageurl = this.article.image;
+          this.imageUrl = this.article.image;
           // TODO 设置文章标签和简介
         }
       });
@@ -75,11 +75,11 @@ export class EditComponent implements OnInit {
   contentChange() {
     if (this.mode == '预 览') this.mode = '编 写';
     else this.mode = '预 览';
-    document.getElementById('content-after').innerHTML = marked(document.getElementById('content-before').innerHTML);
+    document.getElementById('content-after').innerHTML = marked((<HTMLInputElement>document.getElementById('content-before')).value);
     var element  = document.getElementById('content-after');
-    if(element.className == "markdown-body content-after"){
+    if (element.className == 'markdown-body content-after'){
         element.className += ' content-after-active';
-    }else{
+    } else {
         element.className = 'markdown-body content-after';
     }
   }
@@ -89,7 +89,7 @@ export class EditComponent implements OnInit {
     var that = this;
 
     reader.onload = function(e: any) {
-      that.imageurl = e.target.result;
+      that.imageUrl = e.target.result;
     };
 
     if (event.target.files[0] != undefined)
@@ -97,7 +97,7 @@ export class EditComponent implements OnInit {
   }
 
   removeCurrentImage() {
-    this.imageurl = null;
+    this.imageUrl = null;
   }
 
   deleteTag(index: number) {
@@ -117,7 +117,11 @@ export class EditComponent implements OnInit {
   }
 
   submitArticle() {
-    // TODO 提交文章
+    let newArticle: Article = new Article(new Date(), this.imageUrl,
+                                          (<HTMLInputElement>document.getElementById('article-title')).value,
+                                          (<HTMLInputElement>document.getElementById('digest-content')).value,
+                                          this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
+    this.articleService.createArticle(newArticle).subscribe(data => data);
   }
 
   updateArticle() {

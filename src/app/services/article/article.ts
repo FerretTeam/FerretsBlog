@@ -16,14 +16,14 @@ export class Comment {
 }
 
 export class Article {
-  date: string;
+  date: Date;
   image: string;
   title: string;
   synopsis: string;
   tagName: string[];
   contents: string;
 
-  constructor(date: string, image: string, title: string,
+  constructor(date: Date, image: string, title: string,
               synopsis: string, tagName: string[], contents: string) {
     this.date = date; this.image = image; this.title = title; this.synopsis = synopsis;
     this.tagName = tagName; this.contents = contents;

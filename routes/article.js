@@ -17,6 +17,7 @@ module.exports = function(router, Passport, Article) {
       } else {
         var pageNumber = req.body.pageNumber;
         var articleNumber = articles.length;
+        console.log(articles.slice(pageNumber * 10, Math.min(pageNumber * 10 + 10, articleNumber)));
         if (pageNumber < 0 || pageNumber > Math.ceil(articleNumber / 10))
           return res.json('页码错误')
         else
@@ -38,7 +39,7 @@ module.exports = function(router, Passport, Article) {
     // 按照时间的降序排序查找文章
     Article.find({author: Passport.findOne({username: req.body.username}).id, title: req.body.title}, function(err, article) {
       if (err) {
-        return res.json('错误 011：出现异常，请联系管理员');
+        return res.json('错误 012：出现异常，请联系管理员');
       } else {
         if (article.length != 1) return req.json('文章标题错误');
         else return res.json(article);
@@ -58,7 +59,7 @@ module.exports = function(router, Passport, Article) {
 
     // 返回文章数目
     Article.find({}, function(err, articles) {
-      if (err) return res.json('错误 012：出现异常，请联系管理员');
+      if (err) return res.json('错误 013：出现异常，请联系管理员');
       else return res.json(articles.length);
     });
   });
@@ -69,29 +70,32 @@ module.exports = function(router, Passport, Article) {
     // 基础校验
     if (req.body == null || req.body == undefined) {
       return res.json('INVALID_REQUEST');
-    } else if (req.body.passport == null || req.body.passport == undefined || req.body.article == null || req.body.article == undefined ) {
+    } else if (req.body.passport == null || req.body.passport == undefined ||
+               req.body.article == null || req.body.article == undefined) {
       return res.json('INVALID_REQUEST');
     }
 
-    // 在Article数据库中增加新文章
-    Passport.find({username: passport.username}, function(err, passport) {
+    if (req.body.article.title == '') return res.json('文章标题为空');
+
+    // 在 Article 数据库中增加新文章
+    Passport.find({username: req.body.passport.username}, function(err, passport_) {
       if (err) {
-        return res.json('错误 013：出现异常，请联系管理员');
+        return res.json('错误 014：出现异常，请联系管理员');
       } else {
-        if (passport.length != 1) return res.json('该用户不存在！');
+        if (passport_.length != 1) return res.json('该用户不存在！');
         else {
           var article = new Article({
-            author: passport.id,  // 用户凭证的 _id
-            date: req.body.date,
-            image: req.body.image,
-            title: req.body.title,
-            synopsis: req.body.synopsis,
-            tagName: req.body.tagName,
-            contents: req.body.contents
+            author: passport_.id,  // 用户凭证的 _id
+            date: req.body.article.date,
+            image: req.body.article.image,
+            title: req.body.article.title,
+            synopsis: req.body.article.synopsis,
+            tagName: req.body.article.tagName,
+            contents: req.body.article.contents
           });
-          article.save(function(err, article) {
-            if (err) return res.json('错误 014：出现异常，请联系管理员');
-            // 创建新的用户
+          article.save(function(err, article_) {
+            if (err) return res.json('错误 015：出现异常，请联系管理员');
+            // 创建新的文章
             else return res.json('true');
           });
         }
@@ -106,32 +110,33 @@ module.exports = function(router, Passport, Article) {
     // 基础校验
     if (req.body == null || req.body == undefined) {
       return res.json('INVALID_REQUEST');
-    } else if (req.body.passport == null || req.body.passport == undefined || req.body.article == null || req.body.article == undefined ) {
+    } else if (req.body.passport == null || req.body.passport == undefined ||
+               req.body.article == null || req.body.article == undefined ) {
       return res.json('INVALID_REQUEST');
     }
 
     // 在Article数据库中更新文章
-    Passport.find({username: passport.username}, function(err, passport) {
+    Passport.find({username: req.body.passport.username}, function(err, passport_) {
       if (err) {
-        return res.json('错误 013：出现异常，请联系管理员');
+        return res.json('错误 016：出现异常，请联系管理员');
       } else {
-        if (passport.length != 1) return res.json('该用户不存在！');
+        if (passport_.length != 1) return res.json('该用户不存在！');
         else {
           // 检查是否存在更新后的同名文章
-          if (originalTitle != req.body.title) {
-            Article.find({author: passport.id, title: req.body.title}, function(err, article) {
-              if (article.length >= 1) return res.json('更改后的文章标题已经被占用');
+          if (originalTitle != req.body.article.title) {
+            Article.find({author: passport_.id, title: req.body.article.title}, function(err, article_) {
+              if (article_.length >= 1) return res.json('更改后的文章标题已经被占用');
             });
           } else {
             // 更新用户的文章信息
-            Article.findOneAndUpdate({author: passport.id, },
-                                    {$set:{date: req.body.date,
-                                          image: req.body.image,
-                                          title: req.body.title,
-                                          synopsis: req.body.synopsis,
-                                          tagName: req.body.tagName,
-                                          contents: req.body.contents}}, {new: true}, function(err, article){
-              if (err) return res.json('错误 015：出现异常，请联系管理员');
+            Article.findOneAndUpdate({author: passport_.id, },
+                                    {$set:{date: req.body.article.date,
+                                          image: req.body.article.image,
+                                          title: req.body.article.title,
+                                          synopsis: req.body.article.synopsis,
+                                          tagName: req.body.article.tagName,
+                                          contents: req.body.article.contents}}, {new: true}, function(err, article){
+              if (err) return res.json('错误 017：出现异常，请联系管理员');
               else return res.json('true');
             });
           }
