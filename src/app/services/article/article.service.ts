@@ -81,9 +81,9 @@ export class ArticleService {
       return null;
     // return this.articles.slice(pageNum * 10, pageNum * 10 + 10);
     let passport = this.authService.getPassport();
-    return this.http.post('/api/get-articles-by-pagenumber',
+    return this.http.post('/api/get-articles-by-page-number',
                         {username: passport.username,
-                         pagenumber: pageNum},
+                         pageNumber: pageNum},
                         {headers: this.headers})
                     .map((res) => res.json());
   }

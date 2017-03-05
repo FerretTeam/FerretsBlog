@@ -1,7 +1,7 @@
 module.exports = function(router, Passport, Article) {
-  // 根据页码返回用户的文章信息
+  // 根据页码返回用户的文章列表信息
   // post username & pageNumber
-  router.post('/get-articles-by-pageNumber', (req, res) => {
+  router.post('/get-articles-by-page-number', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
       return res.json('INVALID_REQUEST');
@@ -25,24 +25,23 @@ module.exports = function(router, Passport, Article) {
     });
   });
 
-  // 根据序号返回用户的文章信息
-  // post username & index
+  // 根据文章标题返回用户的文章信息
+  // post username & title
   router.post('/get-articles-by-index', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
       return res.json('INVALID_REQUEST');
-    } else if (req.body.username == null || req.body.username == undefined || req.body.index == null || req.body.index == undefined) {
+    } else if (req.body.username == null || req.body.username == undefined || req.body.title == null || req.body.title == undefined) {
       return res.json('INVALID_REQUEST');
     }
 
     // 按照时间的降序排序查找文章
-    Article.find({author: Passport.findOne({username: req.body.username}).id}, null, {sort: {date: -1}}, function(err, articles) {
+    Article.find({author: Passport.findOne({username: req.body.username}).id, title: req.body.title}, function(err, article) {
       if (err) {
         return res.json('错误 011：出现异常，请联系管理员');
       } else {
-        var index = req.body.index;
-        if (index < 0 || index > Article.find({}).length ) return res.json('序号错误')
-        else return res.json(articles.slice(index, index+1));
+        if (article.length != 1) return req.json('文章标题错误');
+        else return res.json(article);
       }
     });
   });
@@ -79,20 +78,64 @@ module.exports = function(router, Passport, Article) {
       if (err) {
         return res.json('错误 013：出现异常，请联系管理员');
       } else {
-        var article = new Article({
-          author: passport.id,  // 用户凭证的 _id
-          date: req.body.date,
-          image: req.body.image,
-          title: req.body.title,
-          synopsis: req.body.synopsis,
-          tagName: req.body.tagName,
-          contents: req.body.contents
-        });
-        article.save(function(err, article) {
-          if (err) return res.json('错误 014：出现异常，请联系管理员');
-          // 创建新的用户
-          else return res.json('true');
-        });
+        if (passport.length != 1) return res.json('该用户不存在！');
+        else {
+          var article = new Article({
+            author: passport.id,  // 用户凭证的 _id
+            date: req.body.date,
+            image: req.body.image,
+            title: req.body.title,
+            synopsis: req.body.synopsis,
+            tagName: req.body.tagName,
+            contents: req.body.contents
+          });
+          article.save(function(err, article) {
+            if (err) return res.json('错误 014：出现异常，请联系管理员');
+            // 创建新的用户
+            else return res.json('true');
+          });
+        }
+      }
+    });
+  });
+  return router;
+
+  // 更新文章
+  // post passport, article, originalTitle
+  router.post('/update-article', (req, res) => {
+    // 基础校验
+    if (req.body == null || req.body == undefined) {
+      return res.json('INVALID_REQUEST');
+    } else if (req.body.passport == null || req.body.passport == undefined || req.body.article == null || req.body.article == undefined ) {
+      return res.json('INVALID_REQUEST');
+    }
+
+    // 在Article数据库中更新文章
+    Passport.find({username: passport.username}, function(err, passport) {
+      if (err) {
+        return res.json('错误 013：出现异常，请联系管理员');
+      } else {
+        if (passport.length != 1) return res.json('该用户不存在！');
+        else {
+          // 检查是否存在更新后的同名文章
+          if (originalTitle != req.body.title) {
+            Article.find({author: passport.id, title: req.body.title}, function(err, article) {
+              if (article.length >= 1) return res.json('更改后的文章标题已经被占用');
+            });
+          } else {
+            // 更新用户的文章信息
+            Article.findOneAndUpdate({author: passport.id, },
+                                    {$set:{date: req.body.date,
+                                          image: req.body.image,
+                                          title: req.body.title,
+                                          synopsis: req.body.synopsis,
+                                          tagName: req.body.tagName,
+                                          contents: req.body.contents}}, {new: true}, function(err, article){
+              if (err) return res.json('错误 015：出现异常，请联系管理员');
+              else return res.json('true');
+            });
+          }
+        }
       }
     });
   });

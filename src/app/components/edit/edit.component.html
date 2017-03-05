@@ -63,7 +63,7 @@ int main() {
             <md-icon (click)='deleteTag(i)'>close</md-icon>
           </md-chip>
         </md-chip-list>
-        <input *ngIf='tagInputVisibility' class='tag-input flex-item' fxFlex maxlength='10' [(ngModel)]='tagInputValue' (ngModelChange)='tagInputChange($event)'>
+        <input *ngIf='tagInputVisibility' class='tag-input flex-item' fxFlex maxlength='20' [(ngModel)]='tagInputValue' (ngModelChange)='tagInputChange($event)'>
       </div>
     </div>
     <div class='digest'>
