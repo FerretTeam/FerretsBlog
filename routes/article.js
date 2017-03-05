@@ -1,29 +1,32 @@
 module.exports = function(router, Passport, Article) {
   // 根据页码返回用户的文章信息
-  // post username & pagenumber
-  router.post('/get-articles-by-pagenumber', (req, res) => {
+  // post username & pageNumber
+  router.post('/get-articles-by-pageNumber', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
       return res.json('INVALID_REQUEST');
-    } else if (req.body.username == null || req.body.username == undefined || req.body.pagenumber == null || req.body.pagenumber == undefined) {
+    } else if (req.body.username == null || req.body.username == undefined ||
+               req.body.pageNumber == null || req.body.pageNumber == undefined) {
       return res.json('INVALID_REQUEST');
     }
 
     // 按照时间的降序排序查找文章
-    Article.find({author: Passport.findOne({username: req.body.username}).id }, null, {sort: {date: -1}}, function(err, articles) {
+    Article.find({author: Passport.findOne({username: req.body.username}).id}, null, {sort: {date: -1}}, function(err, articles) {
       if (err) {
-        return res.json("错误 011：出现异常，请联系管理员");
+        return res.json('错误 011：出现异常，请联系管理员');
       } else {
-        var pagenumber = req.body.pagenumber;
-        if (pagenumber <= 0 || pagenumber > Math.ceil(Article.find({}).length / 10)) return res.json("页码错误")
-        else return res.json(articles.slice(pagenumber * 10, pagenumber * 10 + 10));
+        var pageNumber = req.body.pageNumber;
+        var articleNumber = articles.length;
+        if (pageNumber < 0 || pageNumber > Math.ceil(articleNumber / 10))
+          return res.json('页码错误')
+        else
+          return res.json(articles.slice(pageNumber * 10, Math.min(pageNumber * 10 + 10, articleNumber)));
       }
     });
   });
 
-
   // 根据序号返回用户的文章信息
-  // post username & pagenumber
+  // post username & index
   router.post('/get-articles-by-index', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
@@ -33,12 +36,12 @@ module.exports = function(router, Passport, Article) {
     }
 
     // 按照时间的降序排序查找文章
-    Article.find({author: Passport.findOne({username: req.body.username}).id }, null, {sort: {date: -1}}, function(err, articles) {
+    Article.find({author: Passport.findOne({username: req.body.username}).id}, null, {sort: {date: -1}}, function(err, articles) {
       if (err) {
-        return res.json("错误 011：出现异常，请联系管理员");
+        return res.json('错误 011：出现异常，请联系管理员');
       } else {
         var index = req.body.index;
-        if (index < 0 || index > Article.find({}).length ) return res.json("序号错误")
+        if (index < 0 || index > Article.find({}).length ) return res.json('序号错误')
         else return res.json(articles.slice(index, index+1));
       }
     });
@@ -56,7 +59,7 @@ module.exports = function(router, Passport, Article) {
 
     // 返回文章数目
     Article.find({}, function(err, articles) {
-      if (err) return res.json("错误 012：出现异常，请联系管理员");
+      if (err) return res.json('错误 012：出现异常，请联系管理员');
       else return res.json(articles.length);
     });
   });
@@ -74,7 +77,7 @@ module.exports = function(router, Passport, Article) {
     // 在Article数据库中增加新文章
     Passport.find({username: passport.username}, function(err, passport) {
       if (err) {
-        return res.json("错误 013：出现异常，请联系管理员");
+        return res.json('错误 013：出现异常，请联系管理员');
       } else {
         var article = new Article({
           author: passport.id,  // 用户凭证的 _id
