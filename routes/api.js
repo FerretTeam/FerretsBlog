@@ -27,7 +27,7 @@ const User = mongoose.model('User', userSchema);
 
 // 定义文章
 const articleSchma = new mongoose.Schema({
-  author: mongoose.Schema.ObjectId,  // 文章作者的 _id
+  author: mongoose.Schema.ObjectId,  // 用户凭证的 _id
   date: Date,
   image: String,
   title: String,
@@ -53,6 +53,6 @@ router = require('./auth')(router, Passport, User);
 // 用户模块
 router = require('./user')(router, Passport, User);
 // 文章模块
-router = require('./article')(router);
+router = require('./article')(router, Passport, Article);
 
 module.exports = router;

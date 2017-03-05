@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { MdSnackBar } from '@angular/material';
-import 'rxjs/add/operator/switchMap';
 import * as marked from 'marked';
 import highlightjs from 'highlight.js';
 
