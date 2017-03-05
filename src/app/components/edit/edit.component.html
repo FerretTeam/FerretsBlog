@@ -53,6 +53,19 @@ int main() {
       <input type='file' accept='image/x-png, image/jpeg' (change)='imageChange($event)' id='article-image'>
       <button md-icon-button (click)='removeCurrentImage()' class='delete-button'><md-icon>delete</md-icon></button>
     </div>
+    <div class='tags'>
+      <span class='title'>文章标签</span>
+      <span class='sub-title'>（多个标签间需用空格隔开）</span>
+      <div class='chips-input flex-container' fxLayout='row'>
+        <md-chip-list>
+          <md-chip *ngFor='let tag of tags; let i = index'>
+            <span>{{tag}}</span>
+            <md-icon (click)='deleteTag(i)'>close</md-icon>
+          </md-chip>
+        </md-chip-list>
+        <input *ngIf='tagInputVisibility' class='tag-input flex-item' fxFlex maxlength='10' [(ngModel)]='tagInputValue' (ngModelChange)='tagInputChange($event)'>
+      </div>
+    </div>
     <div class='digest'>
       <div class='title'>文章摘要</div>
       <textarea id='digest-content' #text maxlength='60'></textarea>

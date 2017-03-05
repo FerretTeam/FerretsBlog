@@ -17,6 +17,9 @@ export class EditComponent implements OnInit {
 
   article: Article;  // 显示的文章
   imageurl: string;  // 背景图片
+  tags: string[] = [];  // 文章标签
+  tagInputValue: string;  // 文章标签的字符串缓冲
+  tagInputVisibility: boolean = true;
 
   constructor(private articleService: ArticleService, private router: Router,
               private activatedRoute: ActivatedRoute) {
@@ -45,9 +48,13 @@ export class EditComponent implements OnInit {
       // 取回文章
       this.update = true;
       this.article = this.articleService.getArticle(this.param);
+      // 设置文章标题
       (<HTMLInputElement>document.getElementById('article-title')).value = this.article.title;
+      // 设置文章内容
       document.getElementById('content-before').innerHTML = this.article.contents;
+      // 设置文章封面图片
       this.imageurl = this.article.image;
+      // TODO 设置文章标签和简介
     }
   }
 
@@ -77,6 +84,22 @@ export class EditComponent implements OnInit {
 
   removeCurrentImage() {
     this.imageurl = null;
+  }
+
+  deleteTag(index: number) {
+    this.tags.splice(index, 1);
+    if (this.tags.length <= 3) this.tagInputVisibility = true;
+  }
+
+  tagInputChange(newValue) {
+    if (newValue != undefined && newValue.length > 1 && newValue[newValue.length - 1] == ' ') {
+      // 取出字符串放入标签
+      this.tags.push(newValue.substr(0, newValue.length - 1));
+      // 将输入清空
+      this.tagInputValue = '';
+      // 判断标签数是否已达到三
+      if (this.tags.length >= 3) this.tagInputVisibility = false;
+    }
   }
 
   submitArticle() {
