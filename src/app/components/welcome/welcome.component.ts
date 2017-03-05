@@ -16,7 +16,7 @@ export class WelcomeComponent implements OnInit {
     if (this.authService.getPassport() != null)
       this.userService.getUserInfo().subscribe((data) => {
         if (data != null)
-          this.router.navigate([data.username, 'home', 1]);
+          this.router.navigate([data.username, 'home', 0]);
       });
   }
 
