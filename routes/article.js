@@ -27,7 +27,7 @@ module.exports = function(router, Passport, Article) {
 
   // 根据文章标题返回用户的文章信息
   // post username & title
-  router.post('/get-articles-by-index', (req, res) => {
+  router.post('/get-articles-by-title', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
       return res.json('INVALID_REQUEST');
