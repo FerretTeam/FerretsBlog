@@ -30,22 +30,28 @@ export class HomeComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       // 获取指定页的文章
       this.pageNumber = parseInt(params['page']);
-      this.articles = this.articleService.getArticles(this.pageNumber);
-      this.maxPageNumber = this.articleService.getMaxPageNumber();
-      // 计算显示在下方的页码有哪些
-      this.localPageNumbers = [];
-      if (this.pageNumber <= 3) {
-        for (let i = 1; i <= Math.min(this.maxPageNumber, 5); i++)
-          this.localPageNumbers.push(i);
-      } else {
-        let count: number = 0;
-        for (let i = Math.min(this.maxPageNumber, this.pageNumber + 2); i > 0; i--) {
-          this.localPageNumbers.push(i);
-          count++;
-          if (count >= 5) break;
-        }
-        this.localPageNumbers.reverse();
-      }
+      this.articleService.getArticles(this.pageNumber).subscribe(data => this.articles = data);
+      this.articleService.getMaxPageNumber().subscribe(
+        (data) => {
+          if (data != null) {
+            this.maxPageNumber = data;
+            this.localPageNumbers = [];
+            if (this.pageNumber <= 3) {
+              for (let i = 1; i <= Math.min(this.maxPageNumber, 5); i++)
+                this.localPageNumbers.push(i);
+            } else {
+              let count: number = 0;
+              for (let i = Math.min(this.maxPageNumber, this.pageNumber + 2); i > 0; i--) {
+                this.localPageNumbers.push(i);
+                count++;
+                if (count >= 5) break;
+              }
+              this.localPageNumbers.reverse();
+            }
+          } else {
+            console.log("get-article-number failed");
+          }
+        });
     });
 
     // 获取最热文章

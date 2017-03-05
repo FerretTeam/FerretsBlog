@@ -44,10 +44,14 @@ export class EditComponent implements OnInit {
     if (this.param) {
       // 取回文章
       this.update = true;
-      this.article = this.articleService.getArticle(this.param);
-      (<HTMLInputElement>document.getElementById('article-title')).value = this.article.title;
-      document.getElementById('content-before').innerHTML = this.article.contents;
-      this.imageurl = this.article.image;
+      this.articleService.getArticle(this.param).subscribe((data) => {
+        if (data != null) {
+          this.article = data;
+          (<HTMLInputElement>document.getElementById('article-title')).value = this.article.title;
+          document.getElementById('content-before').innerHTML = this.article.contents;
+          this.imageurl = this.article.image;
+        }
+      })
     }
   }
 
