@@ -25,7 +25,7 @@ const appRouters: Routes = [
     component: ProfileComponent
   },
   {
-    path: ':user/article/:id',
+    path: ':user/article/:title',
     component: ArticleComponent
   },
   {

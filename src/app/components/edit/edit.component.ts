@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as marked from 'marked';
 import highlightjs from 'highlight.js';
+
 import { Article } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
-import { ActivatedRoute, Router} from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { Passport } from '../../services/auth/passport';
 
 @Component({
   selector: 'app-edit',
@@ -11,7 +14,9 @@ import { ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./edit.component.sass']
 })
 export class EditComponent implements OnInit {
-  param: number;  // URL 参数的个数
+  passport: Passport;  // 用户凭证
+
+  param: string;  // URL 中的文章标题
   update: boolean;  // 创建新的文章还是更新文章
   mode: string;  // 编辑文章还是预览文章
 
@@ -21,11 +26,16 @@ export class EditComponent implements OnInit {
   tagInputValue: string;  // 文章标签的字符串缓冲
   tagInputVisibility: boolean = true;
 
-  constructor(private articleService: ArticleService, private router: Router,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,
+              private articleService: ArticleService, private authService: AuthService) {
     this.mode = '预 览';
     this.update = false;
     this.imageurl = null;
+
+    // 如果未登录，则跳转至 /welcome 页面
+    this.passport = this.authService.getPassport();
+    if (this.passport == null)
+      this.router.navigate(['/welcome']);
 
     // 设定 marked 的参数
     const renderer = new marked.Renderer();
@@ -39,7 +49,7 @@ export class EditComponent implements OnInit {
 
     // 读取文章的编号
     this.activatedRoute.params.subscribe(params => {
-      this.param = params['id'];
+      this.param = params['title'];
     });
   }
 
@@ -47,7 +57,7 @@ export class EditComponent implements OnInit {
     if (this.param) {
       // 取回文章
       this.update = true;
-      this.articleService.getArticle(this.param).subscribe((data) => {
+      this.articleService.getArticle(this.passport.username, this.param).subscribe((data) => {
         if (data != null) {
           this.article = data;
           // 设置文章标题

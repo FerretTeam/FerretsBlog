@@ -16,25 +16,33 @@ export class HomeComponent implements OnInit {
   articles: Article[] = [];
   popArticles: Article[] = [];
   tags: Tag[] = [];
+
   pageNumber: number;
   maxPageNumber: number;
   localPageNumbers: number[] = [];
+
+  username: string = '';
 
   constructor(private articleService: ArticleService, private router: Router,
               private authService: AuthService, private userService: UserService,
               private activatedRoute: ActivatedRoute) {
     // 如果未登录，则跳转至 /welcome 页面
-    if (this.authService.getPassport() == null)
+    let passport = this.authService.getPassport();
+    if (passport == null)
       this.router.navigate(['/welcome']);
+    else
+      this.username = passport.username;
 
+    // URL 发生变化
     this.activatedRoute.params.subscribe(params => {
       // 获取指定页的文章
       this.pageNumber = parseInt(params['page']);
-      this.articleService.getArticles(this.pageNumber).subscribe(data => this.articles = data);
-      this.articleService.getMaxPageNumber().subscribe(
+      this.articleService.getArticlesByPageNumber(this.username, this.pageNumber)
+                         .subscribe(data => this.articles = data);
+      this.articleService.getArticlesNumber(this.username).subscribe(
         (data) => {
           if (data != null) {
-            this.maxPageNumber = data;
+            this.maxPageNumber = Math.ceil(Number(data) / 10);
             this.localPageNumbers = [];
             if (this.pageNumber <= 3) {
               for (let i = 1; i <= Math.min(this.maxPageNumber, 5); i++)

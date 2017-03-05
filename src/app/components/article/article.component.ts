@@ -26,8 +26,8 @@ export class ArticleComponent implements OnInit {
               private activatedRoute: ActivatedRoute, private authService: AuthService) {
     // 取回文章的信息
     this.activatedRoute.params.subscribe(params => {
-      this.articleService.getArticle(params['id']).subscribe(data => this.article = data);
-      this.comments = this.articleService.getComments(params['id']);
+      this.articleService.getArticle(params['user'], params['title']).subscribe(data => this.article = data);
+      this.comments = this.articleService.getComments(params['user'], params['title']);
     });
 
     // 取回用户信息
