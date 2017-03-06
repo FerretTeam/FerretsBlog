@@ -22,7 +22,7 @@ export class Article {
   synopsis: string;
   tagName: string[];
   contents: string;
-
+    
   constructor(date: Date, image: string, title: string,
               synopsis: string, tagName: string[], contents: string) {
     this.date = date; this.image = image; this.title = title; this.synopsis = synopsis;

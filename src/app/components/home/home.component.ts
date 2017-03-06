@@ -38,7 +38,9 @@ export class HomeComponent implements OnInit {
       // 获取指定页的文章
       this.pageNumber = parseInt(params['page']);
       this.articleService.getArticlesByPageNumber(this.username, this.pageNumber)
-                         .subscribe(data => this.articles = data);
+                         .subscribe(data => {
+                           this.articles = data;
+                         });
       this.articleService.getArticlesNumber(this.username).subscribe(
         (data) => {
           if (data != null) {
@@ -56,8 +58,6 @@ export class HomeComponent implements OnInit {
               }
               this.localPageNumbers.reverse();
             }
-          } else {
-            console.log("get-article-number failed");
           }
         });
     });

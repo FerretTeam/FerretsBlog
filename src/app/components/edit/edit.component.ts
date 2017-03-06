@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as marked from 'marked';
 import highlightjs from 'highlight.js';
+import { MdSnackBar } from '@angular/material';
 
 import { Article } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
@@ -25,9 +26,11 @@ export class EditComponent implements OnInit {
   tags: string[] = [];  // 文章标签
   tagInputValue: string;  // 文章标签的字符串缓冲
   tagInputVisibility: boolean = true;
+  originalTitle: string = '';
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
-              private articleService: ArticleService, private authService: AuthService) {
+              public snackBar: MdSnackBar,private articleService: ArticleService,
+              private authService: AuthService) {
     this.mode = '预 览';
     this.update = false;
     this.imageUrl = null;
@@ -54,6 +57,7 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
+    // 如果是编辑文章选项
     if (this.param) {
       // 取回文章
       this.update = true;
@@ -62,6 +66,7 @@ export class EditComponent implements OnInit {
           this.article = data;
           // 设置文章标题
           (<HTMLInputElement>document.getElementById('article-title')).value = this.article.title;
+          this.originalTitle = this.article.title;
           // 设置文章内容
           document.getElementById('content-before').innerHTML = this.article.contents;
           // 设置文章封面图片
@@ -116,16 +121,34 @@ export class EditComponent implements OnInit {
     }
   }
 
+  // 发表新文章
   submitArticle() {
-    let newArticle: Article = new Article(new Date(), this.imageUrl,
-                                          (<HTMLInputElement>document.getElementById('article-title')).value,
-                                          (<HTMLInputElement>document.getElementById('digest-content')).value,
-                                          this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
-    this.articleService.createArticle(newArticle).subscribe(data => data);
+    var articleTitle =   (<HTMLInputElement>document.getElementById('article-title')).value;
+    if ( articleTitle == '') {
+      this.snackBar.open('标题不能为空', '知道了', { duration: 2000 });
+    } else {
+      let newArticle: Article = new Article(new Date(), this.imageUrl,
+                                            (<HTMLInputElement>document.getElementById('article-title')).value,
+                                            articleTitle, this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
+      this.articleService.createArticle(newArticle).subscribe(data => data);
+      this.snackBar.open('发布成功', '知道了', { duration: 2000 });
+      this.router.navigate([this.passport.username, 'home', 0]);
+    }
   }
 
+  // 更新文章
   updateArticle() {
-    // TODO 更新文章
+    var articleTitle =   (<HTMLInputElement>document.getElementById('article-title')).value;
+    if ( articleTitle == '') {
+      this.snackBar.open('标题不能为空', '知道了', { duration: 2000 });
+    } else {
+      let newArticle: Article = new Article(new Date(), this.imageUrl,
+                                            (<HTMLInputElement>document.getElementById('article-title')).value,
+                                            articleTitle, this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
+      this.articleService.updateArticle(newArticle, this.originalTitle).subscribe(data => data);
+      this.snackBar.open('更新成功', '知道了', { duration: 2000 });
+      this.router.navigate([this.passport.username, 'home', 0]);
+    }
   }
 
 }
