@@ -43,7 +43,7 @@ module.exports = function(router, Passport, Article) {
         if (err) {
           return res.json('错误 012：出现异常，请联系管理员');
         } else {
-          if (article.length != 1) return req.json('文章标题错误');
+          if (article.length != 1) return res.json('文章标题错误');
           else return res.json(article[0]);
         }
       });

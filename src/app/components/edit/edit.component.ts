@@ -68,7 +68,10 @@ export class EditComponent implements OnInit {
           document.getElementById('content-before').innerHTML = this.article.contents;
           // 设置文章封面图片
           this.imageUrl = this.article.image;
-          // TODO 设置文章标签和简介
+          // 设置文章的摘要
+          (<HTMLInputElement>document.getElementById('digest-content')).value = this.article.synopsis;
+          // 设置文章标签
+          this.tags = this.article.tagName;
         }
       });
     }
