@@ -38,7 +38,7 @@ export class ArticleService {
 
   // 获取某一篇文章
   getArticle(username: string, title: string) {
-    return this.http.post('/api/get-articles-by-title',
+    return this.http.post('/api/get-article-by-title',
                           {username: username,
                            title: title},
                           {headers: this.headers})
@@ -105,7 +105,10 @@ export class ArticleService {
                     .map((res) => {
                       let temp = res.json();
                       // TODO 对 temp 可能存在的报错信息进行处理
-                      console.log(temp);
+                      if (temp == 'INVALID_REQUEST' || temp == undefined) {
+                        console.error(temp);
+                        return null;
+                      }
                       // TODO 解析成文章列表并返回
                       return true;
                     });

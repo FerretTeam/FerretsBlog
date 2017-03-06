@@ -29,7 +29,7 @@ module.exports = function(router, Passport, Article) {
 
   // 根据文章标题返回用户的文章信息
   // post username & title
-  router.post('/get-articles-by-title', (req, res) => {
+  router.post('/get-article-by-title', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
       return res.json('INVALID_REQUEST');
@@ -107,7 +107,6 @@ module.exports = function(router, Passport, Article) {
       }
     });
   });
-  return router;
 
   // 更新文章
   // post passport, article, originalTitle
@@ -120,6 +119,8 @@ module.exports = function(router, Passport, Article) {
                req.body.originalTitle == null || req.body.originalTitle == undefined ) {
       return res.json('INVALID_REQUEST');
     }
+
+    if (req.body.article.title == '') return res.json('文章标题为空');
 
     // 在Article数据库中更新文章
     Passport.find({username: req.body.passport.username}, function(err, passport_) {
@@ -143,6 +144,7 @@ module.exports = function(router, Passport, Article) {
                                           tagName: req.body.article.tagName,
                                           contents: req.body.article.contents}}, {new: true},
                                           function(err, data){
+                                            // console.log(data);
                                             if (err) return res.json('错误 017：出现异常，请联系管理员');
                                             else return res.json('true');
                                     });

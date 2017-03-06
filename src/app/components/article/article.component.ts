@@ -17,19 +17,12 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class ArticleComponent implements OnInit {
   article: Article;
-  data: string;
   comments: Comment[];
   user: User;
 
   constructor(private articleService: ArticleService, private router: Router,
               public snackBar: MdSnackBar, private userService: UserService,
               private activatedRoute: ActivatedRoute, private authService: AuthService) {
-    // 取回文章的信息
-    this.activatedRoute.params.subscribe(params => {
-      this.articleService.getArticle(params['user'], params['title']).subscribe(data => this.article = data);
-      this.comments = this.articleService.getComments(params['user'], params['title']);
-    });
-
     // 取回用户信息
     if (this.authService.getPassport() != null)
       this.userService.getUserInfo().subscribe(data => this.user = data);
@@ -44,7 +37,22 @@ export class ArticleComponent implements OnInit {
 
     marked.setOptions({ renderer });
 
-    document.getElementById('article-content').innerHTML = marked(this.article.contents);
+    // 取回文章的信息
+    this.activatedRoute.params.subscribe(params => {
+      this.articleService.getArticle(params['user'], params['title']).subscribe(data => {
+        if (data != null) {
+          this.article = data;
+          let refresh = setInterval(function() {
+            let articleContent = document.getElementById('article-content');
+            if (articleContent && data) {
+              articleContent.innerHTML = marked(data.contents);
+              clearInterval(refresh);
+            }
+          }, 10);
+        }
+      });
+      this.comments = this.articleService.getComments(params['user'], params['title']);
+    });
   }
 
   ngOnInit() {}

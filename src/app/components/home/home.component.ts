@@ -68,10 +68,10 @@ export class HomeComponent implements OnInit {
     this.tags = this.articleService.getTags();
   }
 
-  gotoArticle(id: number) {
+  gotoArticle(title: string) {
     if (this.authService.getPassport() != null) {
       this.userService.getUserInfo().subscribe((data) => {
-        let link = [data.username, 'article', id];
+        let link = [data.username, 'article', title];
         this.router.navigate(link);
       });
     }

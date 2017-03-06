@@ -57,7 +57,6 @@ export class EditComponent implements OnInit {
 
     if (this.param) {
       // 取回文章
-      console.log(this.param);
       this.update = true;
       this.articleService.getArticle(this.passport.username, this.param).subscribe((data) => {
         if (data != null) {

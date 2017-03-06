@@ -3,9 +3,9 @@
 <div class='article-layout'>
   <div fxLayout='column' fxLayoutAlign='center stretch'>
     <!-- 文章部分 -->
-    <md-card class='article-container'>
+    <md-card class='article-container' *ngIf='article'>
       <!-- 有图片的文章的图片及标题 -->
-      <div class='article-image' *ngIf='article.image' [style.background-image]="'url(' + article.image + ')'">
+      <div class='article.image' *ngIf='article.image' [style.background-image]="'url(' + article.image + ')'">
         <div class='article-header'>
           <span class='article-header-title'>{{article.title}}</span>
         </div>
@@ -19,7 +19,7 @@
         <span class='article-date'>{{article.date}}</span>
       </div>
       <div class='article-body'>
-        <div class='content markdown-body' id="article-content"></div>
+        <div class='content markdown-body' id='article-content'></div>
       </div>
     </md-card>
     <!-- 评论部分 -->
