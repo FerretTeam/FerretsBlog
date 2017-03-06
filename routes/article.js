@@ -134,21 +134,29 @@ module.exports = function(router, Passport, Article) {
             Article.find({author: passport_[0]._id, title: req.body.article.title}, function(err, article_) {
               if (article_.length >= 1) return res.json('更改后的文章标题已经被占用');
             });
-          } else {
-            // 更新用户的文章信息
-            Article.findOneAndUpdate({author: passport_[0]._id, },
-                                    {$set:{date: req.body.article.date,
-                                          image: req.body.article.image,
-                                          title: req.body.article.title,
-                                          synopsis: req.body.article.synopsis,
-                                          tagName: req.body.article.tagName,
-                                          contents: req.body.article.contents}}, {new: true},
-                                          function(err, data){
-                                            // console.log(data);
-                                            if (err) return res.json('错误 017：出现异常，请联系管理员');
-                                            else return res.json('true');
-                                    });
           }
+          // 更新用户的文章信息
+          Article.find({author: passport_[0]._id, title: req.body.originalTitle}, function(err, rawArticle){
+            if (err) return res.json('错误 017：出现异常，请联系管理员');
+            else {
+              if (rawArticle.length != 1) return res.json("原文章不存在");
+              else {
+                Article.findByIdAndUpdate(rawArticle[0]._id,
+                                        {$set:{date: req.body.article.date,
+                                              image: req.body.article.image,
+                                              title: req.body.article.title,
+                                              synopsis: req.body.article.synopsis,
+                                              tagName: req.body.article.tagName,
+                                              contents: req.body.article.contents}}, {new: true},
+                                              function(err, data){
+                                                console.log(data);
+                                                console.log("right");
+                                                if (err) return res.json('错误 017：出现异常，请联系管理员');
+                                                else return res.json('true');
+                                        });
+              }
+            }
+          });
         }
       }
     });

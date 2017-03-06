@@ -68,8 +68,11 @@ export class ArticleService {
                           {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
-                      // TODO 对 temp 可能存在的报错信息进行处理
-                      console.log(temp);
+                      // 对 temp 可能存在的报错信息进行处理
+                      if (temp == 'INVALID_REQUEST' || temp == undefined) {
+                        console.error(temp);
+                        return null;
+                      }
                       // TODO 解析成文章列表并返回
                       return 0;
                     });
