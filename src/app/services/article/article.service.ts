@@ -44,10 +44,15 @@ export class ArticleService {
                           {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
-                      // TODO 对 temp 可能存在的报错信息进行处理
-                      console.log(temp);
-                      // TODO 解析成文章列表并返回
-                      return null;
+                      // 对 temp 可能存在的报错信息进行处理
+                      if (temp == 'INVALID_REQUEST' || temp == undefined) {
+                        console.error(temp);
+                        return null;
+                      }
+                      // 解析成文章列表并返回
+                      return new Article(temp.date, temp.image, temp.title,
+                                         temp.synopsis, temp.tagName, temp.contents
+                      );
                     });
   }
 
@@ -73,7 +78,7 @@ export class ArticleService {
   // 创建新文章
   createArticle(article: Article) {
     let passport = this.authService.getPassport();
-    return this.http.post('/api/create-new-article',
+    return this.http.post('/api/create-article',
                           {passport: passport,
                            article: article},
                           {headers: this.headers})

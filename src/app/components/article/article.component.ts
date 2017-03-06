@@ -43,11 +43,11 @@ export class ArticleComponent implements OnInit {
     };
 
     marked.setOptions({ renderer });
-  }
 
-  ngOnInit() {
     document.getElementById('article-content').innerHTML = marked(this.article.contents);
   }
+
+  ngOnInit() {}
 
   addComment() {
     var message = (<HTMLInputElement>document.getElementById('comment-content')).value;

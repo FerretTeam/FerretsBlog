@@ -18,13 +18,13 @@
           <p class='article-synopsis'>{{article.synopsis}}</p>
         </md-card-content>
         <md-card-actions>
-          <button md-icon-button (click)='gotoEdit(article.id)' mdTooltip='修改文章'>
+          <button md-icon-button (click)='gotoEdit(article.title)' mdTooltip='修改文章'>
             <md-icon>create</md-icon>
           </button>
           <button md-icon-button mdTooltip='分享文章'>
             <md-icon>share</md-icon>
           </button>
-          <button md-button (click)='gotoArticle(article.id)' class='article-read-more' md-raised-button>阅读全文</button>
+          <button md-button (click)='gotoArticle(article.title)' class='article-read-more' md-raised-button>阅读全文</button>
         </md-card-actions>
       </md-card>
 
@@ -49,7 +49,7 @@
     <!-- 在窄屏上显示的文章界面 -->
     <div fxHide.gt-xs>
       <md-card>
-        <div *ngFor='let article of articles' class='m-articles-container' (click)='gotoArticle(article.id)'>
+        <div *ngFor='let article of articles' class='m-articles-container' (click)='gotoArticle(article.title)'>
           <!-- 有图片的 card 模板 -->
           <div *ngIf='article.image' class='flex-container m-article-container' fxLayout='row'>
             <div class='flex-item m-article-content-container' fxFlex='61.8%'>
@@ -83,7 +83,7 @@
   <div class='tags-container'>
     <md-card class='tag'>
       <div class='tag-title'><span>最热文章</span></div>
-      <button md-button class='tag-list-button' *ngFor='let article of popArticles' (click)='gotoArticle(article.id)'>{{article.title}}</button>
+      <button md-button class='tag-list-button' *ngFor='let article of popArticles' (click)='gotoArticle(article.title)'>{{article.title}}</button>
       <div class='tag-footer'></div>
     </md-card>
     <md-card class='tag'>

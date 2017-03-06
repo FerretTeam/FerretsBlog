@@ -77,10 +77,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  gotoEdit(id: number) {
+  gotoEdit(title: string) {
     if (this.authService.getPassport() != null) {
       this.userService.getUserInfo().subscribe((data) => {
-        let link = [data.username, 'edit', id];
+        let link = [data.username, 'edit', title];
         this.router.navigate(link);
       });
     }

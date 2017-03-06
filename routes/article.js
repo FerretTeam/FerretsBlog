@@ -44,7 +44,7 @@ module.exports = function(router, Passport, Article) {
           return res.json('错误 012：出现异常，请联系管理员');
         } else {
           if (article.length != 1) return req.json('文章标题错误');
-          else return res.json(article);
+          else return res.json(article[0]);
         }
       });
     });
@@ -71,7 +71,7 @@ module.exports = function(router, Passport, Article) {
 
   // 创建文章
   // post passport && article
-  router.post('/create-new-article', (req, res) => {
+  router.post('/create-article', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
       return res.json('INVALID_REQUEST');
@@ -116,7 +116,8 @@ module.exports = function(router, Passport, Article) {
     if (req.body == null || req.body == undefined) {
       return res.json('INVALID_REQUEST');
     } else if (req.body.passport == null || req.body.passport == undefined ||
-               req.body.article == null || req.body.article == undefined ) {
+               req.body.article == null || req.body.article == undefined ||
+               req.body.originalTitle == null || req.body.originalTitle == undefined ) {
       return res.json('INVALID_REQUEST');
     }
 
@@ -128,22 +129,23 @@ module.exports = function(router, Passport, Article) {
         if (passport_.length != 1) return res.json('该用户不存在！');
         else {
           // 检查是否存在更新后的同名文章
-          if (originalTitle != req.body.article.title) {
+          if (req.body.originalTitle != req.body.article.title) {
             Article.find({author: passport_[0]._id, title: req.body.article.title}, function(err, article_) {
               if (article_.length >= 1) return res.json('更改后的文章标题已经被占用');
             });
           } else {
             // 更新用户的文章信息
-            Article.findOneAndUpdate({author: passport_._id, },
+            Article.findOneAndUpdate({author: passport_[0]._id, },
                                     {$set:{date: req.body.article.date,
                                           image: req.body.article.image,
                                           title: req.body.article.title,
                                           synopsis: req.body.article.synopsis,
                                           tagName: req.body.article.tagName,
-                                          contents: req.body.article.contents}}, {new: true}, function(err, article){
-              if (err) return res.json('错误 017：出现异常，请联系管理员');
-              else return res.json('true');
-            });
+                                          contents: req.body.article.contents}}, {new: true},
+                                          function(err, data){
+                                            if (err) return res.json('错误 017：出现异常，请联系管理员');
+                                            else return res.json('true');
+                                    });
           }
         }
       }

@@ -33,7 +33,7 @@ const appRouters: Routes = [
     component: EditComponent
   },
   {
-    path: ':user/edit/:id',
+    path: ':user/edit/:title',
     component: EditComponent
   },
   {

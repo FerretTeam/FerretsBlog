@@ -54,12 +54,10 @@ export class EditComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.param = params['title'];
     });
-  }
 
-  ngOnInit() {
-    // 如果是编辑文章选项
     if (this.param) {
       // 取回文章
+      console.log(this.param);
       this.update = true;
       this.articleService.getArticle(this.passport.username, this.param).subscribe((data) => {
         if (data != null) {
@@ -76,6 +74,8 @@ export class EditComponent implements OnInit {
       });
     }
   }
+
+  ngOnInit() {}
 
   contentChange() {
     if (this.mode == '预 览') this.mode = '编 写';
@@ -127,9 +127,9 @@ export class EditComponent implements OnInit {
     if ( articleTitle == '') {
       this.snackBar.open('标题不能为空', '知道了', { duration: 2000 });
     } else {
-      let newArticle: Article = new Article(new Date(), this.imageUrl,
-                                            (<HTMLInputElement>document.getElementById('article-title')).value,
-                                            articleTitle, this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
+      let newArticle: Article = new Article(new Date(), this.imageUrl, articleTitle,
+                                            (<HTMLInputElement>document.getElementById('digest-content')).value,
+                                            this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
       this.articleService.createArticle(newArticle).subscribe(data => data);
       this.snackBar.open('发布成功', '知道了', { duration: 2000 });
       this.router.navigate([this.passport.username, 'home', 0]);
@@ -142,9 +142,9 @@ export class EditComponent implements OnInit {
     if ( articleTitle == '') {
       this.snackBar.open('标题不能为空', '知道了', { duration: 2000 });
     } else {
-      let newArticle: Article = new Article(new Date(), this.imageUrl,
-                                            (<HTMLInputElement>document.getElementById('article-title')).value,
-                                            articleTitle, this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
+      let newArticle: Article = new Article(new Date(), this.imageUrl, articleTitle,
+                                            (<HTMLInputElement>document.getElementById('digest-content')).value,
+                                            this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
       this.articleService.updateArticle(newArticle, this.originalTitle).subscribe(data => data);
       this.snackBar.open('更新成功', '知道了', { duration: 2000 });
       this.router.navigate([this.passport.username, 'home', 0]);
