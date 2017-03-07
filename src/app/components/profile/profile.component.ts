@@ -14,6 +14,7 @@ import { AuthService } from '../../services/auth/auth.service';
 
 export class ProfileComponent{
   user: User = null;
+  errorMessage: string = '';
 
   constructor(private router: Router, private authService: AuthService,
               public snackBar: MdSnackBar, private userService: UserService) {
@@ -31,11 +32,12 @@ export class ProfileComponent{
     // 提交修改
     this.userService.updateUser(this.user).subscribe(
       (data) => {
-        if (data != null) {
+        if (data.username != undefined) {
           this.user = data;
           this.snackBar.open('修改成功', '知道了', { duration: 2000 });
+          this.errorMessage = '';
         } else {
-          this.snackBar.open('修改失败，请检查报错信息', '知道了', { duration: 2000 });
+          this.errorMessage = data;
         }
       }
     );

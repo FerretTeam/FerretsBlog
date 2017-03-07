@@ -29,7 +29,7 @@
       </md-card>
 
       <div class='page-controller'>
-        <button *ngIf='pageNumber != 0' md-icon-button class='page-button' (click)='turnPage(pageNumber - 1)'>
+        <button *ngIf='pageNumber > 1' md-icon-button class='page-button' (click)='turnPage(pageNumber - 1)'>
           <md-icon>arrow_back</md-icon>
         </button>
         <span *ngFor='let number of localPageNumbers'>
@@ -40,7 +40,7 @@
             {{number}}
           </button>
         </span>
-        <button *ngIf='pageNumber != maxPageNumber' md-icon-button class='page-button' (click)='turnPage(pageNumber + 1)'>
+        <button *ngIf='pageNumber < maxPageNumber' md-icon-button class='page-button' (click)='turnPage(pageNumber + 1)'>
           <md-icon>arrow_forward</md-icon>
         </button>
       </div>
@@ -69,11 +69,11 @@
         </div>
       </md-card>
       <div class='page-controller'>
-        <button *ngIf='pageNumber != 0' md-icon-button class='m-page-button' (click)='turnPage(pageNumber - 1)'>
+        <button *ngIf='pageNumber > 1' md-icon-button class='m-page-button' (click)='turnPage(pageNumber - 1)'>
           <md-icon>arrow_back</md-icon>
         </button>
         <span class='m-page-number'>第 {{pageNumber}} 页</span>
-        <button *ngIf='pageNumber != maxPageNumber' md-icon-button class='m-page-button' (click)='turnPage(pageNumber + 1)'>
+        <button *ngIf='pageNumber < maxPageNumber' md-icon-button class='m-page-button' (click)='turnPage(pageNumber + 1)'>
           <md-icon>arrow_forward</md-icon>
         </button>
       </div>

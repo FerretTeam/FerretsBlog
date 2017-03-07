@@ -52,8 +52,7 @@ export class UserService {
                     .map((res) => {
                       let temp = res.json();
                       if (temp == 'INVALID_REQUEST' || temp.username == undefined) {
-                        console.error(temp);
-                        return null;
+                        return temp;
                       }
                       // 为了排版便利，在 service 中将大数转换为 k 或 m
                       let tempTotalCharacters: string, tempTotalReading: string, tempTotalLikes: string;

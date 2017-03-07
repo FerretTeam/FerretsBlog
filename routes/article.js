@@ -92,9 +92,9 @@ module.exports = function(router, Passport, Article) {
     let title = String(article.title).match(reg);
     let synopsis = String(article.synopsis).match(reg);
     let contents = String(article.contents).match(reg);
-    if (title.length <= 0) return '文章标题为空';
-    if (synopsis.length <= 0) return '文章摘要为空';
-    if (contents.length <= 0) return '文章内容为空';
+    if (title == null) return '文章标题为空';
+    if (synopsis == null) return '文章摘要为空';
+    if (contents == null) return '文章内容为空';
 
     // 检查文章的标签是不是为空
     if (article.tagName.length == 0) return '文章标签为空';

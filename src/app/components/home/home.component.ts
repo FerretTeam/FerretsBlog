@@ -36,8 +36,8 @@ export class HomeComponent implements OnInit {
     // URL 发生变化
     this.activatedRoute.params.subscribe(params => {
       // 获取指定页的文章
-      this.pageNumber = parseInt(params['page']);
-      this.articleService.getArticlesByPageNumber(this.username, this.pageNumber)
+      this.pageNumber = parseInt(params['page']) + 1;
+      this.articleService.getArticlesByPageNumber(this.username, this.pageNumber - 1)
                          .subscribe(data => {
                            this.articles = data;
                          });
@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit {
   turnPage(newPageNumber: number) {
     if (this.authService.getPassport() != null) {
       this.userService.getUserInfo().subscribe((data) => {
-        let link = [data.username, 'home', newPageNumber];
+        let link = [data.username, 'home', newPageNumber - 1];
         this.router.navigate(link);
       });
     }

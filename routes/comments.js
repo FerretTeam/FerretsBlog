@@ -35,6 +35,5 @@ module.exports = function(router, Passport, Article, Comments) {
     }
   });
 
-  // 通过文章的作者和标题以及评论者的
   return router;
 }
