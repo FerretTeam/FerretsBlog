@@ -43,6 +43,7 @@
         <md-input-container>
           <input mdInput placeholder='擅长领域' name='field' [ngModel]='user.field'>
         </md-input-container>
+        <div class='error-message' *ngIf='errorMessage != ""'>{{errorMessage}}</div>
         <button md-raised-button (click)='updateUserInfo(otherInfo.value)' class='submit-change-button'>提交修改</button>
       </form>
     </md-card>

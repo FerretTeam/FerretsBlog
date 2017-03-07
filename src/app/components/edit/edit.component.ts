@@ -25,8 +25,10 @@ export class EditComponent implements OnInit {
   imageUrl: string = '';  // 背景图片
   tags: string[] = [];  // 文章标签
   tagInputValue: string;  // 文章标签的字符串缓冲
-  tagInputVisibility: boolean = true;
-  originalTitle: string = '';
+  tagInputVisibility: boolean = true;  // tag 是否可见
+  originalTitle: string = '';  // 用于存储旧的文章标题以便后端索引
+
+  errorMessage: string = '';  // 报错信息
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
               public snackBar: MdSnackBar,private articleService: ArticleService,
@@ -127,29 +129,42 @@ export class EditComponent implements OnInit {
   submitArticle() {
     var articleTitle =   (<HTMLInputElement>document.getElementById('article-title')).value;
     if ( articleTitle == '') {
-      this.snackBar.open('标题不能为空', '知道了', { duration: 2000 });
+      this.errorMessage = '标题不能为空';
     } else {
       let newArticle: Article = new Article(new Date(), this.imageUrl, articleTitle,
                                             (<HTMLInputElement>document.getElementById('digest-content')).value,
                                             this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
-      this.articleService.createArticle(newArticle).subscribe(data => data);
-      this.snackBar.open('发布成功', '知道了', { duration: 2000 });
-      this.router.navigate([this.passport.username, 'home', 0]);
+      this.articleService.createArticle(newArticle).subscribe(
+        (data) => {
+          if (data == 'true') {
+            this.snackBar.open('发布成功', '知道了', { duration: 2000 });
+            this.errorMessage = '';
+            this.router.navigate([this.passport.username, 'home', 0]);
+          } else {
+            this.errorMessage = data;
+          }
+        });
     }
   }
 
   // 更新文章
   updateArticle() {
     var articleTitle =   (<HTMLInputElement>document.getElementById('article-title')).value;
-    if ( articleTitle == '') {
-      this.snackBar.open('标题不能为空', '知道了', { duration: 2000 });
+    if (articleTitle == '') {
+      this.errorMessage = '标题不能为空';
     } else {
       let newArticle: Article = new Article(new Date(), this.imageUrl, articleTitle,
                                             (<HTMLInputElement>document.getElementById('digest-content')).value,
                                             this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
-      this.articleService.updateArticle(newArticle, this.originalTitle).subscribe(data => data);
-      this.snackBar.open('更新成功', '知道了', { duration: 2000 });
-      this.router.navigate([this.passport.username, 'home', 0]);
+      this.articleService.updateArticle(newArticle, this.originalTitle).subscribe((data) => {
+        if (data == 'true') {
+          this.snackBar.open('更新成功', '知道了', { duration: 2000 });
+          this.errorMessage = '';
+          this.router.navigate([this.passport.username, 'home', 0]);
+        } else {
+          this.errorMessage = data;
+        }
+      });
     }
   }
 

@@ -21,7 +21,8 @@ export class ArticleService {
                     .map((res) => {
                       let temp = res.json();
                       // 对报错信息进行处理
-                      if (temp == 'INVALID_REQUEST' || temp.date == undefined) {
+                      if (temp == 'INVALID_REQUEST' ||
+                          (temp[0] != undefined && temp[0].date == undefined)) {
                         console.error(temp);
                         return null;
                       }
@@ -71,7 +72,7 @@ export class ArticleService {
                         console.error(temp);
                         return null;
                       }
-                      return 0;
+                      return temp;
                     });
   }
 
@@ -84,12 +85,7 @@ export class ArticleService {
                           {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
-                      // 对 temp 可能存在的报错信息进行处理
-                      if (temp != 'true') {
-                        console.error(temp);
-                        return null;
-                      }
-                      return true;
+                      return temp;
                     });
   }
 
@@ -103,12 +99,7 @@ export class ArticleService {
                           {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
-                      // 对 temp 可能存在的报错信息进行处理
-                      if (temp != 'true') {
-                        console.error(temp);
-                        return null;
-                      }
-                      return true;
+                      return temp;
                     });
   }
 
