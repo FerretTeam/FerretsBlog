@@ -21,12 +21,8 @@ export class ArticleService {
                     .map((res) => {
                       let temp = res.json();
                       // 对报错信息进行处理
-<<<<<<< HEAD
-                      if (temp == 'INVALID_REQUEST' || temp[0].date == undefined) {
-=======
                       if (temp == 'INVALID_REQUEST' ||
                           (temp[0] != undefined && temp[0].date == undefined)) {
->>>>>>> origin/master
                         console.error(temp);
                         return null;
                       }
