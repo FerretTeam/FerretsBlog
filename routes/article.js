@@ -128,7 +128,7 @@ module.exports = function(router, Passport, Article) {
     if (errString != 'true') return res.json(errString);
 
     // 在 Article 数据库中增加新文章
-    Passport.find({username: req.body.passport.username}, function(err, passport_) {
+    Passport.find({username: req.body.passport.username, encryptedPassword: req.body.passport.encryptedPassword}, function(err, passport_) {
       if (err) {
         return res.json('错误 017：出现异常，请联系管理员');
       } else {
@@ -170,7 +170,7 @@ module.exports = function(router, Passport, Article) {
     if (errString != 'true') return res.json(errString);
 
     // 在 Article 数据库中更新文章
-    Passport.find({username: req.body.passport.username}, function(err, passport_) {
+    Passport.find({username: req.body.passport.username, encryptedPassword: req.body.passport.encryptedPassword}, function(err, passport_) {
       if (err) {
         return res.json('错误 019：出现异常，请联系管理员');
       } else {

@@ -46,7 +46,7 @@ const commentSchema = new mongoose.Schema({
   time: Date,
   likes: Number
 });
-const Comment = mongoose.model('Comment', commentSchema);
+const Comments = mongoose.model('Comment', commentSchema);
 
 // 认证模块
 router = require('./auth')(router, Passport, User);
@@ -54,5 +54,7 @@ router = require('./auth')(router, Passport, User);
 router = require('./user')(router, Passport, User);
 // 文章模块
 router = require('./article')(router, Passport, Article);
+// 评论模块
+router = require('./comment')(router, Passport, Article, Comments);
 
 module.exports = router;
