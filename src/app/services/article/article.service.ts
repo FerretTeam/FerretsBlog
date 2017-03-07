@@ -11,6 +11,15 @@ export class ArticleService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http, private authService: AuthService) {}
+  // 为了排版便利，在 service 中将大数转换为 k 或 m
+  numberToString(num: number) {
+    if (num > 1000000)
+      return String((num / 1000000).toFixed(1)) + 'm';
+    else if (num > 1000)
+      return String((num / 1000).toFixed(1)) + 'k';
+    else
+      return String(num);
+  }
 
   // 获取某一页的文章列表，pageNum 从 0 开始编号
   getArticlesByPageNumber(username: string, pageNum: number) {
@@ -59,6 +68,28 @@ export class ArticleService {
   getComments(username: string, title: string) {
     return this.http.post('/api/get-comments',
                           {username: username, title: title},
+                          {headers: this.headers})
+                     .map((res) => {
+                       let temp = res.json();
+                       // 对 temp 可能存在的报错信息进行处理
+                       if (temp == 'INVALID_REQUEST' || temp == null) {
+                         console.error(temp);
+                         return null;
+                       }
+                       let comments: any = [];
+                       for (let entry of temp) {
+                         let newComment = new Comment(entry.username, entry.userAvatarUrl, entry.message,
+                                                      entry.time, this.numberToString(entry.likes));
+                         comments.push(newComment);
+                       }
+                       return comments;
+                     });
+  }
+
+  // 增加评论
+  addComment(authorname: string, title: string, comment: Comment) {
+    return this.http.post('/api/add-comment',
+                          {authorname: authorname, title: title, comment: comment},
                           {headers: this.headers})
                      .map((res) => {
                        let temp = res.json();

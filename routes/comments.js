@@ -1,38 +1,58 @@
 module.exports = function(router, Passport, Article, Comments) {
-  // 通过用户名查找用户凭证, 通过用户凭证 id 和文章标题查找文章，返回文章的 id
-  findArticleId = function(username, title) {
-    Passport.findOne({username: username}, function(err, passport_) {
-      if (err) return 'error';
-      Article.findOne({author: passport_._id, title: title}, function(err, article){
-        if (err) return 'error';
-        if (article.length == 0) return 'empty';
-        return article._id;
-      });
-    });
-  }
-
   // 通过文章的作者和标题返回评论
-  // post passport & title
+  // post username & title
   router.post('/get-comments', (req, res) =>{
     // 基础校验
     if (req.body == null || req.body == undefined) {
-      return res.json('INVALID_REQUEST 2');
+      return res.json('INVALID_REQUEST');
     }
-
-    // 验证用户凭证
-    let findString = findArticleId(req.body.username, req.body.title);
-
-    // 通过文章 id 查找评论
-    if ( findString == 'empty') {
-      return res.json('无法找到相应文章');
-    } else if ( findString == 'error') {
-      return res.json('错误 022：出现异常，请联系管理员');
-    } else {
-      Comments.find({article: findString, title: req.body.title}, function(err, comments){
+    // 通过作者名查找文章id，获取评论
+    Passport.findOne({username: req.body.username}, function(err, passport_) {
+      if (err) return res.json('错误 022：出现异常，请联系管理员');
+      if (passport_ == null) return res.json('该作者不存在');
+      Article.findOne({author: passport_._id, title: req.body.title}, function(err, article_){
         if (err) return res.json('错误 023：出现异常，请联系管理员');
-        return res.json(comments);
+        if (article_ == null) return res.json('该文章不存在');
+        Comments.find({article: article_._id}, function(err, comments){
+          if (err) return res.json('错误 024：出现异常，请联系管理员');
+          return res.json(comments);
+        });
       });
+    });
+  });
+
+  // 通过文章的作者和标题添加评论
+  // post authorname & title & comment
+  router.post('/add-comment', (req, res) => {
+    // 基础校验
+    if (req.body == null || req.body == undefined) {
+      return res.json('INVALID_REQUEST');
+    } else if (req.body.comment == null || req.body.comment == undefined) {
+      return res.json('INVALID_REQUEST');
     }
+    Passport.findOne({username: req.body.authorname}, function(err, passport_) {
+      if (err) return res.json('错误 025：出现异常，请联系管理员');
+      if (passport_ == null) return res.json('该作者不存在');
+      console.log(passport_.username, req.body.title);
+      Article.findOne({author: passport_._id, title: req.body.title}, function(err, article_){
+        if (err) return res.json('错误 026：出现异常，请联系管理员');
+        if (article_ == null) return res.json('该文章不存在');
+        // 创建新的评论
+        var comment = new Comments({
+          article: article_._id,  // 文章的 _id
+          username: req.body.comment.username,
+          userAvatarUrl:req.body.comment.userAvatarUrl,
+          message: req.body.comment.message,
+          time: req.body.comment.time,
+          likes: 0
+        });
+        // 保存新的评论
+        comment.save(function(err, comment_) {
+          if (err) return res.json('错误 027：出现异常，请联系管理员');
+          return res.json('true');
+        });
+      });
+    });
   });
 
   return router;

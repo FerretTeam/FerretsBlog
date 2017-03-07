@@ -2,11 +2,11 @@ export class Comment {
   username: string;
   userAvatarUrl: string;
   message: string;
-  time: string;
+  time: Date;
   likes: string;
 
   constructor(username: string, userAvatarUrl: string, message: string,
-              time: string, likes: string) {
+              time: Date, likes: string) {
     this.username = username;
     this.userAvatarUrl = userAvatarUrl;
     this.message = message;
