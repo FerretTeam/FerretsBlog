@@ -51,7 +51,9 @@ export class ArticleComponent implements OnInit {
           }, 10);
         }
       });
-      this.comments = this.articleService.getComments(params['user'], params['title']);
+      this.articleService.getComments(params['user'], params['title']).subscribe(data => {
+        this.comments = data;
+      });
     });
   }
 

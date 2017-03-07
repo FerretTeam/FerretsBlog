@@ -135,6 +135,10 @@ module.exports = function(router, Passport, Article) {
         if (passport_.length != 1) {
           return res.json('该用户不存在！');
         } else {
+          // 检验是否存在相同标题的文章
+          Article.find({author: passport_[0]._id, title: req.body.article.title}, function(err, article_) {
+            if (article_.length >= 1) return res.json('文章标题已经被占用');
+          });
           var article = new Article({
             author: passport_[0]._id,  // 用户凭证的 _id
             date: req.body.article.date,

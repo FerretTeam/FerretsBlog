@@ -21,7 +21,7 @@ export class ArticleService {
                     .map((res) => {
                       let temp = res.json();
                       // 对报错信息进行处理
-                      if (temp == 'INVALID_REQUEST' || temp.date == undefined) {
+                      if (temp == 'INVALID_REQUEST' || temp[0].date == undefined) {
                         console.error(temp);
                         return null;
                       }
@@ -54,9 +54,20 @@ export class ArticleService {
                     });
   }
 
-  // TODO 获取某一文章的评论，可放入 getArticle()
+  // 获取某一文章的评论
   getComments(username: string, title: string) {
-    return null;
+    return this.http.post('/api/get-comments',
+                          {username: username, title: title},
+                          {headers: this.headers})
+                     .map((res) => {
+                       let temp = res.json();
+                       // 对 temp 可能存在的报错信息进行处理
+                       if (temp == 'INVALID_REQUEST' || temp == null) {
+                         console.error(temp);
+                         return null;
+                       }
+                       return temp;
+                     });
   }
 
   // 获取总文章篇数
@@ -71,7 +82,7 @@ export class ArticleService {
                         console.error(temp);
                         return null;
                       }
-                      return 0;
+                      return temp;
                     });
   }
 
