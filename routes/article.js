@@ -21,11 +21,10 @@ module.exports = function(router, Passport, Article) {
             if (pageNumber < 0 || pageNumber > Math.ceil(articleNumber / 10)) {
               return res.json('页码错误')
             } else {
-              let tempArticles = [];
-              for (let entry of articles.slice(pageNumber * 10, Math.min(pageNumber * 10 + 10, articleNumber))) {
-                let newArticle = new Article(entry.date, entry.image, entry.title,
-                                             '', '', '');
-                tempArticles.push(newArticle);
+              let tempArticles = articles.slice(pageNumber * 10, Math.min(pageNumber * 10 + 10, articleNumber));
+              for (let entry of tempArticles) {
+                entry.tagName = [];
+                entry.contents = [];
               }
               return res.json(tempArticles);
             }
@@ -104,7 +103,7 @@ module.exports = function(router, Passport, Article) {
     }
 
     // TODO 检查文章标签是否有重复
-    return true;
+    return 'true';
   }
 
   // 创建文章
