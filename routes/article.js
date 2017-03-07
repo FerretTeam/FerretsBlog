@@ -120,7 +120,7 @@ module.exports = function(router, Passport, Article) {
 
     // 文章校验
     let errString = checkArticle(req.body.article);
-    if (errString != 'true') return req.json(errString);
+    if (errString != 'true') return res.json(errString);
 
     // 在 Article 数据库中增加新文章
     Passport.find({username: req.body.passport.username}, function(err, passport_) {
