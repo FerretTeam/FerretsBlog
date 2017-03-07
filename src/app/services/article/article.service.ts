@@ -21,11 +21,10 @@ export class ArticleService {
                     .map((res) => {
                       let temp = res.json();
                       // 对报错信息进行处理
-                      if (temp == 'INVALID_REQUEST' || temp == undefined) {
+                      if (temp == 'INVALID_REQUEST' || temp.date == undefined) {
                         console.error(temp);
                         return null;
                       }
-                      // 解析成文章列表并返回
                       let articles: any = [];
                       for (let entry of temp) {
                         let newArticle = new Article(entry.date, entry.image, entry.title,
@@ -45,11 +44,10 @@ export class ArticleService {
                     .map((res) => {
                       let temp = res.json();
                       // 对 temp 可能存在的报错信息进行处理
-                      if (temp == 'INVALID_REQUEST' || temp == undefined) {
+                      if (temp == 'INVALID_REQUEST' || temp.date == undefined) {
                         console.error(temp);
                         return null;
                       }
-                      // 解析成文章列表并返回
                       return new Article(temp.date, temp.image, temp.title,
                                          temp.synopsis, temp.tagName, temp.contents
                       );
@@ -69,11 +67,10 @@ export class ArticleService {
                     .map((res) => {
                       let temp = res.json();
                       // 对 temp 可能存在的报错信息进行处理
-                      if (temp == 'INVALID_REQUEST' || temp == undefined) {
+                      if (temp == 'INVALID_REQUEST' || Number(temp) == NaN) {
                         console.error(temp);
                         return null;
                       }
-                      // TODO 解析成文章列表并返回
                       return 0;
                     });
   }
@@ -88,11 +85,10 @@ export class ArticleService {
                     .map((res) => {
                       let temp = res.json();
                       // 对 temp 可能存在的报错信息进行处理
-                      if (temp == 'INVALID_REQUEST' || temp == undefined) {
+                      if (temp != 'true') {
                         console.error(temp);
                         return null;
                       }
-                      // TODO 解析成文章列表并返回
                       return true;
                     });
   }
@@ -107,12 +103,11 @@ export class ArticleService {
                           {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
-                      // TODO 对 temp 可能存在的报错信息进行处理
-                      if (temp == 'INVALID_REQUEST' || temp == undefined) {
+                      // 对 temp 可能存在的报错信息进行处理
+                      if (temp != 'true') {
                         console.error(temp);
                         return null;
                       }
-                      // TODO 解析成文章列表并返回
                       return true;
                     });
   }
