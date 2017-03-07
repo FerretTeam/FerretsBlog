@@ -85,8 +85,8 @@ module.exports = function(router, Passport, Article) {
         article.tagName == null || article.tagName == undefined ||
         article.synopsis == null || article.synopsis == undefined ||
         article.contents == null || article.contents == undefined ||
-        article.image == undefined || article.date == null || article.date == undefined)
-      return res.json('INVALID_REQUEST');
+        article.date == null || article.date == undefined)
+      return '文章元素不存在';
     // 检查文章元素是否为空
     let reg = /[^\s]/g;
     let title = String(article.title).match(reg);
@@ -102,7 +102,13 @@ module.exports = function(router, Passport, Article) {
       if (String(tag).match(reg).length <= 0) return '文章标签为空';
     }
 
-    // TODO 检查文章标签是否有重复
+    // 检查文章标签是否有重复
+    if (article.tagName.length == 2 && article.tagName[0].localeCompare(article.tagName[1]) == 0)
+      return '文章标签重复';
+    if (article.tagName.length == 3 && (article.tagName[0].localeCompare(article.tagName[1]) == 0 ||
+                                        article.tagName[0].localeCompare(article.tagName[2]) == 0 ||
+                                        article.tagName[1].localeCompare(article.tagName[2]) == 0))
+      return '文章标签重复';
     return 'true';
   }
 
@@ -111,7 +117,7 @@ module.exports = function(router, Passport, Article) {
   router.post('/create-article', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
-      return res.json('INVALID_REQUEST');
+      return res.json('INVALID_REQUEST body');
     } else if (req.body.passport == null || req.body.passport == undefined ||
                req.body.article == null || req.body.article == undefined) {
       return res.json('INVALID_REQUEST');
@@ -161,7 +167,7 @@ module.exports = function(router, Passport, Article) {
 
     // 文章校验
     let errString = checkArticle(req.body.article);
-    if (errString != 'true') return req.json(errString);
+    if (errString != 'true') return res.json(errString);
 
     // 在 Article 数据库中更新文章
     Passport.find({username: req.body.passport.username}, function(err, passport_) {
