@@ -68,8 +68,8 @@ int main() {
     </div>
     <div class='digest'>
       <div class='title'>文章摘要</div>
-      <textarea id='digest-content' #text maxlength='60'></textarea>
-      <md-hint align='end'>{{text.value.length}} / 60</md-hint>
+      <textarea mdInput id='digest-content' #text maxlength='100'></textarea>
+      <md-hint align='end'>{{text.value.length}} / 100</md-hint>
     </div>
     <div class='error-message' *ngIf='errorMessage != ""'>{{errorMessage}}</div>
     <div class='submit' fxHide='{{update}}'>

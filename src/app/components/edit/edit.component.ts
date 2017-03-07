@@ -8,6 +8,7 @@ import { Article } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { Passport } from '../../services/auth/passport';
+import { Validator } from '../../services/article/validator';
 
 @Component({
   selector: 'app-edit',
@@ -28,6 +29,7 @@ export class EditComponent implements OnInit {
   tagInputVisibility: boolean = true;  // tag 是否可见
   originalTitle: string = '';  // 用于存储旧的文章标题以便后端索引
 
+  validator: Validator = new Validator();  // 文章的校验器
   errorMessage: string = '';  // 报错信息
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
@@ -119,6 +121,12 @@ export class EditComponent implements OnInit {
       // 删除空格
       newValue = newValue.replace(/\s+/g, '');
       if (newValue.length > 1 && this.tags.length < 3) {
+        // 检验标签是否重复
+        for (let i = 0; i < this.tags.length; i++)
+          if (this.tags[i] == newValue) {
+            this.tagInputValue = '';
+            return;
+          }
         // 取出字符串放入标签
         this.tags.push(newValue);
         // 将输入清空
@@ -136,6 +144,12 @@ export class EditComponent implements OnInit {
     // 删除空格
     newValue = newValue.replace(/\s+/g, '');
     if (newValue.length > 1 && this.tags.length < 3) {
+      // 检验标签是否重复
+      for (let i = 0; i < this.tags.length; i++)
+        if (this.tags[i] == newValue) {
+          this.tagInputValue = '';
+          return;
+        }
       // 取出字符串放入标签
       this.tags.push(newValue);
       // 将输入清空
@@ -156,6 +170,10 @@ export class EditComponent implements OnInit {
       let newArticle: Article = new Article(new Date(), this.imageUrl, articleTitle,
                                             (<HTMLInputElement>document.getElementById('digest-content')).value,
                                             this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
+      // 对文章内容进行前端校验
+      this.errorMessage = this.validator.checkArticle(newArticle);
+      if (this.errorMessage != '')
+        return;
       this.articleService.createArticle(newArticle).subscribe(
         (data) => {
           if (data == 'true') {
@@ -178,6 +196,10 @@ export class EditComponent implements OnInit {
       let newArticle: Article = new Article(new Date(), this.imageUrl, articleTitle,
                                             (<HTMLInputElement>document.getElementById('digest-content')).value,
                                             this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
+      // 对文章内容进行前端校验
+      this.errorMessage = this.validator.checkArticle(newArticle);
+      if (this.errorMessage != '')
+        return;
       this.articleService.updateArticle(newArticle, this.originalTitle).subscribe((data) => {
         if (data == 'true') {
           this.snackBar.open('更新成功', '知道了', { duration: 2000 });
