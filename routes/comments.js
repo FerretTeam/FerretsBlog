@@ -37,6 +37,9 @@ module.exports = function(router, Passport, Article, Comments) {
       Article.findOne({author: passport_._id, title: req.body.title}, function(err, article_){
         if (err) return res.json('错误 026：出现异常，请联系管理员');
         if (article_ == null) return res.json('该文章不存在');
+        
+        // TODO 判断评论的合法性，包括验证评论者的凭证
+
         // 创建新的评论
         var comment = new Comments({
           article: article_._id,  // 文章的 _id
