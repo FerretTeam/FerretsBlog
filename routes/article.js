@@ -21,7 +21,7 @@ module.exports = function(router, Passport, Article) {
             if (pageNumber < 0 || pageNumber > Math.ceil(articleNumber / 10)) {
               return res.json('页码错误')
             } else {
-              let tempArticles: any = [];
+              let tempArticles = [];
               for (let entry of articles.slice(pageNumber * 10, Math.min(pageNumber * 10 + 10, articleNumber))) {
                 let newArticle = new Article(entry.date, entry.image, entry.title,
                                              '', '', '');
@@ -80,14 +80,14 @@ module.exports = function(router, Passport, Article) {
     });
   });
 
-  checkArticle(article) {
+  checkArticle = function(article) {
     // 文章元素的基础校验
     if (article.title == null || article.title == undefined ||
         article.tagName == null || article.tagName == undefined ||
         article.synopsis == null || article.synopsis == undefined ||
         article.contents == null || article.contents == undefined ||
         article.image == undefined || article.date == null || article.date == undefined)
-        return res.json('INVALID_REQUEST');
+      return res.json('INVALID_REQUEST');
     // 检查文章元素是否为空
     let reg = /[^\s]/g;
     let title = String(article.title).match(reg);
