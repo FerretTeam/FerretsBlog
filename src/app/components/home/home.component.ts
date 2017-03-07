@@ -95,7 +95,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  getDateString(date: Date) {
+    let jsDate = new Date(date);
+    return jsDate.getFullYear() + ' 年 ' + jsDate.getMonth() + ' 月 ' +
+           jsDate.getDate() + ' 日';
   }
+
+  ngOnInit() {}
 
 }

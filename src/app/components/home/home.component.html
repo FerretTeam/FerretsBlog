@@ -14,7 +14,7 @@
           <span>{{article.title}}</span>
         </div>
         <md-card-content>
-          <span class='article-date'>{{article.date}}</span>
+          <span class='article-date'>{{getDateString(article.date)}}</span>
           <p class='article-synopsis'>{{article.synopsis}}</p>
         </md-card-content>
         <md-card-actions>
@@ -54,7 +54,7 @@
           <div *ngIf='article.image' class='flex-container m-article-container' fxLayout='row'>
             <div class='flex-item m-article-content-container' fxFlex='61.8%'>
               <span>{{article.title}}</span>
-              <p class='m-article-date'>{{article.date}}</p>
+              <p class='m-article-date'>{{getDateString(article.date)}}</p>
             </div>
             <div class='flex-item m-article-image-container' fxFlex>
               <div class='m-article-image' [style.background-image]="'url(' + article.image + ')'"></div>
@@ -63,7 +63,7 @@
           <!-- 无图片的 card 模板 -->
           <div *ngIf='article.image == null' class='m-article-content-container'>
             <span>{{article.title}}</span>
-            <p class='m-article-date'>{{article.date}}</p>
+            <p class='m-article-date'>{{getDateString(article.date)}}</p>
             <p class='m-article-synopsis'>{{article.synopsis}}</p>
           </div>
         </div>

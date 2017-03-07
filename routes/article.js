@@ -1,7 +1,6 @@
 module.exports = function(router, Passport, Article) {
   // 根据页码返回用户的文章列表信息
   // post username & pageNumber
-  // TODO 实现流量优化
   router.post('/get-articles-by-page-number', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
@@ -19,10 +18,17 @@ module.exports = function(router, Passport, Article) {
           } else {
             var pageNumber = Number(req.body.pageNumber);
             var articleNumber = articles.length;
-            if (pageNumber < 0 || pageNumber > Math.ceil(articleNumber / 10))
+            if (pageNumber < 0 || pageNumber > Math.ceil(articleNumber / 10)) {
               return res.json('页码错误')
-            else
-              return res.json(articles.slice(pageNumber * 10, Math.min(pageNumber * 10 + 10, articleNumber)));
+            } else {
+              let tempArticles: any = [];
+              for (let entry of articles.slice(pageNumber * 10, Math.min(pageNumber * 10 + 10, articleNumber))) {
+                let newArticle = new Article(entry.date, entry.image, entry.title,
+                                             '', '', '');
+                tempArticles.push(newArticle);
+              }
+              return res.json(tempArticles);
+            }
           }
         });
       }
@@ -74,6 +80,33 @@ module.exports = function(router, Passport, Article) {
     });
   });
 
+  checkArticle(article) {
+    // 文章元素的基础校验
+    if (article.title == null || article.title == undefined ||
+        article.tagName == null || article.tagName == undefined ||
+        article.synopsis == null || article.synopsis == undefined ||
+        article.contents == null || article.contents == undefined ||
+        article.image == undefined || article.date == null || article.date == undefined)
+        return res.json('INVALID_REQUEST');
+    // 检查文章元素是否为空
+    let reg = /[^\s]/g;
+    let title = String(article.title).match(reg);
+    let synopsis = String(article.synopsis).match(reg);
+    let contents = String(article.contents).match(reg);
+    if (title.length <= 0) return '文章标题为空';
+    if (synopsis.length <= 0) return '文章摘要为空';
+    if (contents.length <= 0) return '文章内容为空';
+
+    // 检查文章的标签是不是为空
+    if (article.tagName.length == 0) return '文章标签为空';
+    for (let tag of article.tagName) {
+      if (String(tag).match(reg).length <= 0) return '文章标签为空';
+    }
+
+    // TODO 检查文章标签是否有重复
+    return true;
+  }
+
   // 创建文章
   // post passport && article
   router.post('/create-article', (req, res) => {
@@ -85,8 +118,9 @@ module.exports = function(router, Passport, Article) {
       return res.json('INVALID_REQUEST');
     }
 
-    // TODO 实现更加完备的校验
-    if (req.body.article.title == '') return res.json('文章标题为空');
+    // 文章校验
+    let errString = checkArticle(req.body.article);
+    if (errString != 'true') return req.json(errString);
 
     // 在 Article 数据库中增加新文章
     Passport.find({username: req.body.passport.username}, function(err, passport_) {
@@ -126,8 +160,9 @@ module.exports = function(router, Passport, Article) {
       return res.json('INVALID_REQUEST');
     }
 
-    // TODO 实现更加完备的校验
-    if (req.body.article.title == '') return res.json('文章标题为空');
+    // 文章校验
+    let errString = checkArticle(req.body.article);
+    if (errString != 'true') return req.json(errString);
 
     // 在 Article 数据库中更新文章
     Passport.find({username: req.body.passport.username}, function(err, passport_) {
