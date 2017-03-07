@@ -16,7 +16,7 @@
       </div>
       <div *ngIf='article.image' class='filler'></div>
       <div class='article-date-container'>
-        <span class='article-date'>{{article.date}}</span>
+        <span class='article-date'>{{getDateString(article.date)}}</span>
       </div>
       <div class='article-body'>
         <div class='content markdown-body' id='article-content'></div>

@@ -57,7 +57,11 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  getDateString(date: Date) {
+    let jsDate = new Date(date);
+    return jsDate.getFullYear() + ' 年 ' + jsDate.getMonth() + ' 月 ' +
+           jsDate.getDate() + ' 日';
+  }
 
   addComment() {
     var message = (<HTMLInputElement>document.getElementById('comment-content')).value;
@@ -71,5 +75,7 @@ export class ArticleComponent implements OnInit {
   gotoSignIn() {
     this.router.navigate(['/login', 'sign-in']);
   }
+
+  ngOnInit() {}
 
 }

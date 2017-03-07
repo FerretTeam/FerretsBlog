@@ -116,13 +116,35 @@ export class EditComponent implements OnInit {
 
   tagInputChange(newValue) {
     if (newValue != undefined && newValue.length > 1 && newValue[newValue.length - 1] == ' ') {
+      // 删除空格
+      newValue = newValue.replace(/\s+/g, '');
+      if (newValue.length > 1 && this.tags.length < 3) {
+        // 取出字符串放入标签
+        this.tags.push(newValue);
+        // 将输入清空
+        this.tagInputValue = '';
+        // 判断标签数是否已达到三
+        if (this.tags.length >= 3) this.tagInputVisibility = false;
+      }
+      // 将输入清空
+      this.tagInputValue = '';
+    }
+  }
+
+  tagInputBlur(event) {
+    let newValue = event.srcElement.value;
+    // 删除空格
+    newValue = newValue.replace(/\s+/g, '');
+    if (newValue.length > 1 && this.tags.length < 3) {
       // 取出字符串放入标签
-      this.tags.push(newValue.substr(0, newValue.length - 1));
+      this.tags.push(newValue);
       // 将输入清空
       this.tagInputValue = '';
       // 判断标签数是否已达到三
       if (this.tags.length >= 3) this.tagInputVisibility = false;
     }
+    // 将输入清空
+    this.tagInputValue = '';
   }
 
   // 发表新文章
