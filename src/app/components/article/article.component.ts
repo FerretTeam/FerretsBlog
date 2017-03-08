@@ -71,7 +71,8 @@ export class ArticleComponent implements OnInit {
     let authorname = this.user.username;
     this.articleService.addComment(authorname, this.article.title, newComment).subscribe();
     this.snackBar.open('发布成功', '知道了', { duration: 2000 });
-    this.comments.push(newComment);
+    (<HTMLInputElement>document.getElementById('comment-content')).value = '';
+    this.comments.unshift(newComment);
   }
 
   gotoSignIn() {

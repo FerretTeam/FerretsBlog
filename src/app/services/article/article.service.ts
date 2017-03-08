@@ -65,9 +65,9 @@ export class ArticleService {
   }
 
   // 获取某一文章的评论
-  getComments(username: string, title: string) {
+  getComments(authorname: string, title: string) {
     return this.http.post('/api/get-comments',
-                          {username: username, title: title},
+                          {authorname: authorname, title: title},
                           {headers: this.headers})
                      .map((res) => {
                        let temp = res.json();
