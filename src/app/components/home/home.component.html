@@ -1,5 +1,36 @@
 <div class='home-layout'>
-  <div class='articles-container'>
+  <!-- 用户没有创建任何文章时的欢迎界面 -->
+  <md-card *ngIf='articles.length == 0' class='welcome-container'>
+    <div class='title'>嘿，新朋友</div>
+    <div class='sub-title'>欢迎来到 Ferrets 博客！</div>
+    <div class='introduction flex-container' fxLayout.gt-sm='row' fxLayout='column'>
+      <div class='flex-item' fxFlex='30'>
+        <div class='intro-title'>
+          <md-icon>motorcycle</md-icon>
+          <span class='intro-title-text'>高效地创作</span>
+        </div>
+        <p>Markdown 是一种轻量级标记语言，创始人为约翰·格鲁伯。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。</p>
+      </div>
+      <div class='flex-item' fxFlex='5' fxHide.sm></div>
+      <div class='flex-item' fxFlex='30'>
+        <div class='intro-title'>
+          <md-icon>textsms</md-icon>
+          <span class='intro-title-text'>思维的碰撞</span>
+        </div>
+        <p>John Gruber 在 2004 年创造了 Markdown 语言，在语法上有很大一部分是跟 Aaron Swartz 共同合作的。</p>
+      </div>
+      <div class='flex-item' fxFlex='5' fxHide.sm></div>
+      <div class='flex-item' fxFlex='30'>
+        <div class='intro-title'>
+          <md-icon>share</md-icon>
+          <span class='intro-title-text'>便捷地分享</span>
+        </div>
+        <p>它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。</p>
+      </div>
+    </div>
+  </md-card>
+
+  <div class='articles-container' *ngIf='articles.length != 0'>
     <!-- 在非窄屏上显示的文章界面 -->
     <div fxHide.xs>
       <md-card *ngFor='let article of articles'>
@@ -80,7 +111,7 @@
     </div>
   </div>
 
-  <div class='tags-container'>
+  <div class='tags-container' *ngIf='articles.length != 0'>
     <md-card class='tag'>
       <div class='tag-title'><span>最热文章</span></div>
       <button md-button class='tag-list-button' *ngFor='let article of popArticles' (click)='gotoArticle(article.title)'>{{article.title}}</button>
