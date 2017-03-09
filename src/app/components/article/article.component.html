@@ -41,7 +41,7 @@
           <button md-raised-button class='sign-button' (click)='addComment()'>发 布</button>
         </div>
       </div>
-      <hr />
+      <hr>
       <div class='comment flex-container' fxLayout='row' *ngFor='let comment of comments'>
         <div class='comment-avatar' [style.background-image]="'url(' + comment.userAvatarUrl + ')'"></div>
         <div class='comment-main flex-item' fxFlex>
