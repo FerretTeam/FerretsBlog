@@ -103,6 +103,16 @@ export class HomeComponent implements OnInit {
            jsDate.getDate() + ' 日';
   }
 
+  lightUp() {
+    let container = document.getElementById('bulb-container')
+    if (!container.classList.contains('active'))
+      container.className += ' active';
+  }
+
+  gotoNewEdit() {
+    this.router.navigate([this.username, 'edit']);
+  }
+
   ngOnInit() {}
 
 }
