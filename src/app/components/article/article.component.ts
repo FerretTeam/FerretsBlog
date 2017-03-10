@@ -19,6 +19,7 @@ export class ArticleComponent implements OnInit {
   article: Article;
   comments: Comment[];
   user: User;
+  authorName: string;
 
   constructor(private articleService: ArticleService, private router: Router,
               public snackBar: MdSnackBar, private userService: UserService,
@@ -51,10 +52,9 @@ export class ArticleComponent implements OnInit {
           }, 10);
         }
       });
-      this.articleService.getComments(params['user'], params['title']).subscribe(data => {
+      this.authorName = params['user'];
+      this.articleService.getComments(this.authorName, params['title']).subscribe(data => {
         this.comments = data;
-        // TODO 将评论与时间关联
-        // var displayDate = new Date().toLocaleDateString();
       });
     });
   }
@@ -68,11 +68,15 @@ export class ArticleComponent implements OnInit {
   addComment() {
     var message = (<HTMLInputElement>document.getElementById('comment-content')).value;
     var newComment = new Comment(this.user.username, this.user.userAvatarUrl, message, new Date(), '0');
-    let authorname = this.user.username;
-    this.articleService.addComment(authorname, this.article.title, newComment).subscribe();
-    this.snackBar.open('发布成功', '知道了', { duration: 2000 });
-    (<HTMLInputElement>document.getElementById('comment-content')).value = '';
-    this.comments.unshift(newComment);
+    this.articleService.addComment(this.authorName, this.article.title, newComment).subscribe(data => {
+      if (data == 'true') {
+        this.snackBar.open('发布成功', '知道了', { duration: 2000 });
+        (<HTMLInputElement>document.getElementById('comment-content')).value = '';
+        this.comments.unshift(newComment);
+      } else {
+        this.snackBar.open('发布失败', '知道了', { duration: 2000 });
+      }
+    });
   }
 
   gotoSignIn() {
