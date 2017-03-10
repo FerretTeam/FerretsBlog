@@ -79,6 +79,27 @@ export class ArticleComponent implements OnInit {
     this.router.navigate(['/login', 'sign-in']);
   }
 
+  getTimeString(time: Date) {
+    // 定义当前和当时的时间
+    let now = new Date();
+    let thatTime = new Date(time);
+    // 计算差值
+    let inMillisecond: number = now.getTime() - thatTime.getTime();
+    let inMinute: number = inMillisecond / (1000 * 60);
+    let inHour: number = inMillisecond / (1000 * 60 * 60);
+    let inDay: number = inMillisecond / (1000 * 60 * 60 * 24);
+    let inMonth: number = now.getMonth() + 12 * now.getFullYear() -
+                          thatTime.getMonth() - 12 * thatTime.getFullYear();
+    let inYear: number = now.getFullYear() - thatTime.getFullYear();
+    // 判断返回值
+    if (inMinute < 1) return '刚刚';
+    else if (inHour < 1) return Math.ceil(inMinute) + '分钟前';
+    else if (inDay < 1) return Math.ceil(inHour) + '小时前';
+    else if (inMonth < 1) return Math.ceil(inDay) + '天前';
+    else if (inYear < 1) return Math.ceil(inMonth) + '月前';
+    else return Math.ceil(inYear) + '年前';
+  }
+
   ngOnInit() {}
 
 }

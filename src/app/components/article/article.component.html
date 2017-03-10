@@ -47,7 +47,7 @@
         <div class='comment-main flex-item' fxFlex>
           <div class='comment-info'>
             <div class='comment-username'>{{comment.username}}</div>
-            <div class='comment-time'>{{comment.time}}</div>
+            <div class='comment-time'>{{getTimeString(comment.time)}}</div>
           </div>
           <div class='comment-message'>{{comment.message}}</div>
           <div class='comment-likes'>
