@@ -63,7 +63,9 @@ export class HomeComponent implements OnInit {
     });
 
     // 获取最热文章
-    this.popArticles = this.articleService.getPopularArticles();
+    this.articleService.getPopularArticles().subscribe(data => {
+      this.popArticles = data;
+    });
     // 获取标签
     this.tags = this.articleService.getTags();
   }

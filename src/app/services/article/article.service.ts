@@ -145,9 +145,17 @@ export class ArticleService {
                     });
   }
 
-  // TODO 获取最热文章
+  // 获取最热文章
   getPopularArticles() {
-    return null;
+    let passport = this.authService.getPassport();
+    return this.http.post('/api/get-popular-articles',
+                          {authorname: passport.username},
+                          {headers: this.headers})
+                    .map((res) => {
+                      let temp = res.json();
+                      console.log(temp);
+                      return temp;
+                    });
   }
 
   // TODO 获取文章的标签

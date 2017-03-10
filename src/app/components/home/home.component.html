@@ -117,7 +117,7 @@
   <div class='tags-container' *ngIf='articles.length != 0'>
     <md-card class='tag'>
       <div class='tag-title'><span>最热文章</span></div>
-      <button md-button class='tag-list-button' *ngFor='let article of popArticles' (click)='gotoArticle(article.title)'>{{article.title}}</button>
+      <button md-button class='tag-list-button' *ngFor='let article of popArticles' (click)='gotoArticle(article)'>{{article}}</button>
       <div class='tag-footer'></div>
     </md-card>
     <md-card class='tag'>

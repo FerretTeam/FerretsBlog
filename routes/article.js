@@ -22,7 +22,7 @@ module.exports = function(router, Passport, Article) {
             if (pageNumber < 0 || pageNumber > Math.ceil(articleNumber / 10)) {
               return res.json('页码错误')
             } else {
-              let tempArticles = articles.slice(pageNumber * 10, Math.min(pageNumber * 10 + 10, articleNumber));
+              let tempArticles = articles.slice(pageNumber * 10, Math.min(pageNumber * 10 + 10, articleNumber+1));
               for (let entry of tempArticles) {
                 entry.tagName = [];
                 entry.contents = [];
@@ -149,7 +149,8 @@ module.exports = function(router, Passport, Article) {
             title: req.body.article.title,
             synopsis: req.body.article.synopsis,
             tagName: req.body.article.tagName,
-            contents: req.body.article.contents
+            contents: req.body.article.contents,
+            likes: 0
           });
           // 创建新的文章
           article.save(function(err, article_) {
@@ -204,7 +205,8 @@ module.exports = function(router, Passport, Article) {
                                                   title: req.body.article.title,
                                                   synopsis: req.body.article.synopsis,
                                                   tagName: req.body.article.tagName,
-                                                  contents: req.body.article.contents}}, {new: true},
+                                                  contents: req.body.article.contents,
+                                                  likes: 0}}, {new: true},
                                                   function(err, data) {
                                                     if (err) return res.json('错误 021：出现异常，请联系管理员');
                                                     else return res.json('true');
@@ -217,5 +219,37 @@ module.exports = function(router, Passport, Article) {
     });
   });
 
+  // 获取最热文章，由点赞数确定
+  // post username
+  router.post('/get-popular-articles', (req, res) => {
+    // 基础校验
+    if (req.body == null || req.body == undefined) {
+      return res.json('INVALID_REQUEST');
+    }
+
+    // 文章校验
+    Passport.findOne({username: req.body.authorname}, function(err, passport_) {
+      if (err) {
+        return res.json('错误 022：出现异常，请联系管理员');
+      } else {
+        if (passport_ == null) res.json('该用户不存在');
+        Article.find({author: passport_._id}, null, {sort: {likes: -1}}, function(err, articles) {
+          if (err) {
+            return res.json('错误 023：出现异常，请联系管理员');
+          } else {
+            var articleNumber = articles.length;
+            let tempArticles = articles.slice(0, Math.min(10, articleNumber+1));
+            let titles = new Array();
+            console.log(articleNumber, tempArticles);
+            for (let entry of tempArticles) {
+              titles.push(entry.title);
+            }
+            return res.json(titles);
+          }
+        });
+      }
+    });
+
+  });
   return router;
 }

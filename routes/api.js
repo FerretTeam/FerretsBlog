@@ -33,7 +33,8 @@ const articleSchma = new mongoose.Schema({
   title: String,
   synopsis: String,
   tagName: [String],
-  contents: String
+  contents: String,
+  likes: Number
 });
 const Article = mongoose.model('Article', articleSchma);
 
