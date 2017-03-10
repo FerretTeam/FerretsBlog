@@ -240,7 +240,6 @@ module.exports = function(router, Passport, Article) {
             var articleNumber = articles.length;
             let tempArticles = articles.slice(0, Math.min(10, articleNumber+1));
             let titles = new Array();
-            console.log(articleNumber, tempArticles);
             for (let entry of tempArticles) {
               titles.push(entry.title);
             }
@@ -251,5 +250,18 @@ module.exports = function(router, Passport, Article) {
     });
 
   });
+
+  // TODO 获取文章标签
+  // post authorname
+
+  // TODO 获取文章的总字数
+  // post authorname
+
+  // TODO 获取作者的总点赞数
+  // post authorname
+
+  // TODO 删除文章
+  // post authorname & title
+
   return router;
 }

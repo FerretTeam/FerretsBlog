@@ -3,13 +3,13 @@ module.exports = function(router, Passport, Article, Comments) {
   findArticleId= function(authorname, title, callback) {
     Passport.findOne({username: authorname}, function(err, passport_) {
       if (err) {
-        callback('错误 022：出现异常，请联系管理员');
+        callback('错误 030：出现异常，请联系管理员');
         return;
       }
       if (passport_ == null) callback('empty');
       Article.findOne({author: passport_._id, title: title}, function(err, article_){
         if (err) {
-          callback('错误 023：出现异常，请联系管理员');
+          callback('错误 031：出现异常，请联系管理员');
           return;
         }
         if (article_ == null) callback('empty');
@@ -31,10 +31,10 @@ module.exports = function(router, Passport, Article, Comments) {
       if (data == 'empty') {
         return res.json('无法找到相应文章');
       } else if ( data == 'error') {
-        return res.json('错误 022：出现异常，请联系管理员');
+        return res.json('错误 032：出现异常，请联系管理员');
       } else {
         Comments.find({article: data}, null, {sort: {likes: -1}}, function(err, comments){
-            if (err) return res.json('错误 023：出现异常，请联系管理员');
+            if (err) return res.json('错误 033：出现异常，请联系管理员');
             return res.json(comments);
         });
       }
@@ -56,7 +56,7 @@ module.exports = function(router, Passport, Article, Comments) {
       if (data == 'empty') {
         return res.json('无法找到相应文章');
       } else if ( data == 'error') {
-        return res.json('错误 022：出现异常，请联系管理员');
+        return res.json('错误 034：出现异常，请联系管理员');
       } else {
         // TODO 判断评论的合法性，包括验证评论者的凭证
 
@@ -73,7 +73,7 @@ module.exports = function(router, Passport, Article, Comments) {
         });
         // 保存新的评论
         comment.save(function(err, comment_) {
-          if (err) return res.json('错误 027：出现异常，请联系管理员');
+          if (err) return res.json('错误 035：出现异常，请联系管理员');
           return res.json('true');
         });
       }

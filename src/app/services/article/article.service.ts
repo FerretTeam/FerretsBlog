@@ -153,7 +153,6 @@ export class ArticleService {
                           {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
-                      console.log(temp);
                       return temp;
                     });
   }
