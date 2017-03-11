@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ArticleService {
   private headers = new Headers({'Content-Type': 'application/json'});
+  static articleUrlForDialog: string = '';
 
   constructor(private http: Http, private authService: AuthService) {}
   // 为了排版便利，在 service 中将大数转换为 k 或 m

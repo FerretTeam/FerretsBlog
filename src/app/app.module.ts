@@ -7,18 +7,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent, HomeDialog } from './components/home/home.component';
 import { RoutingModule } from './app-routing.module';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ArticleComponent } from './components/article/article.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoginComponent } from './components/login/login.component';
+import { EditComponent } from './components/edit/edit.component';
 
 import { ArticleService } from './services/article/article.service';
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
-import { EditComponent } from './components/edit/edit.component';
-// Define the routes
 
 @NgModule({
   declarations: [
@@ -28,7 +27,8 @@ import { EditComponent } from './components/edit/edit.component';
     ArticleComponent,
     WelcomeComponent,
     LoginComponent,
-    EditComponent
+    EditComponent,
+    HomeDialog
   ],
   imports: [
     MaterialModule.forRoot(),
@@ -38,6 +38,7 @@ import { EditComponent } from './components/edit/edit.component';
     RoutingModule,
     FlexLayoutModule
   ],
+  entryComponents: [HomeDialog],
   providers: [ArticleService, AuthService, UserService],
   bootstrap: [AppComponent]
 })

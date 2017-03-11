@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { Article, Tag } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
@@ -26,7 +27,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private articleService: ArticleService, private router: Router,
               private authService: AuthService, private userService: UserService,
-              private activatedRoute: ActivatedRoute, private location: Location) {
+              private activatedRoute: ActivatedRoute, private location: Location,
+              public dialog: MdDialog) {
     // 如果未登录，则跳转至 /welcome 页面
     let passport = this.authService.getPassport();
     if (passport == null)
@@ -122,6 +124,33 @@ export class HomeComponent implements OnInit {
     this.router.navigate([this.username, 'edit']);
   }
 
+  openDialog(title: string) {
+    let url = 'https://ferrets.me/' + this.username + '/article/' + title;
+    ArticleService.articleUrlForDialog = url;
+    let that = this;
+    that.dialog.open(HomeDialog, {
+      width: '300px'
+    });
+  }
+
   ngOnInit() {}
 
+}
+
+@Component({
+  selector: 'app-home-dialog',
+  template: `
+    <div>打开微信“扫一扫”，打开网页后点击屏幕右上角的“分享”按钮。</div>
+    <div style='text-align: center'>
+      <img width='200' height='200' src='http://qr.liantu.com/api.php?&w=200&text={{articleUrl}}'>
+    </div>
+  `
+})
+export class HomeDialog {
+  articleUrl: string = '';
+
+  constructor(public dialogRef: MdDialogRef<HomeDialog>) {
+    this.articleUrl = ArticleService.articleUrlForDialog;
+    console.log(this.articleUrl);
+  }
 }

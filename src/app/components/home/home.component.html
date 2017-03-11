@@ -83,7 +83,7 @@
           <button md-icon-button (click)='gotoEdit(article.title)' mdTooltip='修改文章'>
             <md-icon>create</md-icon>
           </button>
-          <button md-icon-button mdTooltip='分享文章'>
+          <button md-icon-button (click)='openDialog(article.title)' mdTooltip='分享文章'>
             <md-icon>share</md-icon>
           </button>
           <button md-button (click)='gotoArticle(article.title)' class='article-read-more' md-raised-button>阅读全文</button>
