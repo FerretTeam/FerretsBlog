@@ -30,16 +30,22 @@
       <!-- 添加新评论 -->
       <div *ngIf='user != null'>
         <div class='new-comment flex-container' fxLayout='row'>
-          <div class='comment-avatar default-avatar' *ngIf='user == null'></div>
-          <div class='comment-avatar' *ngIf='user' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></div>
-          <textarea name='content' fxFlex rows="6" id='comment-content' placeholder='发表评论' value='none'></textarea>
+          <div class='comment-avatar' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></div>
+          <textarea name='content' fxFlex rows='6' id='comment-content' placeholder='发表评论' value='none'></textarea>
         </div>
         <div class='edit-tool'>
-          <button md-raised-button class='sign-button' (click)='addComment()'>发 布</button>
+          <button md-raised-button class='send-button' (click)='addComment()'>发 布</button>
         </div>
       </div>
-      <!-- TODO 未登录不能评论 -->
-      <div *ngIf='user == null'></div>
+      <div *ngIf='user == null'>
+        <div class='new-comment flex-container' fxLayout='row'>
+          <div class='comment-avatar default-avatar'></div>
+          <div fxFlex class='goto-sign-in-container'>
+            <span>需要登录才能回复：</span>
+            <button md-raised-button class='sign-in-button' (click)='gotoSignIn()'>登 录</button>
+          </div>
+        </div>
+      </div>
       <hr>
       <div class='comment flex-container' fxLayout='row' *ngFor='let comment of comments'>
         <div class='comment-avatar' [style.background-image]="'url(' + comment.userAvatarUrl + ')'"></div>
