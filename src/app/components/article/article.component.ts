@@ -17,7 +17,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class ArticleComponent implements OnInit {
   article: Article;
-  comments: Comment[];
+  comments: Comment[] = [];
   user: User;
   authorName: string;
 
