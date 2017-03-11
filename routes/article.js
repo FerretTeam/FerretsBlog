@@ -8,12 +8,12 @@ module.exports = function(router, Passport, Article) {
     }
 
     // 按照时间的降序排序查找文章
-    Passport.findOne({username: req.body.username}, function(err, passport_) {
+    Passport.find({username: req.body.username}, function(err, passport_) {
       if (err) {
         return res.json('错误 011：出现异常，请联系管理员');
       } else {
-        if (passport_ == null) return res.json('该用户不存在');
-        Article.find({author: passport_._id}, null, {sort: {date: -1}}, function(err, articles) {
+        if (passport_.length != 1) return res.json('该用户不存在');
+        Article.find({author: passport_[0]._id}, null, {sort: {date: -1}}, function(err, articles) {
           if (err) {
             return res.json('错误 012：出现异常，请联系管理员');
           } else {
@@ -43,12 +43,12 @@ module.exports = function(router, Passport, Article) {
       return res.json('INVALID_REQUEST');
     }
 
-    Passport.findOne({username: req.body.username}, function(err, passport_) {
+    Passport.find({username: req.body.username}, function(err, passport_) {
       if (err) {
         return res.json('错误 013：出现异常，请联系管理员');
       } else {
-        if (passport_ == null) res.json('该用户不存在');
-        Article.find({author: passport_._id, title: req.body.title}, function(err, article) {
+        if (passport_.length != 1) res.json('该用户不存在');
+        Article.find({author: passport_[0]._id, title: req.body.title}, function(err, article) {
           if (err) {
             return res.json('错误 014：出现异常，请联系管理员');
           } else {
@@ -69,12 +69,12 @@ module.exports = function(router, Passport, Article) {
     }
 
     // 返回文章数目
-    Passport.findOne({username: req.body.username} , function(err, passport_) {
+    Passport.find({username: req.body.username} , function(err, passport_) {
       if (err) {
         return res.json('错误 015：出现异常，请联系管理员');
       } else {
         if (passport_.length != 1) return res.json('该用户不存在');
-        Article.find({author: passport_._id}, function(err, articles) {
+        Article.find({author: passport_[0]._id}, function(err, articles) {
           if (err) return res.json('错误 016：出现异常，请联系管理员');
           else return res.json(articles.length);
         });
@@ -228,12 +228,12 @@ module.exports = function(router, Passport, Article) {
     }
 
     // 文章校验
-    Passport.findOne({username: req.body.authorname}, function(err, passport_) {
+    Passport.find({username: req.body.authorname}, function(err, passport_) {
       if (err) {
         return res.json('错误 022：出现异常，请联系管理员');
       } else {
-        if (passport_ == null) res.json('该用户不存在');
-        Article.find({author: passport_._id}, null, {sort: {likes: -1}}, function(err, articles) {
+        if (passport_.length != 1) res.json('该用户不存在');
+        Article.find({author: passport_[0]._id}, null, {sort: {likes: -1}}, function(err, articles) {
           if (err) {
             return res.json('错误 023：出现异常，请联系管理员');
           } else {
@@ -285,6 +285,9 @@ module.exports = function(router, Passport, Article) {
   // post authorname
 
   // TODO 获取作者的总点赞数
+  // post authorname
+
+  // TODO 更新作者的总字数
   // post authorname
 
   return router;

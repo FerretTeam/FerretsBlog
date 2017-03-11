@@ -146,8 +146,9 @@ export class ArticleService {
 
   // 增加评论
   addComment(authorname: string, title: string, comment: Comment) {
+    let passport = this.authService.getPassport();
     return this.http.post('/api/add-comment',
-                          {authorname: authorname, title: title, comment: comment},
+                          {authorname: authorname, title: title, comment: comment, passport: passport},
                           {headers: this.headers})
                      .map((res) => {
                        let temp = res.json();
