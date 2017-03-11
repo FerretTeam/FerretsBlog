@@ -220,7 +220,7 @@ module.exports = function(router, Passport, Article) {
   });
 
   // 获取最热文章，由点赞数确定
-  // post username
+  // post authorname
   router.post('/get-popular-articles', (req, res) => {
     // 基础校验
     if (req.body == null || req.body == undefined) {
@@ -251,6 +251,33 @@ module.exports = function(router, Passport, Article) {
 
   });
 
+  // 删除文章
+  // post passport & title
+  router.post('/delete-article', (req, res) => {
+    // 基础校验
+    if (req.body == null || req.body == undefined) {
+      return res.json('INVALID_REQUEST');
+    } else if (req.body.passport == null || req.body.passport == undefined) {
+      return res.json('INVALID_REQUEST');
+    }
+
+    // 文章校验
+    Passport.find({username: req.body.passport.username, encryptedPassword: req.body.passport.encryptedPassword}, function(err, passport_) {
+      if (err) {
+        return res.json('错误 024：出现异常，请联系管理员');
+      } else {
+        if (passport_.length != 1) res.json('用户凭证有问题');
+        Article.remove({author: passport_[0]._id, title: req.body.title}, function(err) {
+          if (err) {
+            return res.json('错误 025：出现异常，请联系管理员');
+          } else {
+            return res.json('true');
+          }
+        });
+      }
+    });
+  });
+
   // TODO 获取文章标签
   // post authorname
 
@@ -259,9 +286,6 @@ module.exports = function(router, Passport, Article) {
 
   // TODO 获取作者的总点赞数
   // post authorname
-
-  // TODO 删除文章
-  // post authorname & title
 
   return router;
 }

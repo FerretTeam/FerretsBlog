@@ -1,6 +1,6 @@
 <div class='home-layout'>
   <!-- 用户没有创建任何文章时的欢迎界面 -->
-  <md-card *ngIf='articles.length == 0' class='welcome-container'>
+  <md-card *ngIf='articles != null && articles.length == 0' class='welcome-container'>
     <div class='title'>嘿，新朋友</div>
     <div class='sub-title'>欢迎来到 Ferrets 博客！</div>
     <div class='new-article'>
@@ -61,7 +61,7 @@
     </div>
   </md-card>
 
-  <div class='articles-container' *ngIf='articles.length != 0'>
+  <div class='articles-container' *ngIf='articles != null && articles != []'>
     <!-- 在非窄屏上显示的文章界面 -->
     <div fxHide.xs>
       <md-card *ngFor='let article of articles'>
@@ -142,7 +142,7 @@
     </div>
   </div>
 
-  <div class='tags-container' *ngIf='articles.length != 0'>
+  <div class='tags-container' *ngIf='articles != null && articles != []'>
     <md-card class='tag'>
       <div class='tag-title'><span>最热文章</span></div>
       <button md-button class='tag-list-button' *ngFor='let article of popArticles' (click)='gotoArticle(article)'>{{article}}</button>

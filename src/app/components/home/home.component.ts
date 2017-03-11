@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { Article, Tag } from '../../services/article/article';
 import { ArticleService } from '../../services/article/article.service';
@@ -13,7 +14,7 @@ import { UserService } from '../../services/user/user.service';
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
-  articles: Article[] = [];
+  articles: Article[] = null;
   popArticles: Article[] = [];
   tags: Tag[] = [];
 
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private articleService: ArticleService, private router: Router,
               private authService: AuthService, private userService: UserService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute, private location: Location) {
     // 如果未登录，则跳转至 /welcome 页面
     let passport = this.authService.getPassport();
     if (passport == null)
@@ -38,9 +39,7 @@ export class HomeComponent implements OnInit {
       // 获取指定页的文章
       this.pageNumber = parseInt(params['page']) + 1;
       this.articleService.getArticlesByPageNumber(this.username, this.pageNumber - 1)
-                         .subscribe(data => {
-                           this.articles = data;
-                         });
+                         .subscribe(data => { this.articles = data; });
       this.articleService.getArticlesNumber(this.username).subscribe(
         (data) => {
           if (data != null) {
@@ -86,6 +85,16 @@ export class HomeComponent implements OnInit {
         this.router.navigate(link);
       });
     }
+  }
+
+  deleteArticle(title: string) {
+    if (this.authService.getPassport() != null) {
+      this.articleService.deleteArticle(title).subscribe((data) => {
+        if (data == 'true')
+          this.router.navigate(['/welcome']);
+      });
+    }
+
   }
 
   turnPage(newPageNumber: number) {

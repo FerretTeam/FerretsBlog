@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
+import { Passport } from '../../services/auth/passport';
 
 @Component({
   selector: 'app-welcome',
@@ -13,11 +14,9 @@ export class WelcomeComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService,
               private userService: UserService) {
-    if (this.authService.getPassport() != null)
-      this.userService.getUserInfo().subscribe((data) => {
-        if (data != null)
-          this.router.navigate([data.username, 'home', 0]);
-      });
+    let passport: Passport = this.authService.getPassport();
+    if (passport != null)
+      this.router.navigate([passport.username, 'home', 0]);
   }
 
   ngOnInit() {}
