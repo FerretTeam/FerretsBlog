@@ -64,6 +64,63 @@ export class ArticleService {
                     });
   }
 
+  // 创建新文章
+  createArticle(article: Article) {
+    let passport = this.authService.getPassport();
+    return this.http.post('/api/create-article',
+                          {passport: passport,
+                           article: article},
+                          {headers: this.headers})
+                    .map((res) => {
+                      let temp = res.json();
+                      return temp;
+                    });
+  }
+
+  // 删除文章
+  deleteArticle(title: string) {
+    let passport = this.authService.getPassport();
+    return this.http.post('/api/delete-article',
+                          {passport: passport,
+                           title: title},
+                          {headers: this.headers})
+                    .map((res) => {
+                      let temp = res.json();
+                      console.log(temp);
+                      return temp;
+                    });
+  }
+
+  // 更新文章
+  updateArticle(article: Article, originalTitle: string) {
+    let passport = this.authService.getPassport();
+    return this.http.post('/api/update-article',
+                          {passport: passport,
+                           article: article,
+                           originalTitle: originalTitle},
+                          {headers: this.headers})
+                    .map((res) => {
+                      let temp = res.json();
+                      return temp;
+                    });
+  }
+
+  // 获取总文章篇数
+  getArticlesNumber(username: string) {
+    return this.http.post('/api/get-articles-number',
+                          {username: username},
+                          {headers: this.headers})
+                    .map((res) => {
+                      let temp = res.json();
+                      // 对 temp 可能存在的报错信息进行处理
+                      if (temp == 'INVALID_REQUEST' || Number(temp) == NaN) {
+                        console.error(temp);
+                        return null;
+                      }
+                      return temp;
+                    });
+  }
+
   // 获取某一文章的评论
   getComments(authorname: string, title: string) {
     return this.http.post('/api/get-comments',
@@ -99,49 +156,6 @@ export class ArticleService {
                          console.error(temp);
                        return temp;
                      });
-  }
-
-  // 获取总文章篇数
-  getArticlesNumber(username: string) {
-    return this.http.post('/api/get-articles-number',
-                          {username: username},
-                          {headers: this.headers})
-                    .map((res) => {
-                      let temp = res.json();
-                      // 对 temp 可能存在的报错信息进行处理
-                      if (temp == 'INVALID_REQUEST' || Number(temp) == NaN) {
-                        console.error(temp);
-                        return null;
-                      }
-                      return temp;
-                    });
-  }
-
-  // 创建新文章
-  createArticle(article: Article) {
-    let passport = this.authService.getPassport();
-    return this.http.post('/api/create-article',
-                          {passport: passport,
-                           article: article},
-                          {headers: this.headers})
-                    .map((res) => {
-                      let temp = res.json();
-                      return temp;
-                    });
-  }
-
-  // 更新文章
-  updateArticle(article: Article, originalTitle: string) {
-    let passport = this.authService.getPassport();
-    return this.http.post('/api/update-article',
-                          {passport: passport,
-                           article: article,
-                           originalTitle: originalTitle},
-                          {headers: this.headers})
-                    .map((res) => {
-                      let temp = res.json();
-                      return temp;
-                    });
   }
 
   // 获取最热文章
