@@ -120,7 +120,7 @@ export class EditComponent implements OnInit {
     if (newValue != undefined && newValue.length > 1 && newValue[newValue.length - 1] == ' ') {
       // 删除空格
       newValue = newValue.replace(/\s+/g, '');
-      if (newValue.length > 1 && this.tags.length < 3) {
+      if (newValue.length > 0 && this.tags.length < 3) {
         // 检验标签是否重复
         for (let i = 0; i < this.tags.length; i++)
           if (this.tags[i] == newValue) {
@@ -143,7 +143,7 @@ export class EditComponent implements OnInit {
     let newValue = event.srcElement.value;
     // 删除空格
     newValue = newValue.replace(/\s+/g, '');
-    if (newValue.length > 1 && this.tags.length < 3) {
+    if (newValue.length > 0 && this.tags.length < 3) {
       // 检验标签是否重复
       for (let i = 0; i < this.tags.length; i++)
         if (this.tags[i] == newValue) {

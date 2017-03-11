@@ -15,8 +15,12 @@
         <span class='article-header-title'>{{article.title}}</span>
       </div>
       <div *ngIf='article.image' class='filler'></div>
-      <div class='article-date-container'>
-        <span class='article-date'>{{getDateString(article.date)}}</span>
+      <div *ngIf='user' class='article-author-container flex-container' fxLayout='row'>
+        <div class='author-avatar' [style.background-image]="'url(' + user.userAvatarUrl + ')'"></div>
+        <div fxFlex class='other-info'>
+          <div class='author-name'>{{authorName}}</div>
+          <div class='article-date'>{{getDateString(article.date)}}</div>
+        </div>
       </div>
       <div class='article-body'>
         <div class='content markdown-body' id='article-content'></div>
