@@ -5,6 +5,7 @@ import { MdSnackBar } from '@angular/material';
 import { User } from '../../services/user/user';
 import { UserService } from '../../services/user/user.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { Validator } from '../../services/user/validator';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class ProfileComponent{
   user: User = null;
   errorMessage: string = '';
+  validator: Validator = new Validator();
 
   constructor(private router: Router, private authService: AuthService,
               public snackBar: MdSnackBar, private userService: UserService) {
@@ -30,6 +32,12 @@ export class ProfileComponent{
     this.user.introduction = formData.introduction;
     this.user.field = formData.field;
     // 提交修改
+    let errorMessage = this.validator.checkUserInfo(this.user.userAvatarUrl,
+                                                    this.user.email);
+    if (errorMessage != '') {
+      this.errorMessage = errorMessage;
+      return;
+    }
     this.userService.updateUser(this.user).subscribe(
       (data) => {
         if (data.username != undefined) {
