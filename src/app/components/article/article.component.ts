@@ -67,6 +67,13 @@ export class ArticleComponent implements OnInit {
 
   addComment() {
     var message = (<HTMLInputElement>document.getElementById('comment-content')).value;
+    // 判断评论内容是否为空
+    if (message.match(/[^\s]/g) == null) {
+      (<HTMLInputElement>document.getElementById('comment-content')).value = '';
+      this.snackBar.open('评论内容不可为空', '知道了', { duration: 2000 });
+      return;
+    }
+    // 创建新的评论
     var newComment = new Comment(this.user.username, this.user.userAvatarUrl, message, new Date(), '0');
     this.articleService.addComment(this.authorName, this.article.title, newComment).subscribe(data => {
       if (data == 'true') {
