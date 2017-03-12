@@ -36,12 +36,27 @@ module.exports = function(router, Passport, Article, Comments, User) {
             if (err) {
               return res.json('错误 033：出现异常，请联系管理员');
             } else {
-              return res.json(comments);
+              let tempComments = comments;
+              outLoop(tempComments, 0, res);
             }
         });
       }
     });
   });
+
+  outLoop = function(tempComments, index, res) {
+    if (index == tempComments.length) {
+      return res.json(tempComments);
+    }
+    User.find({username: tempComments[index].username}, function(err, user){
+      if (err) {
+        return res.json('错误 034：出现异常，请联系管理员');
+      } else {
+        tempComments[index].userAvatarUrl = user[0].userAvatarUrl;
+        outLoop(tempComments, index + 1, res);
+      }
+    });
+  }
 
   // 通过文章的作者、标题以及评论者的信息添加评论
   // post authorname & title & comment
@@ -59,20 +74,20 @@ module.exports = function(router, Passport, Article, Comments, User) {
       if (data == 'empty') {
         return res.json('无法找到相应文章');
       } else if ( data == 'error') {
-        return res.json('错误 034：出现异常，请联系管理员');
+        return res.json('错误 035：出现异常，请联系管理员');
       } else {
         // 判断评论的合法性，包括验证评论者的凭证
         Passport.find({username: req.body.passport.username,
                        encryptedPassword: req.body.passport.encryptedPassword},
                        function(err, passport_) {
           if (err) {
-           return res.json('错误 035：出现异常，请联系管理员');
+           return res.json('错误 036：出现异常，请联系管理员');
           } else {
             if (passport_.length != 1) return res.json('无评论权限');
             // 通过评论者的凭证从数据库中得到user的相关信息
             User.find({username: req.body.passport.username}, function(err, user_) {
               if (err) {
-               return res.json('错误 036：出现异常，请联系管理员');
+               return res.json('错误 037：出现异常，请联系管理员');
               } else {
                 if (user_.length != 1) return res.json('无评论权限');
                 // 创建新的评论
@@ -87,7 +102,7 @@ module.exports = function(router, Passport, Article, Comments, User) {
 
                 // 保存新的评论
                 comment.save(function(err, comment_) {
-                  if (err) return res.json('错误 037：出现异常，请联系管理员');
+                  if (err) return res.json('错误 038：出现异常，请联系管理员');
                   return res.json('true');
                 });
               }
