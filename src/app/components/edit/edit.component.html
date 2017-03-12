@@ -9,16 +9,16 @@
         <md-icon *ngIf='mode != "预 览"'>mode_edit</md-icon>
       </button>
       <div class='flex-item' fxFlex fxHide.xs></div>
-      <button md-icon-button mdTooltip='加 粗'><md-icon>format_bold</md-icon></button>
-      <button md-icon-button mdTooltip='加 斜'><md-icon>format_italic</md-icon></button>
-      <button md-icon-button mdTooltip='引 用'><md-icon>format_quote</md-icon></button>
+      <button md-icon-button mdTooltip='加 粗' (click)='bold()'><md-icon>format_bold</md-icon></button>
+      <button md-icon-button mdTooltip='加 斜' (click)='italic()'><md-icon>format_italic</md-icon></button>
+      <button md-icon-button mdTooltip='引 用' (click)='quote()'><md-icon>format_quote</md-icon></button>
       <button md-icon-button mdTooltip='代 码'><md-icon>code</md-icon></button>
       <button md-icon-button mdTooltip='链 接'><md-icon>insert_link</md-icon></button>
       <button md-icon-button mdTooltip='无序列表'><md-icon>format_list_bulleted</md-icon></button>
       <button md-icon-button mdTooltip='有序列表'><md-icon>format_list_numbered</md-icon></button>
     </div>
     <div class='content'>
-      <textarea id='content-before'>
+      <textarea id='content-before' #textarea (select)='select(textarea.selectionStart, textarea.selectionEnd)'>
 ## 用 Markdown 完成你的文章内容
 
 在 Ferrets 博客，你可以用你的方式畅所欲言。

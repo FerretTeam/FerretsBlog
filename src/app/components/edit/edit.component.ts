@@ -28,6 +28,8 @@ export class EditComponent implements OnInit {
   tagInputValue: string;  // 文章标签的字符串缓冲
   tagInputVisibility: boolean = true;  // tag 是否可见
   originalTitle: string = '';  // 用于存储旧的文章标题以便后端索引
+  selectedTextStart: number;  // 编辑文章页面 textarea 被选中的文字的起点
+  selectedTextEnd: number;  // 编辑文章页面 textarea 被选中的文字的终点
 
   validator: Validator = new Validator();  // 文章的校验器
   errorMessage: string = '';  // 报错信息
@@ -81,7 +83,31 @@ export class EditComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  // 文章内容被选中时触发
+  select(start, end) {
+    this.selectedTextStart = start;
+    this.selectedTextEnd = end;
+  }
+
+  // 富文本的功能实现
+  bold() {  // 加粗
+    let textarea = <HTMLInputElement>document.getElementById('content-before');
+    textarea.value = textarea.value.substring(0, this.selectedTextStart) + '**' +
+                     textarea.value.substring(this.selectedTextStart, this.selectedTextEnd) +
+                     '**' + textarea.value.substring(this.selectedTextEnd);
+  }
+  italic() {  // 加斜
+    let textarea = <HTMLInputElement>document.getElementById('content-before');
+    textarea.value = textarea.value.substring(0, this.selectedTextStart) + '*' +
+                     textarea.value.substring(this.selectedTextStart, this.selectedTextEnd) +
+                     '*' + textarea.value.substring(this.selectedTextEnd);
+  }
+  quote() {  // 引用
+    let textarea = <HTMLInputElement>document.getElementById('content-before');
+    textarea.value = textarea.value.substring(0, this.selectedTextStart) + '```' +
+                     textarea.value.substring(this.selectedTextStart, this.selectedTextEnd) +
+                     '```' + textarea.value.substring(this.selectedTextEnd);
+  }
 
   contentChange() {
     if (this.mode == '预 览') this.mode = '编 写';
@@ -211,5 +237,7 @@ export class EditComponent implements OnInit {
       });
     }
   }
+
+  ngOnInit() {}
 
 }
