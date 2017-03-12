@@ -68,7 +68,9 @@ export class HomeComponent implements OnInit {
       this.popArticles = data;
     });
     // 获取标签
-    this.tags = this.articleService.getTags();
+    this.articleService.getTags().subscribe(data => {
+      this.tags = data;
+    });
   }
 
   gotoArticle(title: string) {

@@ -174,7 +174,14 @@ export class ArticleService {
 
   // TODO 获取文章的标签
   getTags() {
-    return null;
+    let passport = this.authService.getPassport();
+    return this.http.post('/api/get-tags',
+                          {authorname: passport.username},
+                          {headers: this.headers})
+                    .map((res) => {
+                      let temp = res.json();
+                      return temp;
+                    });
   }
 
 }

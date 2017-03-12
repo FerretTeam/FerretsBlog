@@ -280,6 +280,28 @@ module.exports = function(router, Passport, Article) {
 
   // TODO 获取文章标签
   // post authorname
+  router.post('/get-tags', (req, res) => {
+    // 基础校验
+    if (req.body == null || req.body == undefined) {
+      return res.json('INVALID_REQUEST');
+    }
+
+    // 查找tags
+    Passport.find({username: req.body.authorname}, function(err, passport) {
+      if (err) return res.json('错误 026：出现异常，请联系管理员');
+      if (passport.length != 1) return res.json('该用户不存在');
+      Article.find({author: passport[0]._id}, 'tagName', function(err, articles) {
+        if (err) return res.json('错误 027：出现异常，请联系管理员');
+        let totalTag = new Array();
+        for (let entry of articles) {
+          for (let item of entry.tagName) {
+            totalTag.push(item);
+          }
+        }
+        return res.json(totalTag.sort());
+      });
+    });
+  });
 
   // TODO 获取文章的总字数
   // post authorname

@@ -69,6 +69,8 @@ module.exports = function(router, Passport, Article, Comments, User) {
       return res.json('INVALID_REQUEST');
     }
 
+    if (req.body.comment.message == '') return res.json('该评论为空'); 
+
     // 查找文章的id
     findArticleId(req.body.authorname, req.body.title, function(data) {
       if (data == 'empty') {
