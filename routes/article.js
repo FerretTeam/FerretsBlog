@@ -1,4 +1,4 @@
-module.exports = function(router, Passport, Article, User) {
+module.exports = function(router, Passport, Article, Comments, User) {
   // 根据页码返回用户的文章列表信息
   // post username & pageNumber
   router.post('/get-articles-by-page-number', (req, res) => {
@@ -142,6 +142,7 @@ module.exports = function(router, Passport, Article, User) {
           Article.find({author: passport_[0]._id, title: req.body.article.title}, function(err, article_) {
             if (article_.length >= 1) return res.json('文章标题已经被占用');
           });
+          // 创建新的文章
           var article = new Article({
             author: passport_[0]._id,  // 用户凭证的 _id
             date: req.body.article.date,
@@ -153,10 +154,10 @@ module.exports = function(router, Passport, Article, User) {
             likes: 0,
             characters: req.body.article.characters
           });
-          // 创建新的文章
           article.save(function(err, article_) {
             if (err) return res.json('错误 018：出现异常，请联系管理员');
             else {
+              // 更新用户的总字数
               User.findOne({username: req.body.passport.username}, function(err, user_) {
                 if (err) return res.json('错误 019：出现异常，请联系管理员');
                 let num = user_.totalCharacters + req.body.article.characters;
@@ -210,6 +211,7 @@ module.exports = function(router, Passport, Article, User) {
               if (rawArticle.length != 1) {
                 return res.json("原文章不存在");
               } else {
+                // 更新用户的总字数
                 User.findOne({username: req.body.passport.username}, function(err, user_) {
                   if (err) return res.json('错误 023：出现异常，请联系管理员');
                   let num = user_.totalCharacters + req.body.article.characters - rawArticle[0].characters;
@@ -218,6 +220,7 @@ module.exports = function(router, Passport, Article, User) {
                       if (err) return res.json('错误 024：出现异常，请联系管理员');
                     });
                 });
+                // 更新文章信息
                 Article.findByIdAndUpdate(rawArticle[0]._id,
                                           {$set: {date: req.body.article.date,
                                                   image: req.body.article.image,
@@ -225,7 +228,6 @@ module.exports = function(router, Passport, Article, User) {
                                                   synopsis: req.body.article.synopsis,
                                                   tagName: req.body.article.tagName,
                                                   contents: req.body.article.contents,
-                                                  likes: 0,
                                                   characters: req.body.article.characters}}, {new: true},
                                                   function(err, data) {
                                                     if (err) return res.json('错误 025：出现异常，请联系管理员');
@@ -250,12 +252,12 @@ module.exports = function(router, Passport, Article, User) {
     // 文章校验
     Passport.find({username: req.body.authorname}, function(err, passport_) {
       if (err) {
-        return res.json('错误 022：出现异常，请联系管理员');
+        return res.json('错误 025：出现异常，请联系管理员');
       } else {
         if (passport_.length != 1) return res.json('该用户不存在');
         Article.find({author: passport_[0]._id}, null, {sort: {likes: -1}}, function(err, articles) {
           if (err) {
-            return res.json('错误 023：出现异常，请联系管理员');
+            return res.json('错误 026：出现异常，请联系管理员');
           } else {
             var articleNumber = articles.length;
             let tempArticles = articles.slice(0, Math.min(10, articleNumber+1));
@@ -284,12 +286,29 @@ module.exports = function(router, Passport, Article, User) {
     // 文章校验
     Passport.find({username: req.body.passport.username, encryptedPassword: req.body.passport.encryptedPassword}, function(err, passport_) {
       if (err) {
-        return res.json('错误 024：出现异常，请联系管理员');
+        return res.json('错误 027：出现异常，请联系管理员');
       } else {
         if (passport_.length != 1) return res.json('用户凭证有问题');
+        // TODO 测试更新用户的总字数
+        // TODO 更新用户的总赞数
+        Article.find({author: passport_[0]._id, title: req.body.title}, function(err, article_) {
+          // 更新用户的总字数
+          User.findOne({username: req.body.passport.username}, function(err, user_) {
+            if (err) return res.json('错误 028：出现异常，请联系管理员');
+            let num = user_.totalCharacters - article_[0].characters;
+            User.findByIdAndUpdate(user_._id, { $set: {totalCharacters: num}}, {new: true},
+              function(err, data) {
+                if (err) return res.json('错误 029：出现异常，请联系管理员');
+            });
+          });
+          // 删除文章的评论
+          Comments.remove({article: article_[0]._id}, function(err) {
+            if (err) return res.json('错误 030：出现异常，请联系管理员');
+          });
+        });
         Article.remove({author: passport_[0]._id, title: req.body.title}, function(err) {
           if (err) {
-            return res.json('错误 025：出现异常，请联系管理员');
+            return res.json('错误 030：出现异常，请联系管理员');
           } else {
             return res.json('true');
           }

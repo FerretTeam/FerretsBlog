@@ -55,7 +55,7 @@ router = require('./auth')(router, Passport, User);
 // 用户模块
 router = require('./user')(router, Passport, User);
 // 文章模块
-router = require('./article')(router, Passport, Article, User);
+router = require('./article')(router, Passport, Article, Comments, User);
 // 评论模块
 router = require('./comments')(router, Passport, Article, Comments, User);
 
