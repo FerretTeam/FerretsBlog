@@ -103,5 +103,8 @@ module.exports = function(router, Passport, User) {
     });
   });
 
+  // TODO 更新用户的点赞数
+  // post username
+
   return router;
 }

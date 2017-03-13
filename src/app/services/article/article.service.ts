@@ -39,7 +39,7 @@ export class ArticleService {
                       let articles: any = [];
                       for (let entry of temp) {
                         let newArticle = new Article(entry.date, entry.image, entry.title,
-                                                     entry.synopsis, entry.tagName, entry.contents);
+                                                     entry.synopsis, entry.tagName, entry.contents, 0);
                         articles.push(newArticle);
                       }
                       return articles;
@@ -60,7 +60,7 @@ export class ArticleService {
                         return null;
                       }
                       return new Article(temp.date, temp.image, temp.title,
-                                         temp.synopsis, temp.tagName, temp.contents
+                                         temp.synopsis, temp.tagName, temp.contents, 0
                       );
                     });
   }
@@ -180,6 +180,10 @@ export class ArticleService {
                           {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
+                      if (temp != 'true') {
+                        console.error(temp);
+                        return null;
+                      }
                       return temp;
                     });
   }

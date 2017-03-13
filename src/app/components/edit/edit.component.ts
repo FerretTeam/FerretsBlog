@@ -193,9 +193,12 @@ export class EditComponent implements OnInit {
     if ( articleTitle == '') {
       this.errorMessage = '标题不能为空';
     } else {
+      var div = document.createElement("div");
+      div.innerHTML = marked((<HTMLInputElement>document.getElementById('content-before')).value);
+      var text = div.textContent || div.innerText || "";
       let newArticle: Article = new Article(new Date(), this.imageUrl, articleTitle,
                                             (<HTMLInputElement>document.getElementById('digest-content')).value,
-                                            this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
+                                            this.tags, (<HTMLInputElement>document.getElementById('content-before')).value, text.match(/[^\s]/g).length);
       // 对文章内容进行前端校验
       this.errorMessage = this.validator.checkArticle(newArticle);
       if (this.errorMessage != '')
@@ -219,9 +222,12 @@ export class EditComponent implements OnInit {
     if (articleTitle == '') {
       this.errorMessage = '标题不能为空';
     } else {
+      var div = document.createElement("div");
+      div.innerHTML = marked((<HTMLInputElement>document.getElementById('content-before')).value);
+      var text = div.textContent || div.innerText || "";
       let newArticle: Article = new Article(new Date(), this.imageUrl, articleTitle,
                                             (<HTMLInputElement>document.getElementById('digest-content')).value,
-                                            this.tags, (<HTMLInputElement>document.getElementById('content-before')).value);
+                                            this.tags, (<HTMLInputElement>document.getElementById('content-before')).value, text.match(/[^\s]/g).length);
       // 对文章内容进行前端校验
       this.errorMessage = this.validator.checkArticle(newArticle);
       if (this.errorMessage != '')

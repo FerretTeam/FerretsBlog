@@ -1,4 +1,4 @@
-module.exports = function(router, Passport, Article) {
+module.exports = function(router, Passport, Article, User) {
   // 根据页码返回用户的文章列表信息
   // post username & pageNumber
   router.post('/get-articles-by-page-number', (req, res) => {
@@ -47,7 +47,7 @@ module.exports = function(router, Passport, Article) {
       if (err) {
         return res.json('错误 013：出现异常，请联系管理员');
       } else {
-        if (passport_.length != 1) res.json('该用户不存在');
+        if (passport_.length != 1) return res.json('该用户不存在');
         Article.find({author: passport_[0]._id, title: req.body.title}, function(err, article) {
           if (err) {
             return res.json('错误 014：出现异常，请联系管理员');
@@ -136,7 +136,7 @@ module.exports = function(router, Passport, Article) {
         return res.json('错误 017：出现异常，请联系管理员');
       } else {
         if (passport_.length != 1) {
-          return res.json('该用户不存在！');
+          return res.json('该用户不存在');
         } else {
           // 检验是否存在相同标题的文章
           Article.find({author: passport_[0]._id, title: req.body.article.title}, function(err, article_) {
@@ -150,12 +150,23 @@ module.exports = function(router, Passport, Article) {
             synopsis: req.body.article.synopsis,
             tagName: req.body.article.tagName,
             contents: req.body.article.contents,
-            likes: 0
+            likes: 0,
+            characters: req.body.article.characters
           });
           // 创建新的文章
           article.save(function(err, article_) {
             if (err) return res.json('错误 018：出现异常，请联系管理员');
-            else return res.json('true');
+            else {
+              User.findOne({username: req.body.passport.username}, function(err, user_) {
+                if (err) return res.json('错误 019：出现异常，请联系管理员');
+                let num = user_.totalCharacters + req.body.article.characters;
+                User.findByIdAndUpdate(user_._id, { $set: {totalCharacters: num}}, {new: true},
+                  function(err, data) {
+                    if (err) return res.json('错误 020：出现异常，请联系管理员');
+                  });
+              });
+              return res.json('true');
+            }
           });
         }
       }
@@ -180,7 +191,7 @@ module.exports = function(router, Passport, Article) {
     // 在 Article 数据库中更新文章
     Passport.find({username: req.body.passport.username, encryptedPassword: req.body.passport.encryptedPassword}, function(err, passport_) {
       if (err) {
-        return res.json('错误 019：出现异常，请联系管理员');
+        return res.json('错误 021：出现异常，请联系管理员');
       } else {
         if (passport_.length != 1) {
           return res.json('该用户不存在！');
@@ -194,11 +205,19 @@ module.exports = function(router, Passport, Article) {
           // 更新用户的文章信息
           Article.find({author: passport_[0]._id, title: req.body.originalTitle}, function(err, rawArticle){
             if (err) {
-              return res.json('错误 020：出现异常，请联系管理员');
+              return res.json('错误 022：出现异常，请联系管理员');
             } else {
               if (rawArticle.length != 1) {
                 return res.json("原文章不存在");
               } else {
+                User.findOne({username: req.body.passport.username}, function(err, user_) {
+                  if (err) return res.json('错误 023：出现异常，请联系管理员');
+                  let num = user_.totalCharacters + req.body.article.characters - rawArticle[0].characters;
+                  User.findByIdAndUpdate(user_._id, { $set: {totalCharacters: num}}, {new: true},
+                    function(err, data) {
+                      if (err) return res.json('错误 024：出现异常，请联系管理员');
+                    });
+                });
                 Article.findByIdAndUpdate(rawArticle[0]._id,
                                           {$set: {date: req.body.article.date,
                                                   image: req.body.article.image,
@@ -206,9 +225,10 @@ module.exports = function(router, Passport, Article) {
                                                   synopsis: req.body.article.synopsis,
                                                   tagName: req.body.article.tagName,
                                                   contents: req.body.article.contents,
-                                                  likes: 0}}, {new: true},
+                                                  likes: 0,
+                                                  characters: req.body.article.characters}}, {new: true},
                                                   function(err, data) {
-                                                    if (err) return res.json('错误 021：出现异常，请联系管理员');
+                                                    if (err) return res.json('错误 025：出现异常，请联系管理员');
                                                     else return res.json('true');
                                           });
               }
@@ -232,7 +252,7 @@ module.exports = function(router, Passport, Article) {
       if (err) {
         return res.json('错误 022：出现异常，请联系管理员');
       } else {
-        if (passport_.length != 1) res.json('该用户不存在');
+        if (passport_.length != 1) return res.json('该用户不存在');
         Article.find({author: passport_[0]._id}, null, {sort: {likes: -1}}, function(err, articles) {
           if (err) {
             return res.json('错误 023：出现异常，请联系管理员');
@@ -266,7 +286,7 @@ module.exports = function(router, Passport, Article) {
       if (err) {
         return res.json('错误 024：出现异常，请联系管理员');
       } else {
-        if (passport_.length != 1) res.json('用户凭证有问题');
+        if (passport_.length != 1) return res.json('用户凭证有问题');
         Article.remove({author: passport_[0]._id, title: req.body.title}, function(err) {
           if (err) {
             return res.json('错误 025：出现异常，请联系管理员');
@@ -278,7 +298,7 @@ module.exports = function(router, Passport, Article) {
     });
   });
 
-  // TODO 获取文章标签
+  // 获取文章标签
   // post authorname
   router.post('/get-tags', (req, res) => {
     // 基础校验
@@ -303,14 +323,8 @@ module.exports = function(router, Passport, Article) {
     });
   });
 
-  // TODO 获取文章的总字数
-  // post authorname
-
-  // TODO 获取作者的总点赞数
-  // post authorname
-
-  // TODO 更新作者的总字数
-  // post authorname
+  // TODO 更新文章点赞数
+  // post authorname & title
 
   return router;
 }
