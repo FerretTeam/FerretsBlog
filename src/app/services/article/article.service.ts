@@ -180,11 +180,20 @@ export class ArticleService {
                           {headers: this.headers})
                     .map((res) => {
                       let temp = res.json();
-                      if (temp != 'true') {
+                      if (temp == 'INVALID_REQUEST') {
                         console.error(temp);
                         return null;
                       }
-                      return temp;
+                      let tags: any = [];
+                      var counts = {};
+                      temp.forEach(function(x) {
+                        counts[x] = (counts[x] || 0)+1;
+                      });
+                      for (let name in counts) {
+                        let newTag = new Tag(name, counts[name]);
+                        tags.push(newTag);
+                      }
+                      return tags;
                     });
   }
 

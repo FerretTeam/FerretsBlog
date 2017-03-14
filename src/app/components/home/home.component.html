@@ -153,9 +153,9 @@
         <span>标 签</span>
       </div>
       <md-card-content>
-        <md-chip-list>
-          <md-chip *ngFor='let tag of tags'>{{tag}}</md-chip>
-        </md-chip-list>
+        <div>
+          <span *ngFor='let tag of tags' [style.fontSize]="tag.tagSize + 'px'" [style.color]='tag.tagColor'>{{tag.tagName}}</span>
+        </div>
       </md-card-content>
     </md-card>
   </div>

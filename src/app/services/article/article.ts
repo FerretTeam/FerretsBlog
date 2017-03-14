@@ -33,10 +33,10 @@ export class Article {
 
 export class Tag {
   tagName: string;
-  number: number;
+  count: Number;
 
-  constructor(tagName: string, number: number) {
+  constructor(tagName: string, count: Number) {
     this.tagName = tagName;
-    this.number = number;
+    this.count = count;
   }
 }

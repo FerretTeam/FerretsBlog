@@ -17,7 +17,7 @@ import { UserService } from '../../services/user/user.service';
 export class HomeComponent implements OnInit {
   articles: Article[] = null;
   popArticles: Article[] = [];
-  tags: Tag[] = [];
+  tags: {tagName: string; tagSize: number; tagColor: string;}[] = [];
 
   pageNumber: number;
   maxPageNumber: number;
@@ -69,7 +69,10 @@ export class HomeComponent implements OnInit {
     });
     // 获取标签
     this.articleService.getTags().subscribe(data => {
-      this.tags = data;
+      for (let entry of data) {
+        let color : any = ['#B3E5FC', '#81D4FA', '#4FC3F7', '#29B6F6', '#03A9F4', '#039BE5'];
+        this.tags.push({tagName: entry.tagName, tagSize: (entry.count % 6)*4+10, tagColor: color[entry.count % 6]});
+      }
     });
   }
 
