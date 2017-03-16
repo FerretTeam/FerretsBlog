@@ -289,7 +289,6 @@ module.exports = function(router, Passport, Article, Comments, User) {
         return res.json('错误 027：出现异常，请联系管理员');
       } else {
         if (passport_.length != 1) return res.json('用户凭证有问题');
-        // TODO 测试更新用户的总字数
         // TODO 更新用户的总赞数
         Article.find({author: passport_[0]._id, title: req.body.title}, function(err, article_) {
           // 更新用户的总字数
@@ -308,7 +307,7 @@ module.exports = function(router, Passport, Article, Comments, User) {
         });
         Article.remove({author: passport_[0]._id, title: req.body.title}, function(err) {
           if (err) {
-            return res.json('错误 030：出现异常，请联系管理员');
+            return res.json('错误 031：出现异常，请联系管理员');
           } else {
             return res.json('true');
           }
@@ -327,10 +326,10 @@ module.exports = function(router, Passport, Article, Comments, User) {
 
     // 查找tags
     Passport.find({username: req.body.authorname}, function(err, passport) {
-      if (err) return res.json('错误 026：出现异常，请联系管理员');
+      if (err) return res.json('错误 032：出现异常，请联系管理员');
       if (passport.length != 1) return res.json('该用户不存在');
       Article.find({author: passport[0]._id}, 'tagName', function(err, articles) {
-        if (err) return res.json('错误 027：出现异常，请联系管理员');
+        if (err) return res.json('错误 033：出现异常，请联系管理员');
         let totalTag = new Array();
         for (let entry of articles) {
           for (let item of entry.tagName) {
@@ -342,8 +341,41 @@ module.exports = function(router, Passport, Article, Comments, User) {
     });
   });
 
-  // TODO 更新文章点赞数
+  // TODO 测试更新文章点赞数
   // post authorname & title
+  router.post('/update-likes', (req, res) => {
+    // 基础校验
+    if (req.body == null || req.body == undefined) {
+      return res.json('INVALID_REQUEST');
+    }
+
+    // 更新用户的总点赞数
+    User.find({username: req.body.authorname}, function(err, user_) {
+      if (err) return res.json('错误 034：出现异常，请联系管理员');
+      if (user_.length != 1) return res.json('该用户不存在');
+      let num = user_[0].totalLikes + 1;
+      User.findByIdAndUpdate(user_[0]._id, { $set: {totalLikes: num}}, {new: true},
+        function(err, data) {
+          if (err) return res.json('错误 035：出现异常，请联系管理员');
+      });
+    });
+
+    // 更新文章的点赞数
+    Passport.find({username: req.body.authorname}, function(err, passport) {
+      if (err) return res.json('错误 036：出现异常，请联系管理员');
+      if (passport.length != 1) return res.json('该用户不存在');
+      Article.find({author: passport[0]._id, title: req.body.title}, 'tagName', function(err, article_) {
+        if (err) return res.json('错误 037：出现异常，请联系管理员');
+        if (article_.length != 1) return res.json('该文章不存在');
+        let likes = article_[0].likes + 1;
+        Article.findByIdAndUpdate(article_[0]._id, { $set: {likes: likes}}, {new: true},
+          function(err, data) {
+            if (err) return res.json('错误 038：出现异常，请联系管理员');
+            else return res.json('true');
+        });
+      });
+    });
+  });
 
   return router;
 }
