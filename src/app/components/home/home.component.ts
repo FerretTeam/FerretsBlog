@@ -69,9 +69,19 @@ export class HomeComponent implements OnInit {
     });
     // 获取标签
     this.articleService.getTags().subscribe(data => {
+      // 找出出现最多次的标签
+      let max: number = 0;
+      for (let entry of data)
+        if (entry.count > max)
+          max = entry.count;
+      // 根据比例来计算大小和深浅
       for (let entry of data) {
-        let color : any = ['#B3E5FC', '#81D4FA', '#4FC3F7', '#29B6F6', '#03A9F4', '#039BE5'];
-        this.tags.push({tagName: entry.tagName, tagSize: (entry.count % 6)*4+10, tagColor: color[entry.count % 6]});
+        let scale: number = entry.count / max;
+        this.tags.push({tagName: entry.tagName,
+                        tagSize: 8 + scale * 16,
+                        tagColor: 'rgb(' + String(Math.round(33 - scale * 12)) + ',' +
+                                  String(Math.round(150 - scale * 49)) + ',' +
+                                  String(Math.round(243 - scale * 51)) + ')'});
       }
     });
   }
