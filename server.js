@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 const mongoose = require('mongoose');
 
 // 设置数据库
@@ -20,6 +21,9 @@ db.once('open', function() {
   // Parsers for POST data
   app.use(bodyParser.json({ limit: '4mb' }));
   app.use(bodyParser.urlencoded({ extended: true }));
+
+  // 压缩文件
+  app.use(compression());
 
   // Point static path to dist
   app.use(express.static(path.join(__dirname, 'dist')));
