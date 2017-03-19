@@ -61,7 +61,7 @@
     </div>
   </md-card>
 
-  <div class='articles-container' *ngIf='articles != null && articles != []'>
+  <div class='articles-container' *ngIf='articles != null && articles.length != 0'>
     <!-- 在非窄屏上显示的文章界面 -->
     <div fxHide.xs>
       <md-card *ngFor='let article of articles'>
@@ -142,7 +142,7 @@
     </div>
   </div>
 
-  <div class='tags-container' *ngIf='articles != null && articles != []'>
+  <div class='tags-container' *ngIf='articles != null && articles.length != 0'>
     <md-card class='tag'>
       <div class='tag-title'><span>最热文章</span></div>
       <button md-button class='tag-list-button' *ngFor='let article of popArticles' (click)='gotoArticle(article)'>{{article}}</button>
