@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
       for (let entry of data) {
         let scale: number = entry.count / max;
         this.tags.push({tagName: entry.tagName,
-                        tagSize: 8 + scale * 16,
+                        tagSize: 12 + scale * 8,
                         tagColor: 'rgb(' + String(Math.round(33 - scale * 12)) + ',' +
                                   String(Math.round(150 - scale * 49)) + ',' +
                                   String(Math.round(243 - scale * 51)) + ')'});

@@ -91,27 +91,42 @@
     md-card
       padding: 0px
 
-    .other-info-title
-      padding: 16px
-
-      span
-        font-size: 22px
-
-    .other-info-form
-      padding: 0px 16px 16px 16px
-      text-align: center
-
-      md-input-container
-        width: 100%
-
-      .error-message
-        color: #a94442
-        margin: 0px 0px 16px 0px
-        padding: 8px
+      // 基本信息
+      .other-info-form
+        padding: 16px 16px 16px 16px
         text-align: center
-        background-color: #f2dede
-        border: 1px solid #ebccd1
 
-      .submit-change-button
-        color: #FFFFFF
-        background-color: #2196F3
+        md-input-container
+          width: 100%
+
+        .error-message
+          color: #a94442
+          margin: 0px 0px 16px 0px
+          padding: 8px
+          text-align: center
+          background-color: #f2dede
+          border: 1px solid #ebccd1
+
+        .submit-change-button
+          color: #FFFFFF
+          background-color: #2196F3
+
+      // 文章信息
+      .article-info
+        padding: 0px 0px 16px 0px
+
+        md-list
+          p
+            color: rgb(114, 114, 114)
+
+          .delete-button
+            color: rgb(114, 114, 114)
+            padding: 0px
+
+        .empty-article
+          text-align: center
+
+          .goto-edit-button
+            margin: 16px auto
+            color: #FFFFFF
+            background-color: #2196F3

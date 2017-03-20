@@ -172,7 +172,7 @@ export class ArticleService {
                     });
   }
 
-  // TODO 获取文章的标签
+  // 获取文章的标签
   getTags() {
     let passport = this.authService.getPassport();
     return this.http.post('/api/get-tags',

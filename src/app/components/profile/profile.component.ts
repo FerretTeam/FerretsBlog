@@ -6,6 +6,8 @@ import { User } from '../../services/user/user';
 import { UserService } from '../../services/user/user.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { Validator } from '../../services/user/validator';
+import { Article } from '../../services/article/article';
+import { ArticleService } from '../../services/article/article.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,16 +17,22 @@ import { Validator } from '../../services/user/validator';
 
 export class ProfileComponent{
   user: User = null;
+  articles: Article[] = null;
   errorMessage: string = '';
   validator: Validator = new Validator();
 
   constructor(private router: Router, private authService: AuthService,
-              public snackBar: MdSnackBar, private userService: UserService) {
+              public snackBar: MdSnackBar, private userService: UserService,
+              private articleService: ArticleService) {
     // 如果未登录，则跳转至 /welcome 页面
-    if (this.authService.getPassport() == null)
+    if (this.authService.getPassport() == null) {
       this.router.navigate(['/welcome']);
-    else
-      this.userService.getUserInfo().subscribe(data => this.user = data);
+    } else {
+      this.userService.getUserInfo().subscribe(data => {
+        this.user = data;
+        this.articleService.getArticlesByPageNumber(this.user.username, 0).subscribe(data => this.articles = data);
+      });
+    }
   }
 
   updateUserInfo(formData) {
@@ -63,4 +71,22 @@ export class ProfileComponent{
       reader.readAsDataURL(event.target.files[0]);
   }
 
+  getDateString(date: Date) {
+    let jsDate = new Date(date);
+    return jsDate.getFullYear() + ' 年 ' + jsDate.getMonth() + ' 月 ' +
+           jsDate.getDate() + ' 日';
+  }
+
+  deleteArticle(article: Article) {
+    var index = this.articles.indexOf(article);
+    if (index > -1) {
+      this.articles.splice(index, 1);
+      this.articleService.deleteArticle(article.title).subscribe();
+    }
+  }
+
+  gotoEdit() {
+    if (this.user != null)
+      this.router.navigate([this.user.username, 'edit']);
+  }
 }

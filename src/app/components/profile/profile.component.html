@@ -30,22 +30,45 @@
       </div>
     </md-card>
   </div>
+
   <div class='other-info-container'>
     <md-card>
-      <div class='other-info-title'><span>基本信息</span></div>
-      <form #otherInfo='ngForm' class='other-info-form'>
-        <md-input-container>
-          <input mdInput placeholder='电子邮箱' name='email' [ngModel]='user.email'>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput placeholder='自我介绍' name='introduction' [ngModel]='user.introduction'>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput placeholder='擅长领域' name='field' [ngModel]='user.field'>
-        </md-input-container>
-        <div class='error-message' *ngIf='errorMessage != ""'>{{errorMessage}}</div>
-        <button md-raised-button (click)='updateUserInfo(otherInfo.value)' class='submit-change-button'>提交修改</button>
-      </form>
+      <md-tab-group md-stretch-tabs="always">
+        <md-tab label="基本信息">
+          <form #otherInfo='ngForm' class='other-info-form'>
+            <md-input-container>
+              <input mdInput placeholder='电子邮箱' name='email' [ngModel]='user.email'>
+            </md-input-container>
+            <md-input-container>
+              <input mdInput placeholder='自我介绍' name='introduction' [ngModel]='user.introduction'>
+            </md-input-container>
+            <md-input-container>
+              <input mdInput placeholder='擅长领域' name='field' [ngModel]='user.field'>
+            </md-input-container>
+            <div class='error-message' *ngIf='errorMessage != ""'>{{errorMessage}}</div>
+            <button md-raised-button (click)='updateUserInfo(otherInfo.value)' class='submit-change-button'>提交修改</button>
+          </form>
+        </md-tab>
+        <md-tab label="文章信息" *ngIf='articles != null'>
+          <div class='article-info'>
+            <!-- 可以考虑按年月来划分 -->
+            <md-list *ngIf='articles.length != 0'>
+              <md-list-item  *ngFor = 'let article of articles'>
+                <h4 md-line>{{article.title}}</h4>
+                <p md-line> {{getDateString(article.date)}} </p>
+                <button md-icon-button class='delete-button' (click)='deleteArticle(article)'>
+                  <md-icon>delete</md-icon>
+                </button>
+              </md-list-item>
+            </md-list>
+            <div class="empty-article" *ngIf='articles.length == 0'>
+              <button md-raised-button (click)='gotoEdit()' class='goto-edit-button'>创建文章</button>
+            </div>
+          </div>
+        </md-tab>
+        <md-tab label="权限设置">
+        </md-tab>
+      </md-tab-group>
     </md-card>
   </div>
 </div>

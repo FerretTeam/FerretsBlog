@@ -5,11 +5,9 @@
 md-chip {
   outline: none;
 }
-.mat-input-underline > .mat-input-ripple {
-  background-color: #2196F3;
-}
-.mat-focused {
-  color: #2196F3 !important;
+.mat-tab-header {
+  background-color: #FFFFFF;
+  border: none;
 }
 
 /* 全局的 CSS */

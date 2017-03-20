@@ -291,23 +291,28 @@ module.exports = function(router, Passport, Article, Comments, User) {
         if (passport_.length != 1) return res.json('用户凭证有问题');
         // TODO 更新用户的总赞数
         Article.find({author: passport_[0]._id, title: req.body.title}, function(err, article_) {
-          // 更新用户的总字数
-          User.findOne({username: req.body.passport.username}, function(err, user_) {
-            if (err) return res.json('错误 028：出现异常，请联系管理员');
-            let num = user_.totalCharacters - article_[0].characters;
-            User.findByIdAndUpdate(user_._id, { $set: {totalCharacters: num}}, {new: true},
-              function(err, data) {
-                if (err) return res.json('错误 029：出现异常，请联系管理员');
+          if (err) {
+            return res.json('错误 028：出现异常，请联系管理员');
+          } else {
+            if (article_.length != 1) return res.json('文章信息错误');
+            // 更新用户的总字数
+            User.findOne({username: req.body.passport.username}, function(err, user_) {
+              if (err) return res.json('错误 029：出现异常，请联系管理员');
+              let num = user_.totalCharacters - article_[0].characters;
+              User.findByIdAndUpdate(user_._id, { $set: {totalCharacters: num}}, {new: true},
+                function(err, data) {
+                  if (err) return res.json('错误 030：出现异常，请联系管理员');
+              });
             });
-          });
-          // 删除文章的评论
-          Comments.remove({article: article_[0]._id}, function(err) {
-            if (err) return res.json('错误 030：出现异常，请联系管理员');
-          });
+            // 删除文章的评论
+            Comments.remove({article: article_[0]._id}, function(err) {
+              if (err) return res.json('错误 031：出现异常，请联系管理员');
+            });
+          }
         });
         Article.remove({author: passport_[0]._id, title: req.body.title}, function(err) {
           if (err) {
-            return res.json('错误 031：出现异常，请联系管理员');
+            return res.json('错误 032：出现异常，请联系管理员');
           } else {
             return res.json('true');
           }
@@ -326,10 +331,10 @@ module.exports = function(router, Passport, Article, Comments, User) {
 
     // 查找tags
     Passport.find({username: req.body.authorname}, function(err, passport) {
-      if (err) return res.json('错误 032：出现异常，请联系管理员');
+      if (err) return res.json('错误 033：出现异常，请联系管理员');
       if (passport.length != 1) return res.json('该用户不存在');
       Article.find({author: passport[0]._id}, 'tagName', function(err, articles) {
-        if (err) return res.json('错误 033：出现异常，请联系管理员');
+        if (err) return res.json('错误 034：出现异常，请联系管理员');
         let totalTag = new Array();
         for (let entry of articles) {
           for (let item of entry.tagName) {
@@ -351,26 +356,26 @@ module.exports = function(router, Passport, Article, Comments, User) {
 
     // 更新用户的总点赞数
     User.find({username: req.body.authorname}, function(err, user_) {
-      if (err) return res.json('错误 034：出现异常，请联系管理员');
+      if (err) return res.json('错误 035：出现异常，请联系管理员');
       if (user_.length != 1) return res.json('该用户不存在');
       let num = user_[0].totalLikes + 1;
       User.findByIdAndUpdate(user_[0]._id, { $set: {totalLikes: num}}, {new: true},
         function(err, data) {
-          if (err) return res.json('错误 035：出现异常，请联系管理员');
+          if (err) return res.json('错误 036：出现异常，请联系管理员');
       });
     });
 
     // 更新文章的点赞数
     Passport.find({username: req.body.authorname}, function(err, passport) {
-      if (err) return res.json('错误 036：出现异常，请联系管理员');
+      if (err) return res.json('错误 037：出现异常，请联系管理员');
       if (passport.length != 1) return res.json('该用户不存在');
       Article.find({author: passport[0]._id, title: req.body.title}, 'tagName', function(err, article_) {
-        if (err) return res.json('错误 037：出现异常，请联系管理员');
+        if (err) return res.json('错误 038：出现异常，请联系管理员');
         if (article_.length != 1) return res.json('该文章不存在');
         let likes = article_[0].likes + 1;
         Article.findByIdAndUpdate(article_[0]._id, { $set: {likes: likes}}, {new: true},
           function(err, data) {
-            if (err) return res.json('错误 038：出现异常，请联系管理员');
+            if (err) return res.json('错误 039：出现异常，请联系管理员');
             else return res.json('true');
         });
       });
