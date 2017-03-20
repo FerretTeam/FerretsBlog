@@ -1,9 +1,9 @@
 <link href='//cdn.bootcss.com/github-markdown-css/2.4.1/github-markdown.min.css' rel='stylesheet'>
 
-<div class='article-layout'>
+<div class='article-layout' *ngIf='article'>
   <div fxLayout='column' fxLayoutAlign='center stretch'>
     <!-- 文章部分 -->
-    <md-card class='article-container' *ngIf='article'>
+    <md-card class='article-container'>
       <!-- 有图片的文章的图片及标题 -->
       <div class='article-image' *ngIf='article.image' [style.background-image]="'url(' + article.image + ')'">
         <div class='article-header'>

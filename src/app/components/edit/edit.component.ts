@@ -67,17 +67,27 @@ export class EditComponent implements OnInit {
       this.articleService.getArticle(this.passport.username, this.param).subscribe((data) => {
         if (data != null) {
           this.article = data;
-          // 设置文章标题
-          (<HTMLInputElement>document.getElementById('article-title')).value = this.article.title;
-          this.originalTitle = this.article.title;
-          // 设置文章内容
-          document.getElementById('content-before').innerHTML = this.article.contents;
-          // 设置文章封面图片
-          this.imageUrl = this.article.image;
-          // 设置文章的摘要
-          (<HTMLInputElement>document.getElementById('digest-content')).value = this.article.synopsis;
-          // 设置文章标签
-          this.tags = this.article.tagName;
+          let that = this;
+          let refresh = setInterval(function() {
+            let articleTitle = <HTMLInputElement>document.getElementById('article-title');
+            let contentBefore = document.getElementById('content-before');
+            let digestConent = <HTMLInputElement>document.getElementById('digest-content');
+            if (articleTitle && contentBefore && digestConent && data) {
+              // 设置文章标题
+              articleTitle.value = that.article.title;
+              that.originalTitle = that.article.title;
+              // 设置文章内容
+              contentBefore.innerHTML = that.article.contents;
+              // 设置文章封面图片
+              that.imageUrl = that.article.image;
+              // 设置文章的摘要
+              digestConent.value = that.article.synopsis;
+              // 设置文章标签
+              that.tags = that.article.tagName;
+              // 终止反复执行
+              clearInterval(refresh);
+            }
+          }, 10);
         }
       });
     }
