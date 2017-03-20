@@ -30,7 +30,7 @@ export class ProfileComponent{
     } else {
       this.userService.getUserInfo().subscribe(data => {
         this.user = data;
-        this.articleService.getArticlesByPageNumber(this.user.username, 0).subscribe(data => this.articles = data);
+        this.articleService.getArticlesByPageNumber(this.user.username, 0).subscribe(data => this.articles = data.slice(0, Math.min(5, data.length)));
       });
     }
   }
