@@ -1,5 +1,11 @@
 <link href='//cdn.bootcss.com/github-markdown-css/2.4.1/github-markdown.min.css' rel='stylesheet'>
 
+<div class='loader-container' *ngIf='article == null'>
+  <div>
+    <div class='loader loaderWindow'></div>
+    <span>正在获取数据...</span>
+  </div>
+</div>
 <div class='article-layout' *ngIf='article'>
   <div fxLayout='column' fxLayoutAlign='center stretch'>
     <!-- 文章部分 -->

@@ -10,6 +10,91 @@ md-chip {
   border: none;
 }
 
+/* 页面 loader */
+.loader {
+  margin: 3.6em auto;
+}
+.loaderWindow {
+  width: 0.25em;
+  height: 0.25em;
+  box-shadow: 0.70711em 0.70711em 0 0em #2196F3, -0.70711em 0.70711em 0 0.17678em #9C27B0, -0.70711em -0.70711em 0 0.25em #4CAF50, 0.70711em -0.70711em 0 0.17678em #FF9800;
+  -webkit-animation: gw 1s ease-in-out infinite, rot 2.8s linear infinite;
+  -moz-animation: gw 1s ease-in-out infinite, rot 2.8s linear infinite;
+  animation: gw 1s ease-in-out infinite, rot 2.8s linear infinite;
+}
+@-webkit-keyframes rot {
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes rot {
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rot {
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes gw {
+  0% {
+    box-shadow: 0.70711em 0.70711em 0 0.125em #2196F3, -0.70711em 0.70711em 0 0.39017em #9C27B0, -0.70711em -0.70711em 0 0.5em #4CAF50, 0.70711em -0.70711em 0 0.39017em #FF9800;
+  }
+  25% {
+    box-shadow: 0.70711em 0.70711em 0 0.39017em #2196F3, -0.70711em 0.70711em 0 0.5em #9C27B0, -0.70711em -0.70711em 0 0.39017em #4CAF50, 0.70711em -0.70711em 0 0.125em #FF9800;
+  }
+  50% {
+    box-shadow: 0.70711em 0.70711em 0 0.5em #2196F3, -0.70711em 0.70711em 0 0.39017em #9C27B0, -0.70711em -0.70711em 0 0.125em #4CAF50, 0.70711em -0.70711em 0 0.39017em #FF9800;
+  }
+  75% {
+    box-shadow: 0.70711em 0.70711em 0 0.39017em #2196F3, -0.70711em 0.70711em 0 0.125em #9C27B0, -0.70711em -0.70711em 0 0.39017em #4CAF50, 0.70711em -0.70711em 0 0.5em #FF9800;
+  }
+  100% {
+    box-shadow: 0.70711em 0.70711em 0 0.125em #2196F3, -0.70711em 0.70711em 0 0.39017em #9C27B0, -0.70711em -0.70711em 0 0.5em #4CAF50, 0.70711em -0.70711em 0 0.39017em #FF9800;
+  }
+}
+@-moz-keyframes gw {
+  0% {
+    box-shadow: 0.70711em 0.70711em 0 0.125em #2196F3, -0.70711em 0.70711em 0 0.39017em #9C27B0, -0.70711em -0.70711em 0 0.5em #4CAF50, 0.70711em -0.70711em 0 0.39017em #FF9800;
+  }
+  25% {
+    box-shadow: 0.70711em 0.70711em 0 0.39017em #2196F3, -0.70711em 0.70711em 0 0.5em #9C27B0, -0.70711em -0.70711em 0 0.39017em #4CAF50, 0.70711em -0.70711em 0 0.125em #FF9800;
+  }
+  50% {
+    box-shadow: 0.70711em 0.70711em 0 0.5em #2196F3, -0.70711em 0.70711em 0 0.39017em #9C27B0, -0.70711em -0.70711em 0 0.125em #4CAF50, 0.70711em -0.70711em 0 0.39017em #FF9800;
+  }
+  75% {
+    box-shadow: 0.70711em 0.70711em 0 0.39017em #2196F3, -0.70711em 0.70711em 0 0.125em #9C27B0, -0.70711em -0.70711em 0 0.39017em #4CAF50, 0.70711em -0.70711em 0 0.5em #FF9800;
+  }
+  100% {
+    box-shadow: 0.70711em 0.70711em 0 0.125em #2196F3, -0.70711em 0.70711em 0 0.39017em #9C27B0, -0.70711em -0.70711em 0 0.5em #4CAF50, 0.70711em -0.70711em 0 0.39017em #FF9800;
+  }
+}
+@keyframes gw {
+  0% {
+    box-shadow: 0.70711em 0.70711em 0 0.125em #2196F3, -0.70711em 0.70711em 0 0.39017em #9C27B0, -0.70711em -0.70711em 0 0.5em #4CAF50, 0.70711em -0.70711em 0 0.39017em #FF9800;
+  }
+  25% {
+    box-shadow: 0.70711em 0.70711em 0 0.39017em #2196F3, -0.70711em 0.70711em 0 0.5em #9C27B0, -0.70711em -0.70711em 0 0.39017em #4CAF50, 0.70711em -0.70711em 0 0.125em #FF9800;
+  }
+  50% {
+    box-shadow: 0.70711em 0.70711em 0 0.5em #2196F3, -0.70711em 0.70711em 0 0.39017em #9C27B0, -0.70711em -0.70711em 0 0.125em #4CAF50, 0.70711em -0.70711em 0 0.39017em #FF9800;
+  }
+  75% {
+    box-shadow: 0.70711em 0.70711em 0 0.39017em #2196F3, -0.70711em 0.70711em 0 0.125em #9C27B0, -0.70711em -0.70711em 0 0.39017em #4CAF50, 0.70711em -0.70711em 0 0.5em #FF9800;
+  }
+  100% {
+    box-shadow: 0.70711em 0.70711em 0 0.125em #2196F3, -0.70711em 0.70711em 0 0.39017em #9C27B0, -0.70711em -0.70711em 0 0.5em #4CAF50, 0.70711em -0.70711em 0 0.39017em #FF9800;
+  }
+}
+
 /* 全局的 CSS */
 html {
   height: 100%;
