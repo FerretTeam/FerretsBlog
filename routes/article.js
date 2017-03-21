@@ -302,19 +302,22 @@ module.exports = function(router, Passport, Article, Comments, User) {
               User.findByIdAndUpdate(user_._id, { $set: {totalCharacters: num}}, {new: true},
                 function(err, data) {
                   if (err) return res.json('错误 030：出现异常，请联系管理员');
+                  else {
+                    // 删除文章的评论
+                    Comments.remove({article: article_[0]._id}, function(err) {
+                      if (err) return res.json('错误 031：出现异常，请联系管理员');
+                      else {
+                        Article.remove({author: passport_[0]._id, title: req.body.title}, function(err) {
+                          if (err) {
+                            return res.json('错误 032：出现异常，请联系管理员');
+                          } else {
+                            return res.json('true');
+                          }
+                        });
+                      }
+                    });
+                  }
               });
-            });
-            // 删除文章的评论
-            Comments.remove({article: article_[0]._id}, function(err) {
-              if (err) return res.json('错误 031：出现异常，请联系管理员');
-            });
-
-            Article.remove({author: passport_[0]._id, title: req.body.title}, function(err) {
-              if (err) {
-                return res.json('错误 032：出现异常，请联系管理员');
-              } else {
-                return res.json('true');
-              }
             });
           }
         });

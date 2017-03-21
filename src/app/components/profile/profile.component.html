@@ -56,6 +56,9 @@
               <md-list-item  *ngFor = 'let article of articles'>
                 <h4 md-line>{{article.title}}</h4>
                 <p md-line> {{getDateString(article.date)}} </p>
+                <button md-icon-button class='edit-button' (click)='editArticle(article.title)'>
+                  <md-icon>mode_edit</md-icon>
+                </button>
                 <button md-icon-button class='delete-button' (click)='deleteArticle(article)'>
                   <md-icon>delete</md-icon>
                 </button>

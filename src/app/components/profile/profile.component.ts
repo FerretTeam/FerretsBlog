@@ -89,4 +89,9 @@ export class ProfileComponent{
     if (this.user != null)
       this.router.navigate([this.user.username, 'edit']);
   }
+
+  editArticle(title: string) {
+    if (this.user != null)
+      this.router.navigate([this.user.username, 'edit', title]);
+  }
 }
