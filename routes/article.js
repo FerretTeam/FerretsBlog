@@ -290,11 +290,11 @@ module.exports = function(router, Passport, Article, Comments, User) {
       } else {
         if (passport_.length != 1) return res.json('用户凭证有问题');
         // TODO 更新用户的总赞数
+
         Article.find({author: passport_[0]._id, title: req.body.title}, function(err, article_) {
           if (err) {
             return res.json('错误 028：出现异常，请联系管理员');
           } else {
-            if (article_.length != 1) return res.json('文章信息错误');
             // 更新用户的总字数
             User.findOne({username: req.body.passport.username}, function(err, user_) {
               if (err) return res.json('错误 029：出现异常，请联系管理员');
@@ -308,13 +308,14 @@ module.exports = function(router, Passport, Article, Comments, User) {
             Comments.remove({article: article_[0]._id}, function(err) {
               if (err) return res.json('错误 031：出现异常，请联系管理员');
             });
-          }
-        });
-        Article.remove({author: passport_[0]._id, title: req.body.title}, function(err) {
-          if (err) {
-            return res.json('错误 032：出现异常，请联系管理员');
-          } else {
-            return res.json('true');
+
+            Article.remove({author: passport_[0]._id, title: req.body.title}, function(err) {
+              if (err) {
+                return res.json('错误 032：出现异常，请联系管理员');
+              } else {
+                return res.json('true');
+              }
+            });
           }
         });
       }

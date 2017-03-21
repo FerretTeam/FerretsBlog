@@ -37,25 +37,28 @@ module.exports = function(router, Passport, Article, Comments, User) {
               return res.json('错误 033：出现异常，请联系管理员');
             } else {
               let tempComments = comments;
-              outLoop(tempComments, 0, res);
+              outLoop(tempComments, res);
+              return res.json(tempComments);
             }
         });
       }
     });
   });
 
-  outLoop = function(tempComments, index, res) {
-    if (index == tempComments.length) {
-      return res.json(tempComments);
+  function outLoop(tempComments, res) {
+    for (var i = 0; i < tempComments.length; i++) {
+      (function(i) { User.find({username: tempComments[i].username}, function(err, user){
+        if (err) {
+          return res.json('错误 034：出现异常，请联系管理员');
+        } else {
+          if (user.length != 1) return res.json('该用户不存在');
+          tempComments[i].userAvatarUrl = user[0].userAvatarUrl;
+          return ;
+        }
+      });
+    })(i);
     }
-    User.find({username: tempComments[index].username}, function(err, user){
-      if (err) {
-        return res.json('错误 034：出现异常，请联系管理员');
-      } else {
-        tempComments[index].userAvatarUrl = user[0].userAvatarUrl;
-        outLoop(tempComments, index + 1, res);
-      }
-    });
+    return tempComments;
   }
 
   // 通过文章的作者、标题以及评论者的信息添加评论
@@ -69,7 +72,7 @@ module.exports = function(router, Passport, Article, Comments, User) {
       return res.json('INVALID_REQUEST');
     }
 
-    if (req.body.comment.message == '') return res.json('该评论为空'); 
+    if (req.body.comment.message == '') return res.json('该评论为空');
 
     // 查找文章的id
     findArticleId(req.body.authorname, req.body.title, function(data) {
