@@ -5,7 +5,7 @@ import { MdSnackBar } from '@angular/material';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../services/user/user';
-import { Validator } from '../../services/auth/validator'
+import { Validator } from '../../services/auth/validator';
 
 @Component({
   selector: 'app-login',
